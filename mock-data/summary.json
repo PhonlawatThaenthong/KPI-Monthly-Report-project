@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-07-21T16:00:17",
+  "seed": 42,
+  "dirty_rate": 0.06,
+  "period": "2025-01 .. 2026-06",
+  "rows": {
+    "erp_production": 5791,
+    "csv_downtime": 615,
+    "xlsx_cost": 360
+  },
+  "dirty_injected": {
+    "DATE_FORMAT": 385,
+    "PRODUCT_UNMAPPED": 46,
+    "NULL_DEFECT": 117,
+    "DEFECT_GT_PRODUCED": 21,
+    "NUMBER_COMMA": 94,
+    "DUPLICATE_ROW": 111,
+    "NEGATIVE_QTY": 23,
+    "DEPT_UNMAPPED": 111,
+    "NULL_ENDTIME": 5,
+    "NULL_DURATION": 5,
+    "NON_NUMERIC_DURATION": 3,
+    "ENCODING_CP874": 1,
+    "NULL_AMOUNT": 3,
+    "CREDIT_NOTE_NEGATIVE": 3,
+    "COSTTYPE_CASE": 5,
+    "NUMBER_SPACE": 8,
+    "JUNK_HEADER_ROWS": 18
+  }
+}
