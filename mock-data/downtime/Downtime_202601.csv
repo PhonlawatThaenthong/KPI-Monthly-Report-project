@@ -1,0 +1,33 @@
+﻿EventDate,Department,MachineCode,ReasonCode,ReasonText,StartTime,EndTime,DurationMin
+2026-01-01,L-A,MC-A03,PM,Preventive maintenance,12:45,13:07,22
+2026-01-05,L-C,MC-C03,POWER,Power failure,12:45,13:30,N/A
+2026-01-05,Line A,MC-A03,QUALITY,Quality issue stop,17:30,18:04,34
+2026-01-06,line b,MC-B01,SETUP,Setup / Changeover,15:30,15:59,29
+2026-01-06,LINE-C,MC-C01,QUALITY,Quality issue stop,16:00,16:55,55
+2026-01-10,Line C,MC-C01,PM,Preventive maintenance,12:30,12:53,23
+2026-01-10,line b,MC-B02,QUALITY,Quality issue stop,16:45,17:03,18
+2026-01-12, Line A ,MC-A03,PM,Preventive maintenance,17:30,17:49,19
+2026-01-13,LineB,MC-B01,QUALITY,Quality issue stop,16:00,16:35,35
+2026-01-14,Line A,MC-A01,BREAKDOWN,Machine breakdown,10:00,10:16,16
+2026-01-14,Line A,MC-A01,BREAKDOWN,Machine breakdown,10:00,10:16,16
+2026-01-16,line c,MC-C02,QUALITY,Quality issue stop,11:45,13:18,93
+2026-01-16,LineB,MC-B01,NO_MATERIAL,Waiting for material,14:45,17:03,138
+2026-01-17,Line C,MC-C01,PM,Preventive maintenance,17:30,18:06,36
+2026-01-17,LINE-B,MC-B02,BREAKDOWN,Machine breakdown,18:00,18:27,27
+2026-01-17,WH-01,MC-A01,BREAKDOWN,Machine breakdown,19:00,19:26,26
+2026-01-19,PACKING,MC-B01,PM,Preventive maintenance,16:00,16:52,52
+2026-01-19,L-B,MC-B01,SETUP,Setup / Changeover,20:15,20:41,26
+2026-01-20,Line B,MC-B01,NO_MATERIAL,Waiting for material,06:00,06:45,45
+2026-01-20,LINE-B,MC-B01,SETUP,Setup / Changeover,09:00,09:12,12
+2026-01-20,line c,MC-C02,SETUP,Setup / Changeover,16:30,18:02,92
+2026-01-20,LineA,MC-A02,NO_MATERIAL,Waiting for material,16:45,18:24,99
+2026-01-23,LINE-A,MC-A03,SETUP,Setup / Changeover,13:45,15:29,104
+2026-01-23,Line B,MC-B01,QUALITY,Quality issue stop,14:15,14:48,33
+2026-01-23,L-C,MC-C01,BREAKDOWN,Machine breakdown,15:00,16:17,77
+2026-01-24,L-A,MC-A03,BREAKDOWN,Machine breakdown,07:15,07:47,32
+2026-01-24,line b,MC-B01,NO_MATERIAL,Waiting for material,19:15,21:36,141
+2026-01-27,line c,MC-C01,BREAKDOWN,Machine breakdown,10:00,10:18,18
+2026-01-28,Line  B,MC-B02,QUALITY,Quality issue stop,11:30,11:44,14
+2026-01-28,LINE-B,MC-B02,POWER,Power failure,13:00,14:03,63
+2026-01-31,line b,MC-B02,SETUP,Setup / Changeover,06:45,06:56,11
+2026-01-31,Line B,MC-B02,PM,Preventive maintenance,20:30,20:44,14

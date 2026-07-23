@@ -1,0 +1,32 @@
+﻿EventDate,Department,MachineCode,ReasonCode,ReasonText,StartTime,EndTime,DurationMin
+04/03/2026,Line  B,MC-B02,BREAKDOWN,Machine breakdown,14:45,15:23,38
+2026-04-01,L-A,MC-A03,PM,Preventive maintenance,14:45,15:18,33
+2026-04-02,LINE-B,MC-B02,SETUP,Setup / Changeover,09:00,10:21,81
+2026-04-02,L-C,MC-C03,SETUP,Setup / Changeover,17:15,18:43,88
+2026-04-02,line b,MC-B01,NO_MATERIAL,Waiting for material,19:15,20:32,77
+2026-04-03,line b,MC-B02,PM,Preventive maintenance,13:45,15:03,78
+2026-04-06,LineC,MC-C02,QUALITY,Quality issue stop,11:15,12:10,55
+2026-04-08,LineB,MC-B02,PM,Preventive maintenance,13:30,16:06,156
+2026-04-08,LINE-A,MC-A03,PM,Preventive maintenance,17:45,18:08,23
+2026-04-09,PACKING,MC-C02,NO_MATERIAL,Waiting for material,11:15,11:35,20
+2026-04-09,LINE-A,MC-A01,POWER,Power failure,14:00,15:39,99
+2026-04-09,line C,MC-C02,SETUP,Setup / Changeover,18:45,20:36,111
+2026-04-11,L-C,MC-C03,NO_MATERIAL,Waiting for material,09:15,09:28,13
+2026-04-11,Line B,MC-B01,BREAKDOWN,Machine breakdown,13:30,14:09,39
+2026-04-11,L-C,MC-C03,NO_MATERIAL,Waiting for material,16:00,16:27,27
+2026-04-15,Line C,MC-C01,POWER,Power failure,07:15,07:24,9
+2026-04-15,line a,MC-A03,POWER,Power failure,07:45,08:54,69
+2026-04-15,LINE-A,MC-A02,SETUP,Setup / Changeover,08:15,08:29,14
+2026-04-15,LINE-C,MC-C02,POWER,Power failure,08:45,08:57,12
+2026-04-16,line a,MC-A01,BREAKDOWN,Machine breakdown,09:45,10:33,48
+2026-04-16,line c,MC-C03,SETUP,Setup / Changeover,10:45,11:46,61
+2026-04-16,Line D,MC-C02,POWER,Power failure,12:15,13:44,89
+2026-04-17,LineA,MC-A01,QUALITY,Quality issue stop,16:00,17:25,85
+2026-04-20,line a,MC-A02,QUALITY,Quality issue stop,09:00,10:46,106
+2026-04-25,line a,MC-A03,PM,Preventive maintenance,14:15,14:28,13
+2026-04-25,LineC,MC-C01,SETUP,Setup / Changeover,19:15,19:54,39
+2026-04-27,LINE-C,MC-C01,QUALITY,Quality issue stop,19:15,19:32,17
+2026-04-27,LineC,MC-C03,NO_MATERIAL,Waiting for material,20:00,20:25,25
+2026-04-28,LINE-A,MC-A02,NO_MATERIAL,Waiting for material,18:15,19:14,59
+2026-04-29,L-A,MC-A03,NO_MATERIAL,Waiting for material,16:45,17:29,44
+2026-04-30,LINE-A,MC-A02,POWER,Power failure,17:15,17:48,33

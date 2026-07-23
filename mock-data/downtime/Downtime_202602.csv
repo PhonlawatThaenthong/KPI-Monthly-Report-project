@@ -1,0 +1,31 @@
+﻿EventDate,Department,MachineCode,ReasonCode,ReasonText,StartTime,EndTime,DurationMin
+02/26/2026,Line C,MC-C01,BREAKDOWN,Machine breakdown,06:45,07:08,23
+16/02/2026,Line C,MC-C02,BREAKDOWN,Machine breakdown,09:15,10:05,50
+2026-02-04,Line A,MC-A03,PM,Preventive maintenance,16:30,18:01,91
+2026-02-04,Line B,MC-B01,POWER,Power failure,19:45,21:09,84
+2026-02-05,L-A,MC-A03,POWER,Power failure,07:15,07:54,39
+2026-02-05,LINE-C,MC-C03,QUALITY,Quality issue stop,15:45,15:57,12
+2026-02-07,Line B,MC-B02,PM,Preventive maintenance,09:30,09:50,20
+2026-02-07,line b,MC-B01,POWER,Power failure,13:00,13:18,18
+2026-02-09,LINE-B,MC-B02,POWER,Power failure,06:15,09:16,181
+2026-02-11,LINE-A,MC-A01,QUALITY,Quality issue stop,14:30,14:45,15
+2026-02-11,Line B,MC-B02,BREAKDOWN,Machine breakdown,20:00,21:11,71
+2026-02-12,WH-01,MC-B02,BREAKDOWN,Machine breakdown,15:45,16:42,57
+2026-02-13,L-C,MC-C03,BREAKDOWN,Machine breakdown,12:30,12:56,26
+2026-02-14,Line B,MC-B01,POWER,Power failure,12:45,13:12,27
+2026-02-14,line b,MC-B02,QUALITY,Quality issue stop,20:30,20:45,15
+2026-02-16,LineA,MC-A02,QUALITY,Quality issue stop,15:45,17:19,94
+2026-02-16,LINE-A,MC-A01,NO_MATERIAL,Waiting for material,17:00,17:10,10
+2026-02-17,PACKING,MC-A03,QUALITY,Quality issue stop,12:15,13:40,85
+2026-02-17,Line B,MC-B01,NO_MATERIAL,Waiting for material,14:45,15:06,21
+2026-02-17,line C,MC-C03,PM,Preventive maintenance,19:00,22:00,180
+2026-02-18,LineB,MC-B01,PM,Preventive maintenance,09:45,10:03,18
+2026-02-18,line b,MC-B01,POWER,Power failure,19:00,20:19,79
+2026-02-19,line c,MC-C02,SETUP,Setup / Changeover,09:00,10:31,91
+2026-02-19,Line C,MC-C02,BREAKDOWN,Machine breakdown,10:00,10:41,41
+2026-02-20,LineB,MC-B02,BREAKDOWN,Machine breakdown,18:45,19:23,38
+2026-02-20,LINE-C,MC-C02,BREAKDOWN,Machine breakdown,19:15,21:47,152
+2026-02-26,PACKING,MC-B01,QUALITY,Quality issue stop,08:15,09:24,69
+2026-02-26,line b,MC-B02,POWER,Power failure,10:30,12:01,91
+2026-02-26,line c,MC-C02,POWER,Power failure,17:15,18:16,61
+23/02/2026,line a,MC-A02,POWER,Power failure,08:00,10:19,139

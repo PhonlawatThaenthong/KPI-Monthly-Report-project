@@ -1,0 +1,23 @@
+﻿EventDate,Department,MachineCode,ReasonCode,ReasonText,StartTime,EndTime,DurationMin
+2026-03-04,line c,MC-C02,BREAKDOWN,Machine breakdown,17:45,19:19,94
+2026-03-05,LineA,MC-A02,PM,Preventive maintenance,14:00,14:38,38
+2026-03-07,LineB,MC-B02,BREAKDOWN,Machine breakdown,12:00,13:44,104
+2026-03-07,line a,MC-A01,BREAKDOWN,Machine breakdown,13:00,13:27,27
+2026-03-07,Line B,MC-B01,NO_MATERIAL,Waiting for material,20:15,20:51,36
+2026-03-11,Line C,MC-C03,PM,Preventive maintenance,10:30,10:47,17
+2026-03-13,LineC,MC-C03,QUALITY,Quality issue stop,08:15,09:58,103
+2026-03-13,LINE-B,MC-B02,POWER,Power failure,11:45,12:36,51
+2026-03-14,LineC,MC-C03,SETUP,Setup / Changeover,09:30,09:47,17
+2026-03-14,Line  B,MC-B02,SETUP,Setup / Changeover,20:30,21:04,34
+2026-03-18,LineC,MC-C03,NO_MATERIAL,Waiting for material,07:30,08:31,61
+2026-03-18, Line A ,MC-A02,POWER,Power failure,08:15,11:03,168
+2026-03-19,line C,MC-C01,POWER,Power failure,10:45,11:05,20
+2026-03-19,line a,MC-A02,QUALITY,Quality issue stop,13:30,15:03,93
+2026-03-20,LINE-A,MC-A02,POWER,Power failure,17:45,17:58,13
+2026-03-23,Line A,MC-A02,BREAKDOWN,Machine breakdown,07:15,08:01,46
+2026-03-27,LINE-B,MC-B01,QUALITY,Quality issue stop,06:00,06:12,12
+2026-03-27,LineA,MC-A01,NO_MATERIAL,Waiting for material,08:45,11:42,177
+2026-03-28, Line A ,MC-A02,NO_MATERIAL,Waiting for material,15:30,17:15,105
+2026-03-31,LINE-A,MC-A02,POWER,Power failure,09:00,09:19,19
+2026/03/02,LineB,MC-B02,POWER,Power failure,12:45,13:05,20
+2026/03/21,LINE-A,MC-A02,POWER,Power failure,09:00,09:52,52

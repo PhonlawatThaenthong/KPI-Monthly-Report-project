@@ -1,0 +1,45 @@
+﻿EventDate,Department,MachineCode,ReasonCode,ReasonText,StartTime,EndTime,DurationMin
+04/07/2025,Line B,MC-B02,PM,Preventive maintenance,06:30,06:51,21
+16/07/2025,LINE-A,MC-A02,BREAKDOWN,Machine breakdown,10:00,10:42,42
+2025-07-01,line C,MC-C03,POWER,Power failure,12:15,12:43,28
+2025-07-02,LINE-B,MC-B02,BREAKDOWN,Machine breakdown,15:30,16:18,48
+2025-07-03,line b,MC-B02,QUALITY,Quality issue stop,08:45,09:15,30
+2025-07-05,line c,MC-C01,NO_MATERIAL,Waiting for material,07:30,08:01,31
+2025-07-05,Line  B,MC-B02,BREAKDOWN,Machine breakdown,14:30,16:25,115
+2025-07-07,line c,MC-C02,PM,Preventive maintenance,16:45,17:16,31
+2025-07-07,line a,MC-A03,POWER,Power failure,18:00,18:14,14
+2025-07-09,L-C,MC-C03,BREAKDOWN,Machine breakdown,17:45,18:44,59
+2025-07-10,Line  B,MC-B01,QUALITY,Quality issue stop,14:00,14:28,28
+2025-07-10,LineB,MC-B01,QUALITY,Quality issue stop,16:15,17:11,56
+2025-07-12,LineC,MC-C01,NO_MATERIAL,Waiting for material,10:15,11:08,53
+2025-07-14, Line A ,MC-A01,PM,Preventive maintenance,09:45,10:32,47
+2025-07-14,Line A,MC-A02,NO_MATERIAL,Waiting for material,17:00,18:46,106
+2025-07-15,Line  B,MC-B01,POWER,Power failure,07:30,10:03,153
+2025-07-15,LineC,MC-C03,BREAKDOWN,Machine breakdown,09:45,09:56,11
+2025-07-15,Line C,MC-C02,SETUP,Setup / Changeover,13:15,14:16,61
+2025-07-15,LINE-C,MC-C03,POWER,Power failure,14:15,15:10,55
+2025-07-15,Line  B,MC-B02,BREAKDOWN,Machine breakdown,18:15,18:28,13
+2025-07-16,LineC,MC-C03,NO_MATERIAL,Waiting for material,06:45,08:56,131
+2025-07-16,LINE-C,MC-C01,NO_MATERIAL,Waiting for material,15:15,17:05,110
+2025-07-16,LineA,MC-A01,PM,Preventive maintenance,16:45,18:13,88
+2025-07-17,line a,MC-A02,QUALITY,Quality issue stop,14:45,15:17,32
+2025-07-17,line b,MC-B01,NO_MATERIAL,Waiting for material,15:00,15:20,20
+2025-07-18,Line C,MC-C02,QUALITY,Quality issue stop,12:15,13:17,62
+2025-07-18,Line C,MC-C01,PM,Preventive maintenance,12:30,12:46,16
+2025-07-18,LineB,MC-B02,POWER,Power failure,15:45,17:23,98
+2025-07-19,Line B,MC-B02,POWER,Power failure,10:00,10:54,54
+2025-07-19,line c,MC-C01,PM,Preventive maintenance,13:00,15:40,160
+2025-07-19,line a,MC-A03,PM,Preventive maintenance,14:45,16:17,92
+2025-07-19,Line A,MC-A01,SETUP,Setup / Changeover,16:15,17:46,
+2025-07-21,LineC,MC-C02,NO_MATERIAL,Waiting for material,12:30,15:07,157
+2025-07-21,line b,MC-B01,SETUP,Setup / Changeover,13:15,16:20,185
+2025-07-23,L-B,MC-B02,NO_MATERIAL,Waiting for material,16:45,19:42,177
+2025-07-23,LINE-C,MC-C01,QUALITY,Quality issue stop,20:30,21:40,70
+2025-07-24,Line C,MC-C01,QUALITY,Quality issue stop,06:45,08:11,86
+2025-07-25,L-A,MC-A01,SETUP,Setup / Changeover,10:30,12:17,107
+2025-07-25,L-A,MC-A01,SETUP,Setup / Changeover,10:30,12:17,107
+2025-07-26,LINE-A,MC-A02,BREAKDOWN,Machine breakdown,19:15,22:02,N/A
+2025-07-30,L-B,MC-B02,PM,Preventive maintenance,15:15,17:10,115
+2025-07-30,LINE-A,MC-A02,PM,Preventive maintenance,17:15,17:34,19
+2025-07-30,Line B,MC-B02,POWER,Power failure,20:45,21:26,41
+2025-07-31,L-B,MC-B02,QUALITY,Quality issue stop,17:15,18:43,88

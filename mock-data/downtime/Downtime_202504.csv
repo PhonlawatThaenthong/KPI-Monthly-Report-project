@@ -1,0 +1,38 @@
+﻿EventDate,Department,MachineCode,ReasonCode,ReasonText,StartTime,EndTime,DurationMin
+04/05/2025,LINE-C,MC-C01,SETUP,Setup / Changeover,06:30,06:44,14
+08-Apr-25,line b,MC-B02,SETUP,Setup / Changeover,07:45,09:55,130
+2025-04-01,L-B,MC-B01,BREAKDOWN,Machine breakdown,16:00,17:37,97
+2025-04-02,Line A,MC-A02,QUALITY,Quality issue stop,18:30,20:54,144
+2025-04-03,LineC,MC-C01,BREAKDOWN,Machine breakdown,19:30,19:46,16
+2025-04-05,LineB,MC-B02,QUALITY,Quality issue stop,09:30,11:06,96
+2025-04-05,LineB,MC-B01,BREAKDOWN,Machine breakdown,10:00,10:44,44
+2025-04-08,line c,MC-C02,SETUP,Setup / Changeover,16:45,18:53,128
+2025-04-10,LINE-C,MC-C02,PM,Preventive maintenance,08:30,11:13,163
+2025-04-10,L-A,MC-A03,SETUP,Setup / Changeover,16:15,16:36,21
+2025-04-10,L-A,MC-A03,POWER,Power failure,17:30,18:25,55
+2025-04-11,Line A,MC-A03,QUALITY,Quality issue stop,16:15,16:26,11
+2025-04-11,Line  B,MC-B02,PM,Preventive maintenance,16:30,16:48,18
+2025-04-12,LineA,MC-A01,SETUP,Setup / Changeover,20:15,20:31,16
+2025-04-14,LineB,MC-B02,SETUP,Setup / Changeover,07:00,10:24,204
+2025-04-14,Line A,MC-A01,PM,Preventive maintenance,10:15,10:30,15
+2025-04-14,line a,MC-A01,PM,Preventive maintenance,19:30,21:48,138
+2025-04-16,line C,MC-C02,BREAKDOWN,Machine breakdown,07:00,07:48,48
+2025-04-17,line C,MC-C02,POWER,Power failure,15:00,15:14,14
+2025-04-17,L-C,MC-C03,BREAKDOWN,Machine breakdown,18:15,18:51,36
+2025-04-18,L-B,MC-B02,PM,Preventive maintenance,06:00,08:55,175
+2025-04-19,line b,MC-B02,PM,Preventive maintenance,14:45,17:11,146
+2025-04-19,L-B,MC-B01,NO_MATERIAL,Waiting for material,16:15,18:31,136
+2025-04-21,LineC,MC-C03,SETUP,Setup / Changeover,06:45,07:27,42
+2025-04-22,line b,MC-B02,PM,Preventive maintenance,14:30,15:46,76
+2025-04-23,LINE-C,MC-C02,BREAKDOWN,Machine breakdown,07:15,07:31,16
+2025-04-23,line C,MC-C02,BREAKDOWN,Machine breakdown,10:15,10:40,25
+2025-04-23,Line B,MC-B02,BREAKDOWN,Machine breakdown,11:30,11:50,20
+2025-04-23,line C,MC-C01,NO_MATERIAL,Waiting for material,20:30,20:46,16
+2025-04-24,Line C,MC-C02,NO_MATERIAL,Waiting for material,15:30,16:25,55
+2025-04-25,line a,MC-A01,NO_MATERIAL,Waiting for material,08:30,09:16,46
+2025-04-28,line C,MC-C01,NO_MATERIAL,Waiting for material,19:00,19:23,23
+2025-04-29,Line B,MC-B01,BREAKDOWN,Machine breakdown,19:00,20:29,89
+2025-04-29,LineA,MC-A03,NO_MATERIAL,Waiting for material,20:00,21:42,102
+2025-04-30,Line  B,MC-B01,PM,Preventive maintenance,07:15,07:50,35
+2025/04/25,Line  B,MC-B01,SETUP,Setup / Changeover,11:45,12:51,66
+21-Apr-25,L-C,MC-C02,PM,Preventive maintenance,14:45,15:23,38

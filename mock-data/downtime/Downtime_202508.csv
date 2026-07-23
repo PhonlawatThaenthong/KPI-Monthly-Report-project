@@ -1,0 +1,38 @@
+﻿EventDate,Department,MachineCode,ReasonCode,ReasonText,StartTime,EndTime,DurationMin
+20-Aug-25,L-C,MC-C03,QUALITY,Quality issue stop,20:45,23:03,138
+2025-08-01,line a,MC-A03,BREAKDOWN,Machine breakdown,20:45,21:06,21
+2025-08-02,line c,MC-C01,SETUP,Setup / Changeover,19:30,19:50,20
+2025-08-04,LineB,MC-B01,QUALITY,Quality issue stop,13:15,14:52,97
+2025-08-05,LineA,MC-A02,NO_MATERIAL,Waiting for material,10:45,11:01,16
+2025-08-05, Line A ,MC-A02,PM,Preventive maintenance,16:00,16:39,39
+2025-08-06,Line B,MC-B01,QUALITY,Quality issue stop,11:45,15:03,198
+2025-08-07,LineA,MC-A02,PM,Preventive maintenance,06:45,07:14,29
+2025-08-08,line C,MC-C03,PM,Preventive maintenance,18:00,18:59,59
+2025-08-08,LINE-A,MC-A02,SETUP,Setup / Changeover,19:00,19:09,9
+2025-08-08,LINE-B,MC-B02,PM,Preventive maintenance,19:30,19:59,29
+2025-08-09,LineB,MC-B02,QUALITY,Quality issue stop,15:30,15:51,21
+2025-08-09,Line  B,MC-B02,NO_MATERIAL,Waiting for material,19:00,19:29,29
+2025-08-11,line c,MC-C02,BREAKDOWN,Machine breakdown,15:45,16:40,55
+2025-08-13,line C,MC-C01,BREAKDOWN,Machine breakdown,20:15,20:41,26
+2025-08-14,L-C,MC-C03,BREAKDOWN,Machine breakdown,07:30,09:05,95
+2025-08-14,LineA,MC-A02,POWER,Power failure,09:30,10:21,51
+2025-08-15,Line  B,MC-B02,QUALITY,Quality issue stop,09:00,09:42,42
+2025-08-15,LineC,MC-C01,BREAKDOWN,Machine breakdown,14:00,14:31,31
+2025-08-16,LineB,MC-B01,QUALITY,Quality issue stop,13:15,15:17,122
+2025-08-16, Line A ,MC-A02,QUALITY,Quality issue stop,19:30,20:49,79
+2025-08-18,Line B,MC-B02,POWER,Power failure,09:45,10:05,20
+2025-08-19,Line A,MC-A02,QUALITY,Quality issue stop,07:45,08:46,61
+2025-08-20,Line  B,MC-B02,BREAKDOWN,Machine breakdown,08:00,09:24,84
+2025-08-20,Line  B,MC-B01,POWER,Power failure,15:45,15:58,13
+2025-08-21,L-C,MC-C03,NO_MATERIAL,Waiting for material,11:15,14:06,171
+2025-08-21,LINE-A,MC-A02,PM,Preventive maintenance,15:15,15:34,19
+2025-08-22,LINE-C,MC-C02,POWER,Power failure,15:15,16:43,88
+2025-08-22,line b,MC-B01,NO_MATERIAL,Waiting for material,17:45,18:48,63
+2025-08-23,LINE-B,MC-B01,POWER,Power failure,11:30,12:29,59
+2025-08-25,L-C,MC-C03,PM,Preventive maintenance,11:30,11:46,16
+2025-08-25,LINE-C,MC-C01,BREAKDOWN,Machine breakdown,16:00,16:46,46
+2025-08-26,line c,MC-C01,NO_MATERIAL,Waiting for material,09:15,12:19,184
+2025-08-26,L-C,MC-C03,BREAKDOWN,Machine breakdown,20:30,21:39,69
+2025-08-29,L-B,MC-B01,BREAKDOWN,Machine breakdown,12:15,12:41,26
+2025-08-29,line c,MC-C01,NO_MATERIAL,Waiting for material,19:45,21:23,98
+2025/08/22,Line  B,MC-B02,NO_MATERIAL,Waiting for material,19:30,20:58,88
