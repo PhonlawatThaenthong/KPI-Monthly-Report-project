@@ -1,0 +1,144 @@
+@model KpiReport.Web.Models.DashboardViewModel
+@using System.Linq
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>KPI Dashboard <small>@Model.MonthLabel</small></h2>
+
+@if (Model.CanSwitchDepartment && Model.Departments != null)
+{
+    using (Html.BeginForm("Index", "Dashboard", FormMethod.Get, new { @class = "form-inline", style = "margin-bottom:20px;" }))
+    {
+        <div class="form-group">
+            <label style="margin-right:8px;">Department:</label>
+            @Html.DropDownList("departmentId",
+                     new SelectList(Model.Departments, "DepartmentId", "DepartmentName", Model.SelectedDepartmentId),
+                     new { @class = "form-control", onchange = "this.form.submit()" })
+        </div>
+        @Html.Hidden("monthKey", Model.MonthKey)
+    }
+}
+
+@if (!Model.Kpis.Any())
+{
+    <div class="alert alert-warning">No KPI data available for this month.</div>
+}
+else
+{
+    <div class="row">
+        @foreach (var kpi in Model.Kpis)
+        {
+            string panelClass = "panel-default";
+            if (kpi.StatusFlag == "GREEN") { panelClass = "panel-success"; }
+            else if (kpi.StatusFlag == "YELLOW") { panelClass = "panel-warning"; }
+            else if (kpi.StatusFlag == "RED") { panelClass = "panel-danger"; }
+
+            string momColor = "#777";
+            string momArrow = "";
+            if (kpi.MoMChangePct.HasValue)
+            {
+                // Arrow direction depends on the KPI Direction, not just the sign.
+                // For DEFECT_RATE (lower is better), a drop (negative MoM) is an improvement -> green.
+                bool isImprovement = kpi.Direction == "L"
+                    ? kpi.MoMChangePct.Value < 0
+                    : kpi.MoMChangePct.Value > 0;
+
+                momColor = isImprovement ? "#3c763d" : "#a94442";
+                momArrow = kpi.MoMChangePct.Value >= 0 ? "&#9650;" : "&#9660;";
+            }
+
+            <div class="col-md-6 col-lg-4" style="margin-bottom:20px;">
+                <div class="panel @panelClass">
+                    <div class="panel-heading">
+                        <strong>@kpi.KpiName</strong>
+                        <span class="pull-right">@kpi.Unit</span>
+                    </div>
+                    <div class="panel-body">
+                        <h2 style="margin-top:0;">
+                            @(kpi.ActualValue.HasValue ? kpi.ActualValue.Value.ToString("N" + kpi.DecimalPlaces) : "-")
+                        </h2>
+                        <p>
+                            Target:
+                            @(kpi.TargetValue.HasValue ? kpi.TargetValue.Value.ToString("N" + kpi.DecimalPlaces) : "-")
+
+                            @if (kpi.MoMChangePct.HasValue)
+                            {
+                                <span style="color:@momColor; margin-left:8px;">
+                                    @Html.Raw(momArrow) @Math.Abs(kpi.MoMChangePct.Value).ToString("N1")% MoM
+                                </span>
+                            }
+                        </p>
+
+                        @if (!string.IsNullOrEmpty(kpi.FormulaText))
+                        {
+                            <p class="text-muted small">@kpi.FormulaText</p>
+                        }
+
+                        <div style="position:relative; height:160px;">
+                            <canvas id="chart_@kpi.KpiCode"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts
+{
+    <script src="~/Scripts/chart.min.js"></script>
+    <script>
+        (function () {
+            @foreach (var kpi in Model.Kpis)
+            {
+                <text>
+                (function () {
+                    var el = document.getElementById('chart_@kpi.KpiCode');
+                    if (!el) { return; }
+
+                    new Chart(el, {
+                        type: 'line',
+                        data: {
+                            labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+                                kpi.Trend.Select(t => t.MonthLabel).ToList())),
+                            datasets: [
+                                {
+                                    label: 'Actual',
+                                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+                                        kpi.Trend.Select(t => t.ActualValue).ToList())),
+                                    borderColor: '#337ab7',
+                                    backgroundColor: 'rgba(51,122,183,0.1)',
+                                    fill: true,
+                                    tension: 0.2,
+                                    pointRadius: 2
+                                },
+                                {
+                                    label: 'Target',
+                                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+                                        kpi.Trend.Select(t => t.TargetValue).ToList())),
+                                    borderColor: '#999999',
+                                    borderDash: [5, 5],
+                                    fill: false,
+                                    pointRadius: 0
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: true, labels: { boxWidth: 12, font: { size: 10 } } }
+                            },
+                            scales: {
+                                y: { beginAtZero: false, ticks: { font: { size: 9 } } },
+                                x: { ticks: { font: { size: 9 } } }
+                            }
+                        }
+                    });
+                })();
+                </text>
+            }
+        })();
+    </script>
+}

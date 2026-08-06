@@ -95,10 +95,12 @@
     <Compile Include="Db\SqlDb.cs" />
     <Compile Include="Infrastructure\CsvEncodingDetector.cs" />
     <Compile Include="Infrastructure\FileHashUtil.cs" />
+    <Compile Include="Models\AttendanceRawRow.cs" />
     <Compile Include="Models\CostRawRow.cs" />
     <Compile Include="Models\DowntimeRawRow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\AttendanceCsvReader.cs" />
     <Compile Include="Sources\CostExcelReader.cs" />
     <Compile Include="Sources\DowntimeCsvReader.cs" />
   </ItemGroup>

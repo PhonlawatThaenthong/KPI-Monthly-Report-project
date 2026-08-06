@@ -1,7 +1,3 @@
-E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.csproj.AssemblyReference.cache
-E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.csproj.SuggestedBindingRedirects.cache
-E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.exe.config
-E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.csproj.CoreCompileInputs.cache
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\KpiReport.Etl.exe.config
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\KpiReport.Etl.exe
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\KpiReport.Etl.pdb
@@ -36,6 +32,10 @@ E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\System.M
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\System.Numerics.Vectors.xml
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\System.Threading.Tasks.Extensions.xml
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.csproj.AssemblyReference.cache
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.csproj.SuggestedBindingRedirects.cache
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.exe.config
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.csproj.CoreCompileInputs.cache
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiRepor.8B0553A2.Up2Date
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.exe
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.pdb

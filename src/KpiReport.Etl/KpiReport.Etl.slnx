@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../KpiReport.Web/KpiReport.Web.csproj" Id="4c1d7b4e-6236-499c-bdc1-bd5dd87d8fb8" />
   <Project Path="KpiReport.Etl/KpiReport.Etl.csproj" Id="4defee94-efcb-418c-91ea-1c85cba9626b" />
 </Solution>

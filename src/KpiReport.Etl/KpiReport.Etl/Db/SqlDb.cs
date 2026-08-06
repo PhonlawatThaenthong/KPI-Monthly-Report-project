@@ -163,6 +163,56 @@ namespace KpiReport.Etl.Db
             BulkCopy(table, "stg.DowntimeRaw");
         }
 
+        public void BulkInsertAttendanceRaw(long runId, List<AttendanceRawRow> rows)
+        {
+            if (rows.Count == 0) return;
+
+            var table = new DataTable();
+            table.Columns.Add("RunId", typeof(long));
+            table.Columns.Add("SourceFileName", typeof(string));
+            table.Columns.Add("SourceLineNo", typeof(int));
+            table.Columns.Add("WorkDate", typeof(string));
+            table.Columns.Add("EmployeeCode", typeof(string));
+            table.Columns.Add("EmployeeName", typeof(string));
+            table.Columns.Add("DepartmentText", typeof(string));
+            table.Columns.Add("StatusText", typeof(string));
+            table.Columns.Add("WorkHoursText", typeof(string));
+            table.Columns.Add("OtHoursText", typeof(string));
+
+            foreach (var r in rows)
+            {
+                table.Rows.Add(
+                    runId,
+                    (object)r.SourceFileName ?? DBNull.Value,
+                    (object)r.SourceLineNo ?? DBNull.Value,
+                    (object)r.WorkDate ?? DBNull.Value,
+                    (object)r.EmployeeCode ?? DBNull.Value,
+                    (object)r.EmployeeName ?? DBNull.Value,
+                    (object)r.DepartmentText ?? DBNull.Value,
+                    (object)r.StatusText ?? DBNull.Value,
+                    (object)r.WorkHoursText ?? DBNull.Value,
+                    (object)r.OtHoursText ?? DBNull.Value);
+            }
+
+            BulkCopy(table, "stg.AttendanceRaw");
+        }
+
+        public (int written, int rejected) TransformAttendance(long runId)
+        {
+            using (var conn = Open())
+            {
+                var p = new DynamicParameters();
+                p.Add("@RunId", runId);
+                p.Add("@RowsWritten", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                p.Add("@RowsRejected", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                conn.Execute("core.usp_Transform_Attendance", p,
+                    commandType: CommandType.StoredProcedure, commandTimeout: 120);
+
+                return (p.Get<int>("@RowsWritten"), p.Get<int>("@RowsRejected"));
+            }
+        }
+
         public void BulkInsertCostRaw(long runId, List<CostRawRow> rows)
         {
             if (rows.Count == 0) return;

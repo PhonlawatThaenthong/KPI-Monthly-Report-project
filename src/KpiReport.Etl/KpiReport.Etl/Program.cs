@@ -47,6 +47,7 @@ namespace KpiReport.Etl
                         RunProduction(db, triggeredBy);
                         RunDowntime(db, triggeredBy);
                         RunCost(db, triggeredBy);
+                        RunAttendance(db, triggeredBy);
                         Console.WriteLine(">> คำนวณ KPI ทุกเดือน ...");
                         db.RunKpiAllMonths(triggeredBy);
                         break;
@@ -61,6 +62,10 @@ namespace KpiReport.Etl
 
                     case "cost":
                         RunCost(db, triggeredBy);
+                        break;
+
+                    case "attendance":
+                        RunAttendance(db, triggeredBy);
                         break;
 
                     case "kpi":
@@ -96,7 +101,7 @@ namespace KpiReport.Etl
 
         private static void PrintUsage()
         {
-            Console.WriteLine("คำสั่งที่ใช้ได้: run-all | production | downtime | cost | kpi <yyyyMM> | kpi-all");
+            Console.WriteLine("คำสั่งที่ใช้ได้: run-all | production | downtime | cost | attendance | kpi <yyyyMM> | kpi-all");
         }
 
         // =========================================================
@@ -118,9 +123,17 @@ namespace KpiReport.Etl
             Console.WriteLine("== Downtime (CSV) ==");
 
             string folder = ConfigurationManager.AppSettings["DowntimeFolder"];
+            string fullFolder = string.IsNullOrEmpty(folder)
+                ? "(ไม่ได้ตั้งค่าใน App.config)"
+                : Path.GetFullPath(folder);
+
+            Console.WriteLine($"   มองหาโฟลเดอร์: {fullFolder}");
+
             if (string.IsNullOrEmpty(folder) || !Directory.Exists(folder))
             {
-                Console.Error.WriteLine($"   ไม่พบโฟลเดอร์ '{folder}' ตรวจ App.config key 'DowntimeFolder'");
+                Console.Error.WriteLine($"   [ERROR] ไม่พบโฟลเดอร์ '{fullFolder}'");
+                Console.Error.WriteLine($"   แก้ App.config key 'DowntimeFolder' ให้เป็น path เต็ม เช่น");
+                Console.Error.WriteLine($"   D:\\Projects\\KpiMonthlyReport\\mock-data\\downtime");
                 return;
             }
 
@@ -188,9 +201,17 @@ namespace KpiReport.Etl
             Console.WriteLine("== Cost (Excel) ==");
 
             string path = ConfigurationManager.AppSettings["CostExcelPath"];
+            string fullPath = string.IsNullOrEmpty(path)
+                ? "(ไม่ได้ตั้งค่าใน App.config)"
+                : Path.GetFullPath(path);
+
+            Console.WriteLine($"   มองหาไฟล์: {fullPath}");
+
             if (string.IsNullOrEmpty(path) || !File.Exists(path))
             {
-                Console.Error.WriteLine($"   ไม่พบไฟล์ '{path}' ตรวจ App.config key 'CostExcelPath'");
+                Console.Error.WriteLine($"   [ERROR] ไม่พบไฟล์ '{fullPath}'");
+                Console.Error.WriteLine($"   แก้ App.config key 'CostExcelPath' ให้เป็น path เต็ม เช่น");
+                Console.Error.WriteLine($"   D:\\Projects\\KpiMonthlyReport\\mock-data\\cost\\Cost_Master.xlsx");
                 return;
             }
 
@@ -224,6 +245,82 @@ namespace KpiReport.Etl
                 rejected = result.rejected;
 
                 db.EtlStepLog(runId, 2, "Transform_Cost", "stg.CostRaw",
+                    "SUCCESS", totalRead, written, rejected);
+
+                db.EtlRunFinish(runId, "SUCCESS", totalRead, written, rejected, null);
+
+                Console.WriteLine($"   RunId {runId} | อ่าน {totalRead} | บันทึก {written} | ตัดออก {rejected}");
+            }
+            catch (Exception ex)
+            {
+                db.EtlRunFinish(runId, "FAILED", totalRead, written, rejected, ex.Message);
+                throw;
+            }
+        }
+
+        // =========================================================
+        // ATTENDANCE - อ่านไฟล์ CSV ลงเวลา (โครงเหมือน Downtime)
+        // =========================================================
+        private static void RunAttendance(SqlDb db, string triggeredBy)
+        {
+            Console.WriteLine("== Attendance (CSV) ==");
+
+            string folder = ConfigurationManager.AppSettings["AttendanceFolder"];
+            string fullFolder = string.IsNullOrEmpty(folder)
+                ? "(ไม่ได้ตั้งค่าใน App.config)"
+                : Path.GetFullPath(folder);
+
+            Console.WriteLine($"   มองหาโฟลเดอร์: {fullFolder}");
+
+            if (string.IsNullOrEmpty(folder) || !Directory.Exists(folder))
+            {
+                Console.Error.WriteLine($"   [ERROR] ไม่พบโฟลเดอร์ '{fullFolder}'");
+                Console.Error.WriteLine($"   แก้ App.config key 'AttendanceFolder' ให้เป็น path เต็ม");
+                return;
+            }
+
+            var files = Directory.GetFiles(folder, "*.csv").OrderBy(f => f).ToList();
+            if (files.Count == 0)
+            {
+                Console.WriteLine("   ไม่พบไฟล์ CSV ในโฟลเดอร์");
+                return;
+            }
+
+            long runId = db.EtlRunStart("ETL_Attendance", null, triggeredBy);
+            int totalRead = 0, written = 0, rejected = 0;
+            int filesLoaded = 0, filesSkipped = 0;
+
+            try
+            {
+                foreach (var file in files)
+                {
+                    string hash = FileHashUtil.ComputeSha256(file);
+                    if (db.FileAlreadyLoaded(hash))
+                    {
+                        filesSkipped++;
+                        continue;
+                    }
+
+                    var rows = AttendanceCsvReader.Read(file);
+                    db.BulkInsertAttendanceRaw(runId, rows);
+                    db.RecordFileLoad(
+                        runId, Path.GetFileName(file), hash,
+                        new FileInfo(file).Length, File.GetLastWriteTimeUtc(file), rows.Count);
+
+                    totalRead += rows.Count;
+                    filesLoaded++;
+                    Console.WriteLine($"   [load] {Path.GetFileName(file)} -> {rows.Count} แถว");
+                }
+
+                Console.WriteLine($"   ไฟล์ใหม่ {filesLoaded} | ข้าม (เคยโหลดแล้ว) {filesSkipped}");
+
+                db.EtlStepLog(runId, 1, "Extract_Attendance", folder, "SUCCESS", totalRead, totalRead, null);
+
+                var result = db.TransformAttendance(runId);
+                written = result.written;
+                rejected = result.rejected;
+
+                db.EtlStepLog(runId, 2, "Transform_Attendance", "stg.AttendanceRaw",
                     "SUCCESS", totalRead, written, rejected);
 
                 db.EtlRunFinish(runId, "SUCCESS", totalRead, written, rejected, null);
