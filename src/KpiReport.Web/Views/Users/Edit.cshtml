@@ -1,6 +1,21 @@
 ﻿@model KpiReport.Web.Models.UserEditViewModel
+@using System.Collections.Generic
 @{
     ViewBag.Title = "Edit user";
+
+    // ต้องประกอบ attribute เอง ห้ามส่ง disabled = null เข้าไปในแบบ anonymous object
+    // เพราะ MVC จะแปลง null เป็นสตริงว่างแล้ว render ออกมาเป็น disabled=""
+    // ซึ่งในภาษา HTML ถือว่า "ปิดการใช้งาน" เหมือนกัน -> ช่องนี้จะกดไม่ได้กับทุกคน
+    var roleAttributes = new Dictionary<string, object>
+    {
+        { "class", "form-control" },
+        { "id", "roleSelect" }
+    };
+
+    if (Model.IsCurrentUser)
+    {
+        roleAttributes["disabled"] = "disabled";
+    }
 }
 
 <div class="kpi-page-head">
@@ -39,7 +54,7 @@
                     @Html.LabelFor(m => m.Role)
                     @Html.DropDownListFor(m => m.Role,
                         new SelectList(new[] { "Admin", "Manager", "Viewer" }, Model.Role),
-                        new { @class = "form-control", id = "roleSelect", disabled = Model.IsCurrentUser ? "disabled" : null })
+                        roleAttributes)
                     @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
 
                     @if (Model.IsCurrentUser)
