@@ -250,6 +250,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AuditLogger.cs" />
+    <Compile Include="Infrastructure\AuthSettings.cs" />
     <Compile Include="Infrastructure\IdentitySeeder.cs" />
     <Compile Include="Infrastructure\UserContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

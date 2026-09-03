@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,18 +10,21 @@ using KpiReport.Web.Models;   // ApplicationDbContext, ApplicationUser (สร�
 namespace KpiReport.Web.Infrastructure
 {
     /// <summary>
-    /// สร้าง Role และ User ตั้งต้นตอนแอปเริ่มทำงานครั้งแรก
+    /// สร้าง Role และบัญชีตัวอย่างตอนแอปเริ่มทำงาน
     ///
-    /// *** สำหรับ Development เท่านั้น ***
-    /// ก่อนใช้งานจริงต้อง:
-    ///   1. เปลี่ยนรหัสผ่านทุกบัญชี
-    ///   2. ลบการเรียก Seed() ออกจาก Global.asax หรือครอบด้วย #if DEBUG
+    /// *** สำหรับ Development / เดโม เท่านั้น ***
+    /// การทำงานถูกคุมด้วย AuthSettings สองค่า:
+    ///   Auth:SeedDemoUsers — Release build ปิดเป็นค่าตั้งต้น
+    ///   Auth:DemoPassword  — ไม่ตั้งค่าไว้ = ไม่ seed อะไรเลย
+    ///
+    /// เดิมรหัสผ่านถูก hardcode ไว้ในไฟล์นี้ ซึ่งหลุดขึ้น GitHub ไปพร้อม source
+    /// ตอนนี้ย้ายไปอยู่ใน Web.config ที่อยู่ใน .gitignore แล้ว
+    ///
+    /// สร้าง Role เสมอ (ไม่ใช่ความลับ และระบบต้องมี Role ถึงจะทำงานได้)
+    /// แต่จะสร้าง "บัญชี" ให้เฉพาะเมื่อเปิดสวิตช์ไว้เท่านั้น
     /// </summary>
     public static class IdentitySeeder
     {
-        // รหัสผ่าน dev - ต้องเปลี่ยนก่อนส่งงานจริง
-        private const string DemoPassword = "Passw0rd!2026";
-
         public static void Seed()
         {
             using (var context = new ApplicationDbContext())
@@ -51,15 +54,31 @@ namespace KpiReport.Web.Infrastructure
                 }
 
                 // ---------- 2) Users ----------
-                CreateUserIfMissing(userManager, "admin@kpi.local",   "Admin",   null);
-                CreateUserIfMissing(userManager, "manager@kpi.local", "Manager", null);
-                CreateUserIfMissing(userManager, "linea@kpi.local",   "Viewer",  "LINE_A");
-                CreateUserIfMissing(userManager, "lineb@kpi.local",   "Viewer",  "LINE_B");
+                if (!AuthSettings.SeedDemoUsers)
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        "[IdentitySeeder] ข้ามการสร้างบัญชีตัวอย่าง (Auth:SeedDemoUsers = false)");
+                    return;
+                }
+
+                string demoPassword = AuthSettings.DemoPassword;
+                if (string.IsNullOrWhiteSpace(demoPassword))
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        "[IdentitySeeder] ข้ามการสร้างบัญชีตัวอย่าง: ยังไม่ได้ตั้ง Auth:DemoPassword ใน Web.config");
+                    return;
+                }
+
+                CreateUserIfMissing(userManager, demoPassword, "admin@kpi.local",   "Admin",   null);
+                CreateUserIfMissing(userManager, demoPassword, "manager@kpi.local", "Manager", null);
+                CreateUserIfMissing(userManager, demoPassword, "linea@kpi.local",   "Viewer",  "LINE_A");
+                CreateUserIfMissing(userManager, demoPassword, "lineb@kpi.local",   "Viewer",  "LINE_B");
             }
         }
 
         private static void CreateUserIfMissing(
             UserManager<ApplicationUser> userManager,
+            string password,
             string email,
             string roleName,
             string departmentCode)
@@ -69,7 +88,7 @@ namespace KpiReport.Web.Infrastructure
             if (user == null)
             {
                 user = new ApplicationUser { UserName = email, Email = email };
-                var result = userManager.Create(user, DemoPassword);
+                var result = userManager.Create(user, password);
 
                 if (!result.Succeeded)
                 {
