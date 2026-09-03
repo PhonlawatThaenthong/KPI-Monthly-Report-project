@@ -34,6 +34,7 @@ namespace KpiReport.Web.Repositories
             const string sql = @"
                 SELECT SubscriptionId, UserId, Email, DisplayName,
                        DepartmentId, DepartmentName, IsActive,
+                       SendDayOfMonth, SendHour,
                        IsLinkedToUser, LinkedUserMissing, LinkedUserDisabled
                 FROM meta.vw_ReportSubscriptionAdmin
                 ORDER BY CASE WHEN DepartmentId IS NULL THEN 0 ELSE 1 END,
@@ -61,11 +62,14 @@ namespace KpiReport.Web.Repositories
         /// คืน false เมื่อซ้ำกับที่มีอยู่แล้ว (unique index เป็นคนตัดสิน
         /// ไม่ใช่การเช็คก่อน insert ซึ่งมีช่องว่างให้แทรกได้ระหว่างทาง)
         /// </summary>
-        public bool Add(string userId, string email, string displayName, int? departmentId)
+        public bool Add(string userId, string email, string displayName, int? departmentId,
+                        byte sendDayOfMonth, byte sendHour)
         {
             const string sql = @"
-                INSERT INTO meta.ReportSubscription (UserId, Email, DisplayName, DepartmentId)
-                VALUES (@UserId, @Email, @DisplayName, @DepartmentId)";
+                INSERT INTO meta.ReportSubscription
+                    (UserId, Email, DisplayName, DepartmentId, SendDayOfMonth, SendHour)
+                VALUES
+                    (@UserId, @Email, @DisplayName, @DepartmentId, @SendDayOfMonth, @SendHour)";
 
             using (var conn = Open())
             {
@@ -76,7 +80,9 @@ namespace KpiReport.Web.Repositories
                         UserId = userId,
                         Email = email,
                         DisplayName = displayName,
-                        DepartmentId = departmentId
+                        DepartmentId = departmentId,
+                        SendDayOfMonth = sendDayOfMonth,
+                        SendHour = sendHour
                     });
                     return true;
                 }
@@ -85,6 +91,23 @@ namespace KpiReport.Web.Repositories
                     // 2601/2627 = ชนกับ unique index
                     return false;
                 }
+            }
+        }
+
+        /// <summary>
+        /// เปลี่ยนตารางเวลาส่งของผู้รับรายนี้
+        /// ค่าที่เกินขอบเขตถูกดักที่ CHECK constraint ในฐานข้อมูลอีกชั้น
+        /// แม้ผู้เรียกจะ validate มาแล้ว — กันการเรียกจากที่อื่นในอนาคต
+        /// </summary>
+        public void SetSchedule(int subscriptionId, byte sendDayOfMonth, byte sendHour)
+        {
+            using (var conn = Open())
+            {
+                conn.Execute(@"
+                    UPDATE meta.ReportSubscription
+                    SET SendDayOfMonth = @Day, SendHour = @Hour
+                    WHERE SubscriptionId = @Id",
+                    new { Id = subscriptionId, Day = sendDayOfMonth, Hour = sendHour });
             }
         }
 
@@ -117,6 +140,7 @@ namespace KpiReport.Web.Repositories
                 return conn.QueryFirstOrDefault<ReportSubscriptionRow>(@"
                     SELECT SubscriptionId, UserId, Email, DisplayName,
                            DepartmentId, DepartmentName, IsActive,
+                           SendDayOfMonth, SendHour,
                            IsLinkedToUser, LinkedUserMissing, LinkedUserDisabled
                     FROM meta.vw_ReportSubscriptionAdmin
                     WHERE SubscriptionId = @Id",

@@ -24,6 +24,12 @@ namespace KpiReport.Etl
     ///   KpiReport.Etl.exe send-report 202606        ส่งรายงานเดือนที่ระบุ
     ///   KpiReport.Etl.exe send-report --dry-run     ลองดูว่าจะส่งอะไรให้ใคร ไม่ส่งจริง
     ///   KpiReport.Etl.exe send-report 202606 --force ส่งซ้ำแม้เคยส่งสำเร็จไปแล้ว
+    ///   KpiReport.Etl.exe send-report --ignore-schedule  ส่งทันทีโดยไม่ดูวัน/เวลาที่ตั้งไว้
+    ///
+    /// การตั้ง Task Scheduler สำหรับ send-report:
+    ///   ตั้งให้รัน "ทุกชั่วโมง" คำสั่งเดียวพอ ไม่ต้องตั้งรายเดือน
+    ///   เพราะวัน/เวลาส่งของแต่ละคนเก็บอยู่ในฐานข้อมูล (แก้ได้จากหน้าเว็บ)
+    ///   โปรแกรมจะเป็นคนตัดสินเองว่ารอบนี้ถึงกำหนดของใครแล้วบ้าง
     /// </summary>
     public static class Program
     {
@@ -111,7 +117,7 @@ namespace KpiReport.Etl
         private static void PrintUsage()
         {
             Console.WriteLine("คำสั่งที่ใช้ได้: run-all | production | downtime | cost | attendance | kpi <yyyyMM> | kpi-all");
-            Console.WriteLine("                send-report [yyyyMM] [--dry-run] [--force]");
+            Console.WriteLine("                send-report [yyyyMM] [--dry-run] [--force] [--ignore-schedule]");
         }
 
         // =========================================================
@@ -126,6 +132,9 @@ namespace KpiReport.Etl
 
             bool dryRun = args.Any(a => a.Equals("--dry-run", StringComparison.OrdinalIgnoreCase));
             bool force = args.Any(a => a.Equals("--force", StringComparison.OrdinalIgnoreCase));
+            bool ignoreSchedule = args.Any(a =>
+                a.Equals("--ignore-schedule", StringComparison.OrdinalIgnoreCase)
+                || a.Equals("--all", StringComparison.OrdinalIgnoreCase));
 
             int? monthKey = null;
             foreach (string arg in args.Skip(1))
@@ -143,7 +152,7 @@ namespace KpiReport.Etl
             try
             {
                 var job = new MonthlyReportJob(connStr);
-                int failed = job.Run(monthKey, dryRun, force);
+                int failed = job.Run(monthKey, dryRun, force, ignoreSchedule);
 
                 if (failed > 0)
                 {

@@ -100,7 +100,10 @@ namespace KpiReport.Web.Controllers
                 userId = user.Id;
             }
 
-            bool added = _subs.Add(userId, email, displayName, model.DepartmentId);
+            byte day = ClampDay(model.SendDayOfMonth);
+            byte hour = ClampHour(model.SendHour);
+
+            bool added = _subs.Add(userId, email, displayName, model.DepartmentId, day, hour);
 
             if (!added)
             {
@@ -109,11 +112,33 @@ namespace KpiReport.Web.Controllers
             }
 
             Audit("REPORT_SUB_ADDED",
-                  (userId ?? email) + " · ขอบเขต=" + DescribeScope(model.DepartmentId));
+                  (userId ?? email) + " · ขอบเขต=" + DescribeScope(model.DepartmentId)
+                  + " · ส่งทุกวันที่ " + day + " เวลา " + hour.ToString("00") + ":00");
 
             if (TempData["SubMessage"] == null)
                 TempData["SubMessage"] = "เพิ่มผู้รับรายงานเรียบร้อยแล้ว";
 
+            return RedirectToAction("Index");
+        }
+
+        // POST: /ReportSubscriptions/Schedule
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Schedule(int id, byte sendDayOfMonth, byte sendHour)
+        {
+            var row = _subs.GetById(id);
+            if (row == null) return HttpNotFound();
+
+            byte day = ClampDay(sendDayOfMonth);
+            byte hour = ClampHour(sendHour);
+
+            _subs.SetSchedule(id, day, hour);
+
+            Audit("REPORT_SUB_RESCHEDULED",
+                  row.Email + " · " + row.ScheduleText
+                  + " -> ทุกวันที่ " + day + " เวลา " + hour.ToString("00") + ":00");
+
+            TempData["SubMessage"] = "อัปเดตเวลาส่งของ " + row.Email + " แล้ว";
             return RedirectToAction("Index");
         }
 
@@ -188,6 +213,22 @@ namespace KpiReport.Web.Controllers
                 CountReceiving = rows.Count(r => r.WillReceive),
                 CountSilent = rows.Count(r => !r.WillReceive)
             };
+        }
+
+        /// <summary>
+        /// วันที่ 1–31 เท่านั้น ค่าที่เกินจะถูกร่นลงมาเป็นวันสุดท้ายของเดือนนั้น
+        /// ตอนคำนวณรอบส่ง จึงยอมให้ตั้ง 31 ได้เพื่อสื่อความหมายว่า "สิ้นเดือน"
+        /// </summary>
+        private static byte ClampDay(byte value)
+        {
+            if (value < 1) return 1;
+            if (value > 31) return 31;
+            return value;
+        }
+
+        private static byte ClampHour(byte value)
+        {
+            return value > 23 ? (byte)23 : value;
         }
 
         private string DescribeScope(int? departmentId)

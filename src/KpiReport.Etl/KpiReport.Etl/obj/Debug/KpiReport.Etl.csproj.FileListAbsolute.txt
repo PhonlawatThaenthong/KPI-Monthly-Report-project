@@ -39,3 +39,15 @@ E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiRepor
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiRepor.8B0553A2.Up2Date
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.exe
 E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\obj\Debug\KpiReport.Etl.pdb
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\MigraDoc.DocumentObjectModel.dll
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\MigraDoc.Rendering.dll
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\PdfSharp.Charting.dll
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\PdfSharp.dll
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\MigraDoc.DocumentObjectModel.xml
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\MigraDoc.Rendering.xml
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\PdfSharp.xml
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\PdfSharp.Charting.xml
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\de\MigraDoc.DocumentObjectModel.resources.dll
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\de\MigraDoc.Rendering.resources.dll
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\de\PdfSharp.resources.dll
+E:\KPI-Monthly-Report-project\src\KpiReport.Etl\KpiReport.Etl\bin\Debug\de\PdfSharp.Charting.resources.dll

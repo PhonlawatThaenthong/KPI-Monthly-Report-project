@@ -374,6 +374,24 @@ input[type="radio"] {
     vertical-align: middle;
 }
 
+/* ช่องตั้งเวลาส่งในตารางผู้รับรายงาน */
+.kpi-schedule-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.kpi-schedule-form select {
+    width: auto;
+    min-width: 62px;
+    padding: .2rem .4rem;
+    font-size: .8rem;
+}
+
+.kpi-schedule-cell {
+    white-space: nowrap;
+}
+
 /* แถบแบ่งหน้าใต้ตาราง */
 .kpi-pager {
     display: flex;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace KpiReport.Web.Models
@@ -16,6 +17,12 @@ namespace KpiReport.Web.Models
         public string DepartmentName { get; set; }
 
         public bool IsActive { get; set; }
+
+        /// <summary>วันที่ของเดือนที่จะส่ง (1–31)</summary>
+        public byte SendDayOfMonth { get; set; }
+
+        /// <summary>ชั่วโมงที่จะส่ง (0–23) ตามเวลาเครื่องที่รันงาน</summary>
+        public byte SendHour { get; set; }
 
         /// <summary>true = ผูกกับบัญชีในระบบ (อีเมลตามบัญชีเสมอ)</summary>
         public bool IsLinkedToUser { get; set; }
@@ -35,6 +42,41 @@ namespace KpiReport.Web.Models
         public bool WillReceive
         {
             get { return IsActive && !LinkedUserMissing && !LinkedUserDisabled; }
+        }
+
+        /// <summary>เช่น "ทุกวันที่ 3 เวลา 08:00"</summary>
+        public string ScheduleText
+        {
+            get { return "ทุกวันที่ " + SendDayOfMonth + " เวลา " + SendHour.ToString("00") + ":00"; }
+        }
+
+        /// <summary>
+        /// รอบส่งถัดไปโดยประมาณ
+        ///
+        /// วันที่เกินจำนวนวันของเดือนนั้นจะถูกร่นลงมาเป็นวันสุดท้าย
+        /// (ตั้ง 31 ในเดือนกุมภาพันธ์ = วันที่ 28 หรือ 29)
+        /// ไม่งั้นผู้ที่ตั้ง "สิ้นเดือน" จะไม่ได้รับรายงานในเดือนที่สั้นกว่า
+        /// </summary>
+        public DateTime NextSendAt
+        {
+            get
+            {
+                DateTime now = DateTime.Now;
+                DateTime thisMonth = Occurrence(now.Year, now.Month);
+
+                if (now < thisMonth) return thisMonth;
+
+                DateTime next = now.AddMonths(1);
+                return Occurrence(next.Year, next.Month);
+            }
+        }
+
+        private DateTime Occurrence(int year, int month)
+        {
+            int daysInMonth = DateTime.DaysInMonth(year, month);
+            int day = SendDayOfMonth < 1 ? 1 : (SendDayOfMonth > daysInMonth ? daysInMonth : SendDayOfMonth);
+            int hour = SendHour > 23 ? 0 : SendHour;
+            return new DateTime(year, month, day, hour, 0, 0);
         }
 
         /// <summary>เหตุผลที่ไม่ได้รับ ให้ผู้ดูแลเห็นว่าเงียบเพราะอะไร</summary>
@@ -93,5 +135,10 @@ namespace KpiReport.Web.Models
 
         /// <summary>ว่าง = ทุกแผนก</summary>
         public int? DepartmentId { get; set; }
+
+        /// <summary>ค่าเริ่มต้นวันที่ 3 : เผื่อเวลาให้ ETL ปิดยอดเดือนก่อนหน้าเสร็จก่อน</summary>
+        public byte SendDayOfMonth { get; set; } = 3;
+
+        public byte SendHour { get; set; } = 8;
     }
 }

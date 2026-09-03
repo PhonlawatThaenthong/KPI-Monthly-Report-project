@@ -77,6 +77,26 @@
             </div>
 
             <div class="col-md-2 mb-3">
+                <label for="SendDayOfMonth">ส่งวันที่</label>
+                <select name="SendDayOfMonth" id="SendDayOfMonth" class="form-control">
+                    @for (int d = 1; d <= 31; d++)
+                    {
+                        <option value="@d" selected="@(d == 3)">@d</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2 mb-3">
+                <label for="SendHour">เวลา</label>
+                <select name="SendHour" id="SendHour" class="form-control">
+                    @for (int h = 0; h <= 23; h++)
+                    {
+                        <option value="@h" selected="@(h == 8)">@h.ToString("00"):00</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2 mb-3">
                 <button type="submit" class="btn-kpi" style="width:100%; justify-content:center;">เพิ่ม</button>
             </div>
         </div>
@@ -85,6 +105,9 @@
     <p class="kpi-subtitle" style="margin:0;">
         ผู้รับที่ผูกกับบัญชีในระบบจะใช้อีเมลของบัญชีนั้นเสมอ และหยุดรับรายงานเองเมื่อบัญชีถูกปิดใช้งาน —
         ไม่ต้องมาปิดซ้ำที่หน้านี้ ส่วนอีเมลภายนอกเหมาะกับผู้บริหารที่อยากได้แค่ไฟล์ ไม่ต้องมีบัญชีในระบบ
+        <br />
+        วันที่ 3 เป็นค่าเริ่มต้นเพราะเผื่อเวลาให้ ETL ปิดยอดเดือนก่อนหน้าเสร็จก่อน
+        ถ้าตั้งวันที่ 29–31 เดือนที่สั้นกว่าจะร่นลงมาเป็นวันสุดท้ายของเดือนนั้นให้อัตโนมัติ
     </p>
 </div>
 
@@ -101,6 +124,7 @@ else
                     <th>ผู้รับ</th>
                     <th>ประเภท</th>
                     <th>ขอบเขตข้อมูล</th>
+                    <th>เวลาส่ง</th>
                     <th>สถานะ</th>
                     <th style="text-align:right;">จัดการ</th>
                 </tr>
@@ -131,6 +155,34 @@ else
                             @if (!row.DepartmentId.HasValue)
                             {
                                 <span class="kpi-muted-cell"> (รวมแยกรายแผนก)</span>
+                            }
+                        </td>
+                        <td class="kpi-schedule-cell">
+                            @using (Html.BeginForm("Schedule", "ReportSubscriptions", FormMethod.Post, new { @class = "kpi-schedule-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", row.SubscriptionId)
+
+                                <select name="sendDayOfMonth" class="form-control" aria-label="วันที่ส่ง">
+                                    @for (int d = 1; d <= 31; d++)
+                                    {
+                                        <option value="@d" selected="@(d == row.SendDayOfMonth)">@d</option>
+                                    }
+                                </select>
+                                <select name="sendHour" class="form-control" aria-label="เวลาส่ง">
+                                    @for (int h = 0; h <= 23; h++)
+                                    {
+                                        <option value="@h" selected="@(h == row.SendHour)">@h.ToString("00"):00</option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn-kpi-sm">บันทึก</button>
+                            }
+
+                            @if (row.WillReceive)
+                            {
+                                <span class="kpi-muted-cell" style="display:block;margin-top:4px;">
+                                    รอบถัดไป @row.NextSendAt.ToString("d MMM yyyy HH:mm")
+                                </span>
                             }
                         </td>
                         <td>
