@@ -14,11 +14,13 @@
             <input type="search" name="q" value="@Model.Query" class="form-control"
                    placeholder="ค้นหาอีเมล" aria-label="Search users" />
             <button type="submit" class="btn-kpi-outline">Search</button>
-            @if (Model.IsFiltered)
-            {
-                <a class="btn-kpi-sm" href="@Url.Action("Index", "Users")">Clear</a>
-            }
         }
+
+        @if (Model.IsFiltered)
+        {
+            <a class="btn-kpi-sm" href="@Url.Action("Index", "Users")">Clear</a>
+        }
+
         <span class="kpi-divider"></span>
         <a class="btn-kpi" href="@Url.Action("Create", "Users")">&#43; New user</a>
     </div>
