@@ -374,6 +374,51 @@ input[type="radio"] {
     vertical-align: middle;
 }
 
+/* แถบแบ่งหน้าใต้ตาราง */
+.kpi-pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 12px;
+    font-size: .85rem;
+    color: var(--kpi-muted);
+}
+
+.kpi-pager-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.kpi-pager-page {
+    font-weight: 600;
+    color: var(--kpi-ink);
+}
+
+/* ปุ่มหน้าถัด/ก่อนหน้าที่กดไม่ได้ */
+.btn-kpi-sm.is-off {
+    color: #a8b3bf;
+    border-color: var(--kpi-border);
+    background: #f7f9fc;
+    cursor: default;
+}
+
+.kpi-empty {
+    background: var(--kpi-surface);
+    border: 1px dashed var(--kpi-border);
+    border-radius: var(--kpi-radius);
+    padding: 28px;
+    margin-top: 12px;
+    text-align: center;
+    color: var(--kpi-muted);
+}
+
+.kpi-toolbar input[type="search"] {
+    min-width: 210px;
+}
+
 .kpi-muted-cell {
     color: var(--kpi-muted);
     font-size: .85rem;

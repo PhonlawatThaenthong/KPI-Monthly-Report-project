@@ -39,11 +39,54 @@ namespace KpiReport.Web.Models
 
     public class UserListViewModel
     {
+        /// <summary>เฉพาะแถวของหน้าปัจจุบัน</summary>
         public List<UserRowViewModel> Users { get; set; } = new List<UserRowViewModel>();
 
+        /// <summary>คำค้นที่ผู้ใช้พิมพ์ (ค้นจากอีเมล)</summary>
+        public string Query { get; set; }
+
+        public int Page { get; set; } = 1;
+        public int PageSize { get; set; } = 20;
+
+        /// <summary>จำนวนแถวหลังกรองด้วยคำค้นแล้ว</summary>
+        public int TotalCount { get; set; }
+
+        /// <summary>จำนวนบัญชีทั้งหมดในระบบ ไม่สนใจคำค้น</summary>
+        public int TotalUsers { get; set; }
+
+        // สถิติ 3 ตัวนี้นับจากบัญชี "ทั้งหมด" ไม่ใช่เฉพาะหน้าที่เปิดอยู่
+        // ไม่งั้นตัวเลข Needs setup จะเปลี่ยนไปมาตามหน้าที่เลื่อนดู ซึ่งไร้ประโยชน์
         public int CountActive { get; set; }
         public int CountDisabled { get; set; }
         public int CountNeedsAttention { get; set; }
+
+        public bool IsFiltered
+        {
+            get { return !string.IsNullOrWhiteSpace(Query); }
+        }
+
+        public int TotalPages
+        {
+            get
+            {
+                if (PageSize <= 0 || TotalCount == 0) return 1;
+                return (TotalCount + PageSize - 1) / PageSize;
+            }
+        }
+
+        public bool HasPrevious { get { return Page > 1; } }
+        public bool HasNext { get { return Page < TotalPages; } }
+
+        /// <summary>ลำดับแถวแรกของหน้านี้ (นับจาก 1) ใช้แสดงข้อความ "1–20 จาก 57"</summary>
+        public int FirstRowNumber
+        {
+            get { return TotalCount == 0 ? 0 : (Page - 1) * PageSize + 1; }
+        }
+
+        public int LastRowNumber
+        {
+            get { return Math.Min(Page * PageSize, TotalCount); }
+        }
     }
 
     public class UserCreateViewModel

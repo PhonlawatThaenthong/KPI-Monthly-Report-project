@@ -6,9 +6,20 @@
 <div class="kpi-page-head">
     <div>
         <h2>User management</h2>
-        <p class="kpi-subtitle">@Model.Users.Count accounts &middot; administrators only</p>
+        <p class="kpi-subtitle">@Model.TotalUsers accounts &middot; administrators only</p>
     </div>
     <div class="kpi-toolbar">
+        @using (Html.BeginForm("Index", "Users", FormMethod.Get, new { @class = "kpi-toolbar", style = "margin:0;" }))
+        {
+            <input type="search" name="q" value="@Model.Query" class="form-control"
+                   placeholder="ค้นหาอีเมล" aria-label="Search users" />
+            <button type="submit" class="btn-kpi-outline">Search</button>
+            @if (Model.IsFiltered)
+            {
+                <a class="btn-kpi-sm" href="@Url.Action("Index", "Users")">Clear</a>
+            }
+        }
+        <span class="kpi-divider"></span>
         <a class="btn-kpi" href="@Url.Action("Create", "Users")">&#43; New user</a>
     </div>
 </div>
@@ -121,6 +132,49 @@
         </tbody>
     </table>
 </div>
+
+@if (Model.TotalCount == 0)
+{
+    <p class="kpi-empty">ไม่พบบัญชีที่ตรงกับ &ldquo;@Model.Query&rdquo;</p>
+}
+
+@if (Model.TotalCount > 0)
+{
+    <div class="kpi-pager">
+        <span class="kpi-pager-info">
+            แสดง @Model.FirstRowNumber&ndash;@Model.LastRowNumber จาก @Model.TotalCount
+            @if (Model.IsFiltered)
+            {
+                <text>(กรองจากทั้งหมด @Model.TotalUsers)</text>
+            }
+        </span>
+
+        @if (Model.TotalPages > 1)
+        {
+            <span class="kpi-pager-nav">
+                @if (Model.HasPrevious)
+                {
+                    <a class="btn-kpi-sm" href="@Url.Action("Index", "Users", new { q = Model.Query, page = Model.Page - 1 })">&larr; Previous</a>
+                }
+                else
+                {
+                    <span class="btn-kpi-sm is-off">&larr; Previous</span>
+                }
+
+                <span class="kpi-pager-page">หน้า @Model.Page / @Model.TotalPages</span>
+
+                @if (Model.HasNext)
+                {
+                    <a class="btn-kpi-sm" href="@Url.Action("Index", "Users", new { q = Model.Query, page = Model.Page + 1 })">Next &rarr;</a>
+                }
+                else
+                {
+                    <span class="btn-kpi-sm is-off">Next &rarr;</span>
+                }
+            </span>
+        }
+    </div>
+}
 
 <p class="kpi-subtitle" style="margin-top:14px;">
     บัญชีถูก "ปิดใช้งาน" ไม่ใช่ลบทิ้ง เพราะ audit log อ้างถึง UserId อยู่ —

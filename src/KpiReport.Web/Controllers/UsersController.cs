@@ -37,8 +37,22 @@ namespace KpiReport.Web.Controllers
         private static readonly DateTimeOffset DisabledUntil =
             new DateTimeOffset(new DateTime(9999, 1, 1, 0, 0, 0, DateTimeKind.Utc));
 
+        private const int PageSize = 20;
+
         private readonly UserAdminRepository _repo;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _db;
+
+        /// <summary>
+        /// context ของ Identity ใช้สำหรับ "อ่าน" รายชื่อผู้ใช้เป็นชุดเดียว
+        ///
+        /// การเขียน (สร้างบัญชี เปลี่ยน role รหัสผ่าน) ยังผ่าน UserManager เหมือนเดิม
+        /// เพราะมันดูแล hash และ security stamp ให้ — ที่นี่ใช้แค่ตอน query เท่านั้น
+        /// </summary>
+        private ApplicationDbContext Db
+        {
+            get { return _db ?? (_db = new ApplicationDbContext()); }
+        }
 
         public UsersController()
         {
@@ -56,36 +70,90 @@ namespace KpiReport.Web.Controllers
         // รายชื่อผู้ใช้
         // ===============================================================
 
-        // GET: /Users
-        public ActionResult Index()
+        // GET: /Users?q=somchai&page=2
+        public ActionResult Index(string q, int page = 1)
         {
+            // ---- อ่านผู้ใช้ทั้งหมดใน query เดียว ----
+            //
+            // เดิมโค้ดวน UserManager.GetRoles() ทีละคน = 1 + N รอบไป-กลับฐานข้อมูล
+            // IdentityUser มี navigation Roles อยู่แล้ว ดึงมาพร้อมกันทีเดียวได้
+            // ตอนนี้เหลือ 2 query คงที่ ไม่ว่าจะมีผู้ใช้กี่คน
+            //
+            // ดึงเฉพาะ 3 คอลัมน์ที่ใช้จริง ไม่ลากทั้ง entity มา
+            var roleNameById = Db.Roles.ToDictionary(r => r.Id, r => r.Name);
+
+            var rawUsers = Db.Users
+                .Select(u => new
+                {
+                    u.Id,
+                    u.UserName,
+                    u.LockoutEndDateUtc,
+                    RoleIds = u.Roles.Select(r => r.RoleId)
+                })
+                .OrderBy(u => u.UserName)
+                .ToList();
+
             var deptByUser = _repo.GetDepartmentByUser();
             string currentUserId = User.Identity.GetUserId();
 
-            var vm = new UserListViewModel();
+            var allRows = new List<UserRowViewModel>();
 
-            foreach (var user in UserManager.Users.OrderBy(u => u.UserName).ToList())
+            foreach (var u in rawUsers)
             {
-                DepartmentOption dept;
-                deptByUser.TryGetValue(user.Id, out dept);
+                string roleId = u.RoleIds.FirstOrDefault();
+                string roleName = null;
+                if (roleId != null) roleNameById.TryGetValue(roleId, out roleName);
 
-                var row = new UserRowViewModel
+                DepartmentOption dept;
+                deptByUser.TryGetValue(u.Id, out dept);
+
+                allRows.Add(new UserRowViewModel
                 {
-                    UserId = user.Id,
-                    Email = user.UserName,
-                    Role = UserManager.GetRoles(user.Id).FirstOrDefault(),
+                    UserId = u.Id,
+                    Email = u.UserName,
+                    Role = roleName,
                     DepartmentId = dept != null ? dept.DepartmentId : (int?)null,
                     DepartmentName = dept != null ? dept.DepartmentName : null,
-                    IsDisabled = IsDisabled(user.LockoutEndDateUtc),
-                    IsCurrentUser = user.Id == currentUserId
-                };
-
-                vm.Users.Add(row);
+                    IsDisabled = IsDisabled(u.LockoutEndDateUtc),
+                    IsCurrentUser = u.Id == currentUserId
+                });
             }
 
-            vm.CountActive = vm.Users.Count(u => !u.IsDisabled);
-            vm.CountDisabled = vm.Users.Count(u => u.IsDisabled);
-            vm.CountNeedsAttention = vm.Users.Count(u => u.NeedsAttention);
+            // ---- กรอง / แบ่งหน้า ----
+            //
+            // ทำในหน่วยความจำ ไม่ใช่ใน SQL โดยตั้งใจ:
+            // ข้อมูลทั้งชุดมาแล้วใน query เดียวและมีแค่ 3 คอลัมน์เล็ก ๆ
+            // ส่วนสถิติด้านบน (Needs setup ฯลฯ) ต้องนับจากทุกแถวอยู่ดี
+            // ถ้าวันหนึ่งผู้ใช้แตะหลักหมื่น ค่อยย้าย where/skip/take ลงไปที่ฐานข้อมูล
+            var visible = allRows;
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                string keyword = q.Trim();
+                visible = allRows
+                    .Where(r => r.Email != null &&
+                                r.Email.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .ToList();
+            }
+
+            var vm = new UserListViewModel
+            {
+                Query = q,
+                PageSize = PageSize,
+                TotalCount = visible.Count,
+                TotalUsers = allRows.Count,
+
+                // สถิตินับจากทุกบัญชี ไม่ผูกกับคำค้นหรือหน้าที่เปิดอยู่
+                CountActive = allRows.Count(r => !r.IsDisabled),
+                CountDisabled = allRows.Count(r => r.IsDisabled),
+                CountNeedsAttention = allRows.Count(r => r.NeedsAttention)
+            };
+
+            // กันหน้าเกินขอบ เช่นค้างอยู่หน้า 5 แล้วพิมพ์คำค้นจนเหลือหน้าเดียว
+            if (page < 1) page = 1;
+            if (page > vm.TotalPages) page = vm.TotalPages;
+            vm.Page = page;
+
+            vm.Users = visible.Skip((page - 1) * PageSize).Take(PageSize).ToList();
 
             return View(vm);
         }
@@ -338,9 +406,16 @@ namespace KpiReport.Web.Controllers
             return lockoutEndUtc.HasValue && lockoutEndUtc.Value > DateTime.UtcNow;
         }
 
+        /// <summary>
+        /// จำนวน Admin ที่ยังใช้งานได้ — ใช้กันไม่ให้ถอด/ปิด Admin คนสุดท้าย
+        ///
+        /// เดิมโหลด user ทั้งหมดแล้วถาม IsInRole ทีละคน (1 + N query)
+        /// ตอนนี้นับจากฝั่ง role ตรง ๆ เหลือ query เดียว
+        /// </summary>
         private int CountAdmins()
         {
-            return UserManager.Users.ToList().Count(u => UserManager.IsInRole(u.Id, "Admin"));
+            var adminRole = Db.Roles.FirstOrDefault(r => r.Name == "Admin");
+            return adminRole == null ? 0 : adminRole.Users.Count;
         }
 
         private void ValidateRoleAndDepartment(string role, int? departmentId)
@@ -387,10 +462,19 @@ namespace KpiReport.Web.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _userManager != null)
+            if (disposing)
             {
-                _userManager.Dispose();
-                _userManager = null;
+                if (_userManager != null)
+                {
+                    _userManager.Dispose();
+                    _userManager = null;
+                }
+
+                if (_db != null)
+                {
+                    _db.Dispose();
+                    _db = null;
+                }
             }
 
             base.Dispose(disposing);
