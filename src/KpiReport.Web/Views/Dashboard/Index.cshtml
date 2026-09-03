@@ -1,23 +1,60 @@
-@model KpiReport.Web.Models.DashboardViewModel
+﻿@model KpiReport.Web.Models.DashboardViewModel
 @using System.Linq
 @{
     ViewBag.Title = "Dashboard";
+
+    int totalKpi = Model.Kpis.Count;
+    int countGreen = Model.Kpis.Count(k => k.StatusFlag == "GREEN");
+    int countYellow = Model.Kpis.Count(k => k.StatusFlag == "YELLOW");
+    int countRed = Model.Kpis.Count(k => k.StatusFlag == "RED");
+
+    string scopeLabel = "All Departments";
+    if (Model.SelectedDepartmentId != -99)
+    {
+        var selected = Model.Departments != null
+            ? Model.Departments.FirstOrDefault(d => d.DepartmentId == Model.SelectedDepartmentId)
+            : null;
+        scopeLabel = selected != null ? selected.DepartmentName : "Your Department";
+    }
 }
 
-<h2>KPI Dashboard <small>@Model.MonthLabel</small></h2>
+<div class="kpi-page-head">
+    <div>
+        <h2>KPI Dashboard</h2>
+        <p class="kpi-subtitle">@Model.MonthLabel &middot; @scopeLabel</p>
+    </div>
 
-@if (Model.CanSwitchDepartment && Model.Departments != null)
+    <div class="kpi-toolbar">
+        @if (Model.CanSwitchDepartment && Model.Departments != null)
+        {
+            using (Html.BeginForm("Index", "Dashboard", FormMethod.Get, new { @class = "kpi-toolbar", style = "margin:0;" }))
+            {
+                <label for="departmentId">Department</label>
+                @Html.DropDownList("departmentId",
+                         new SelectList(Model.Departments, "DepartmentId", "DepartmentName", Model.SelectedDepartmentId),
+                         new { @class = "form-control", id = "departmentId", onchange = "this.form.submit()" })
+                @Html.Hidden("monthKey", Model.MonthKey)
+            }
+            <span class="kpi-divider"></span>
+        }
+
+        @if (Model.Kpis.Any())
+        {
+            <a class="btn-kpi-outline"
+               href="@Url.Action("ExportExcel", "Dashboard", new { monthKey = Model.MonthKey, departmentId = Model.SelectedDepartmentId })">
+                &#128202; Export Excel
+            </a>
+            <a class="btn-kpi"
+               href="@Url.Action("ExportPdf", "Dashboard", new { monthKey = Model.MonthKey, departmentId = Model.SelectedDepartmentId })">
+                &#128196; Export PDF
+            </a>
+        }
+    </div>
+</div>
+
+@if (TempData["ExportMessage"] != null)
 {
-    using (Html.BeginForm("Index", "Dashboard", FormMethod.Get, new { @class = "form-inline", style = "margin-bottom:20px;" }))
-    {
-        <div class="form-group">
-            <label style="margin-right:8px;">Department:</label>
-            @Html.DropDownList("departmentId",
-                     new SelectList(Model.Departments, "DepartmentId", "DepartmentName", Model.SelectedDepartmentId),
-                     new { @class = "form-control", onchange = "this.form.submit()" })
-        </div>
-        @Html.Hidden("monthKey", Model.MonthKey)
-    }
+    <div class="alert alert-info">@TempData["ExportMessage"]</div>
 }
 
 @if (!Model.Kpis.Any())
@@ -26,56 +63,101 @@
 }
 else
 {
-    <div class="row">
+    <div class="kpi-stat-row">
+        <div class="kpi-stat">
+            <p class="kpi-stat-label">Total KPIs</p>
+            <p class="kpi-stat-value">@totalKpi</p>
+        </div>
+        <div class="kpi-stat is-green">
+            <p class="kpi-stat-label">On Target</p>
+            <p class="kpi-stat-value">@countGreen</p>
+        </div>
+        <div class="kpi-stat is-yellow">
+            <p class="kpi-stat-label">Watch</p>
+            <p class="kpi-stat-value">@countYellow</p>
+        </div>
+        <div class="kpi-stat is-red">
+            <p class="kpi-stat-label">Below Target</p>
+            <p class="kpi-stat-value">@countRed</p>
+        </div>
+    </div>
+
+    <div class="row g-3">
         @foreach (var kpi in Model.Kpis)
         {
-            string panelClass = "panel-default";
-            if (kpi.StatusFlag == "GREEN") { panelClass = "panel-success"; }
-            else if (kpi.StatusFlag == "YELLOW") { panelClass = "panel-warning"; }
-            else if (kpi.StatusFlag == "RED") { panelClass = "panel-danger"; }
+            string statusClass = "status-default";
+            string badgeClass = "kpi-badge-default";
+            string badgeText = "N/A";
 
-            string momColor = "#777";
+            if (kpi.StatusFlag == "GREEN") { statusClass = "status-green"; badgeClass = "kpi-badge-green"; badgeText = "ON TARGET"; }
+            else if (kpi.StatusFlag == "YELLOW") { statusClass = "status-yellow"; badgeClass = "kpi-badge-yellow"; badgeText = "WATCH"; }
+            else if (kpi.StatusFlag == "RED") { statusClass = "status-red"; badgeClass = "kpi-badge-red"; badgeText = "BELOW"; }
+
+            string momColor = "#5c6b7a";
             string momArrow = "";
             if (kpi.MoMChangePct.HasValue)
             {
-                // Arrow direction depends on the KPI Direction, not just the sign.
-                // For DEFECT_RATE (lower is better), a drop (negative MoM) is an improvement -> green.
+                // ทิศทางลูกศรต้องดู Direction ของ KPI ไม่ใช่แค่เครื่องหมาย
+                // DEFECT_RATE (ยิ่งน้อยยิ่งดี) ค่าลดลง = ดีขึ้น จึงเป็นสีเขียว
                 bool isImprovement = kpi.Direction == "L"
                     ? kpi.MoMChangePct.Value < 0
                     : kpi.MoMChangePct.Value > 0;
 
-                momColor = isImprovement ? "#3c763d" : "#a94442";
+                momColor = isImprovement ? "#1a7f37" : "#b42318";
                 momArrow = kpi.MoMChangePct.Value >= 0 ? "&#9650;" : "&#9660;";
             }
 
-            <div class="col-md-6 col-lg-4" style="margin-bottom:20px;">
-                <div class="panel @panelClass">
-                    <div class="panel-heading">
-                        <strong>@kpi.KpiName</strong>
-                        <span class="pull-right">@kpi.Unit</span>
-                    </div>
-                    <div class="panel-body">
-                        <h2 style="margin-top:0;">
-                            @(kpi.ActualValue.HasValue ? kpi.ActualValue.Value.ToString("N" + kpi.DecimalPlaces) : "-")
-                        </h2>
-                        <p>
-                            Target:
-                            @(kpi.TargetValue.HasValue ? kpi.TargetValue.Value.ToString("N" + kpi.DecimalPlaces) : "-")
+            // แถบความคืบหน้าเทียบเป้า จำกัดไม่ให้ยาวเกิน 100% เพื่อไม่ให้การ์ดเพี้ยน
+            decimal barPct = 0m;
+            if (kpi.AchievementPct.HasValue)
+            {
+                barPct = kpi.AchievementPct.Value;
+                if (barPct < 0m) { barPct = 0m; }
+                if (barPct > 100m) { barPct = 100m; }
+            }
 
+            <div class="col-md-6 col-lg-4">
+                <div class="kpi-card @statusClass">
+                    <div class="kpi-header">
+                        <div>
+                            <span class="kpi-title">@kpi.KpiName</span>
+                            <span class="kpi-code">@kpi.KpiCode</span>
+                        </div>
+                        <span class="kpi-badge @badgeClass">@badgeText</span>
+                    </div>
+
+                    <div class="kpi-body">
+                        <p class="kpi-actual">
+                            @(kpi.ActualValue.HasValue ? kpi.ActualValue.Value.ToString("N" + kpi.DecimalPlaces) : "-")<span class="kpi-unit-inline">@kpi.Unit</span>
+                        </p>
+
+                        <div class="kpi-meta">
+                            <span>
+                                Target
+                                <strong>@(kpi.TargetValue.HasValue ? kpi.TargetValue.Value.ToString("N" + kpi.DecimalPlaces) : "-")</strong>
+                            </span>
+                            @if (kpi.AchievementPct.HasValue)
+                            {
+                                <span>Achv <strong>@kpi.AchievementPct.Value.ToString("N1")%</strong></span>
+                            }
                             @if (kpi.MoMChangePct.HasValue)
                             {
-                                <span style="color:@momColor; margin-left:8px;">
+                                <span class="kpi-mom" style="color:@momColor;">
                                     @Html.Raw(momArrow) @Math.Abs(kpi.MoMChangePct.Value).ToString("N1")% MoM
                                 </span>
                             }
-                        </p>
+                        </div>
+
+                        <div class="kpi-progress" title="Achievement vs target">
+                            <span style="width:@(barPct.ToString("0.#"))%;"></span>
+                        </div>
 
                         @if (!string.IsNullOrEmpty(kpi.FormulaText))
                         {
-                            <p class="text-muted small">@kpi.FormulaText</p>
+                            <p class="kpi-formula">@kpi.FormulaText</p>
                         }
 
-                        <div style="position:relative; height:160px;">
+                        <div class="kpi-chart-box">
                             <canvas id="chart_@kpi.KpiCode"></canvas>
                         </div>
                     </div>
@@ -107,18 +189,21 @@ else
                                     label: 'Actual',
                                     data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
                                         kpi.Trend.Select(t => t.ActualValue).ToList())),
-                                    borderColor: '#337ab7',
-                                    backgroundColor: 'rgba(51,122,183,0.1)',
+                                    borderColor: '#1b4d89',
+                                    backgroundColor: 'rgba(27,77,137,0.08)',
+                                    borderWidth: 2,
                                     fill: true,
-                                    tension: 0.2,
-                                    pointRadius: 2
+                                    tension: 0.25,
+                                    pointRadius: 2,
+                                    pointBackgroundColor: '#1b4d89'
                                 },
                                 {
                                     label: 'Target',
                                     data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
                                         kpi.Trend.Select(t => t.TargetValue).ToList())),
-                                    borderColor: '#999999',
-                                    borderDash: [5, 5],
+                                    borderColor: '#9aa8b6',
+                                    borderWidth: 1.5,
+                                    borderDash: [5, 4],
                                     fill: false,
                                     pointRadius: 0
                                 }
@@ -127,12 +212,30 @@ else
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
+                            interaction: { mode: 'index', intersect: false },
                             plugins: {
-                                legend: { display: true, labels: { boxWidth: 12, font: { size: 10 } } }
+                                legend: {
+                                    display: true,
+                                    align: 'end',
+                                    labels: { boxWidth: 10, boxHeight: 10, font: { size: 10 }, color: '#5c6b7a' }
+                                },
+                                tooltip: {
+                                    backgroundColor: '#0b2545',
+                                    padding: 8,
+                                    titleFont: { size: 11 },
+                                    bodyFont: { size: 11 }
+                                }
                             },
                             scales: {
-                                y: { beginAtZero: false, ticks: { font: { size: 9 } } },
-                                x: { ticks: { font: { size: 9 } } }
+                                y: {
+                                    beginAtZero: false,
+                                    grid: { color: '#eef1f6' },
+                                    ticks: { font: { size: 9 }, color: '#5c6b7a' }
+                                },
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { font: { size: 9 }, color: '#5c6b7a', maxRotation: 0, autoSkipPadding: 12 }
+                                }
                             }
                         }
                     });

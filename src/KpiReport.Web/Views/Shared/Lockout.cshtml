@@ -1,12 +1,14 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
-
-@{
-    ViewBag.Title = "Locked Out";
+﻿@{
+    ViewBag.Title = "Locked out";
 }
 
-<main>
-    <hgroup>
-        <h1 class="text-danger">Locked out.</h1>
-        <h2 class="text-danger">This account has been locked out, please try again later.</h2>
-    </hgroup>
-</main>
+<div class="kpi-auth">
+    <div class="kpi-panel" style="text-align:center;">
+        <h2>Account locked</h2>
+        <p class="kpi-subtitle" style="margin:8px 0 18px;">
+            This account has been locked after too many failed sign-in attempts.
+            Please try again later or contact the HR Analytics team.
+        </p>
+        <a class="btn-kpi-outline" href="@Url.Action("Login", "Account")">Back to sign in</a>
+    </div>
+</div>

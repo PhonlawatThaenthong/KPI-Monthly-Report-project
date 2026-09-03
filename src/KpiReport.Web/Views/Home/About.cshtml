@@ -1,9 +1,33 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <p>Use this area to provide additional information.</p>
-</main>
+<div class="kpi-page-head">
+    <div>
+        <h2>About</h2>
+        <p class="kpi-subtitle">@ViewBag.Message</p>
+    </div>
+</div>
+
+<div class="kpi-panel">
+    <h3>What this system does</h3>
+    <p>
+        The HR KPI Monitoring System collects monthly source files (attendance, downtime and cost),
+        validates and loads them through an ETL pipeline, calculates each KPI against its target,
+        and publishes the result to this dashboard.
+    </p>
+
+    <h3>Data flow</h3>
+    <p>
+        Source files &rarr; staging &rarr; core tables &rarr; KPI calculation &rarr; reporting views &rarr; dashboard and exports.
+        Only the reporting layer is exposed to the web application, which keeps the raw data
+        out of reach of the site.
+    </p>
+
+    <h3>Access</h3>
+    <p>
+        Access is controlled per role. A viewer is bound to a single department; managers and
+        administrators can switch between departments and export the full breakdown. Logins,
+        denied access attempts and exports are recorded in the audit log.
+    </p>
+</div>

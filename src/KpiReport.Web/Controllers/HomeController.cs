@@ -15,14 +15,14 @@ namespace KpiReport.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "How KPI figures are produced and who can see them";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Who to reach for access or data issues";
 
             return View();
         }

@@ -1,0 +1,731 @@
+﻿/* ============================================================
+   HR KPI System — Corporate theme (white / blue)
+   โหลดหลัง bootstrap.css และ dashboard.css ใน ~/Content/css bundle
+   ปรับสีทั้งระบบได้จากตัวแปรชุดเดียวด้านล่างนี้
+   ============================================================ */
+
+:root {
+    --kpi-navy: #0b2545;
+    --kpi-blue-dark: #13315c;
+    --kpi-blue: #1b4d89;
+    --kpi-blue-mid: #2b579a;
+    --kpi-blue-soft: #e8f0fb;
+    --kpi-blue-line: #c7d8ef;
+
+    --kpi-bg: #f4f6f9;
+    --kpi-surface: #ffffff;
+    --kpi-border: #dde3ea;
+
+    --kpi-ink: #1b2430;
+    --kpi-muted: #5c6b7a;
+
+    --kpi-green: #1a7f37;
+    --kpi-green-soft: #e7f5ec;
+    --kpi-amber: #9a6700;
+    --kpi-amber-soft: #fdf3d8;
+    --kpi-red: #b42318;
+    --kpi-red-soft: #fdeceb;
+
+    --kpi-radius: 6px;
+    --kpi-shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
+    --kpi-shadow-lg: 0 4px 12px rgba(16, 24, 40, .10);
+}
+
+/* ---------- พื้นฐาน ---------- */
+
+/* จัด body เป็นคอลัมน์ยืดเต็มจอ เพื่อดัน footer ไปติดขอบล่างเสมอ
+   ไม่งั้นหน้าที่เนื้อหาสั้น ๆ (เช่นหน้า Login) จะเหลือพื้นเทาโผล่ใต้ footer */
+html {
+    height: 100%;
+}
+
+body {
+    background-color: var(--kpi-bg);
+    color: var(--kpi-ink);
+    font-family: "Segoe UI", "Sarabun", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+a { color: var(--kpi-blue); text-decoration: none; }
+a:hover { color: var(--kpi-blue-dark); text-decoration: underline; }
+
+h1, h2, h3, h4 { color: var(--kpi-navy); font-weight: 600; letter-spacing: -.01em; }
+
+hr { border-color: var(--kpi-border); opacity: 1; }
+
+.body-content {
+    max-width: 1240px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 24px;
+    padding-bottom: 40px;
+    flex: 1 0 auto;   /* กินพื้นที่ที่เหลือทั้งหมด footer จะได้ถูกดันลงล่างสุด */
+}
+
+/* ---------- Navbar ---------- */
+
+.navbar-kpi {
+    background: linear-gradient(90deg, var(--kpi-navy) 0%, var(--kpi-blue-dark) 100%) !important;
+    border-bottom: 3px solid var(--kpi-blue-mid);
+    box-shadow: var(--kpi-shadow);
+    padding: .55rem 0;
+}
+
+.navbar-kpi .navbar-brand {
+    color: #fff !important;
+    font-weight: 600;
+    letter-spacing: .01em;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.navbar-kpi .navbar-brand::before {
+    content: "";
+    display: inline-block;
+    width: 6px; height: 20px;
+    border-radius: 2px;
+    background: #6ea8f0;
+}
+
+.navbar-kpi .nav-link {
+    color: rgba(255, 255, 255, .82) !important;
+    font-weight: 500;
+    padding: .4rem .85rem !important;
+    border-radius: var(--kpi-radius);
+    transition: background-color .15s ease, color .15s ease;
+}
+
+.navbar-kpi .nav-link:hover,
+.navbar-kpi .nav-link:focus {
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, .12);
+    text-decoration: none;
+}
+
+.navbar-kpi .navbar-nav { align-items: center; gap: .15rem; }
+.navbar-kpi .navbar-nav > li { list-style: none; }
+.navbar-kpi ul { margin-bottom: 0; padding-left: 0; }
+
+.navbar-kpi .navbar-toggler {
+    border-color: rgba(255, 255, 255, .35);
+}
+
+.navbar-kpi .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.85%29' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-kpi .kpi-user {
+    color: rgba(255, 255, 255, .95) !important;
+    font-weight: 500;
+}
+
+/* ---------- แถบหัวหน้า (page header) ---------- */
+
+.kpi-page-head {
+    background: var(--kpi-surface);
+    border: 1px solid var(--kpi-border);
+    border-left: 4px solid var(--kpi-blue);
+    border-radius: var(--kpi-radius);
+    box-shadow: var(--kpi-shadow);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.kpi-page-head h2 {
+    margin: 0;
+    font-size: 1.35rem;
+}
+
+.kpi-page-head .kpi-subtitle {
+    color: var(--kpi-muted);
+    font-size: .88rem;
+    margin: 2px 0 0;
+}
+
+.kpi-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.kpi-toolbar label {
+    color: var(--kpi-muted);
+    font-size: .85rem;
+    font-weight: 600;
+    margin: 0 6px 0 0;
+    white-space: nowrap;
+}
+
+.kpi-toolbar .form-control,
+.kpi-toolbar .form-select,
+.kpi-toolbar select {
+    border-color: var(--kpi-border);
+    border-radius: var(--kpi-radius);
+    min-width: 190px;
+    font-size: .9rem;
+    padding: .38rem .6rem;
+    color: var(--kpi-ink);
+    background-color: #fff;
+}
+
+/* ---------- ช่องกรอกข้อมูล ---------- */
+
+/* กำหนดกรอบเองทั้งหมด ไม่ปล่อยให้ bootstrap ทำ จะได้กรอบหนาเท่ากันทุกช่อง
+   ทั้งตอนปกติ ตอน focus และตอน validate ไม่ผ่าน */
+.form-control,
+.form-select,
+.kpi-toolbar select {
+    border: 1px solid var(--kpi-border);
+    border-radius: var(--kpi-radius);
+    background-color: #fff;
+    color: var(--kpi-ink);
+    box-shadow: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.form-control,
+.form-select {
+    padding: .5rem .75rem;
+    font-size: .93rem;
+    line-height: 1.45;
+    /* Content/Site.css ของ template MVC ตั้ง input,select,textarea { max-width: 280px }
+       ไว้ ทำให้ช่องกรอกสั้นกว่าปุ่มจนดูไม่ตรงกลางกล่อง — ปลดล็อกตรงนี้ */
+    width: 100%;
+    max-width: 100%;
+}
+
+.kpi-toolbar select,
+.kpi-toolbar .form-control {
+    width: auto;
+    max-width: none;
+}
+
+/* checkbox / radio ต้องไม่โดนยืดเต็มความกว้างตามกฎด้านบน */
+.form-check-input,
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1rem;
+    max-width: 1rem;
+}
+
+.form-control::placeholder {
+    color: #9aa8b6;
+    opacity: 1;
+}
+
+.kpi-toolbar select:focus,
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--kpi-blue-mid);
+    box-shadow: 0 0 0 3px rgba(43, 87, 154, .13);
+    outline: none;
+}
+
+.form-control:hover:not(:focus),
+.form-select:hover:not(:focus) {
+    border-color: var(--kpi-blue-line);
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #f6f8fa;
+    color: var(--kpi-muted);
+}
+
+/* ช่องที่ validate ไม่ผ่าน — ใช้กรอบหนาเท่าเดิม เปลี่ยนแค่สี */
+.form-control.input-validation-error,
+.form-control.is-invalid {
+    border-color: var(--kpi-red);
+    box-shadow: none;
+}
+
+.form-control.input-validation-error:focus,
+.form-control.is-invalid:focus {
+    border-color: var(--kpi-red);
+    box-shadow: 0 0 0 3px rgba(180, 35, 24, .13);
+}
+
+.field-validation-error,
+.text-danger {
+    color: var(--kpi-red) !important;
+    font-size: .8rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--kpi-blue);
+    border-color: var(--kpi-blue);
+}
+
+.form-check-input:focus {
+    border-color: var(--kpi-blue-mid);
+    box-shadow: 0 0 0 3px rgba(43, 87, 154, .13);
+}
+
+.form-check-label {
+    font-size: .9rem;
+    color: var(--kpi-ink);
+}
+
+.kpi-divider {
+    width: 1px;
+    height: 26px;
+    background: var(--kpi-border);
+}
+
+/* ---------- ปุ่ม ---------- */
+
+.btn-kpi,
+.btn-kpi-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .875rem;
+    font-weight: 600;
+    padding: .42rem .9rem;
+    border-radius: var(--kpi-radius);
+    border: 1px solid transparent;
+    transition: all .15s ease;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.btn-kpi {
+    background-color: var(--kpi-blue);
+    border-color: var(--kpi-blue);
+    color: #fff;
+}
+
+.btn-kpi:hover, .btn-kpi:focus {
+    background-color: var(--kpi-blue-dark);
+    border-color: var(--kpi-blue-dark);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: var(--kpi-shadow);
+}
+
+.btn-kpi-outline {
+    background-color: #fff;
+    border-color: var(--kpi-blue-line);
+    color: var(--kpi-blue);
+}
+
+.btn-kpi-outline:hover, .btn-kpi-outline:focus {
+    background-color: var(--kpi-blue-soft);
+    border-color: var(--kpi-blue-mid);
+    color: var(--kpi-blue-dark);
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--kpi-blue);
+    border-color: var(--kpi-blue);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--kpi-blue-dark);
+    border-color: var(--kpi-blue-dark);
+}
+
+.btn-outline-dark {
+    border-color: var(--kpi-blue-line);
+    color: var(--kpi-blue);
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--kpi-blue);
+    border-color: var(--kpi-blue);
+    color: #fff;
+}
+
+/* ---------- การ์ด KPI ---------- */
+
+.kpi-card {
+    background: var(--kpi-surface);
+    border: 1px solid var(--kpi-border);
+    border-top: 3px solid var(--kpi-blue-line);
+    border-radius: var(--kpi-radius);
+    box-shadow: var(--kpi-shadow);
+    height: 100%;
+    transition: box-shadow .18s ease, transform .18s ease;
+}
+
+.kpi-card:hover {
+    box-shadow: var(--kpi-shadow-lg);
+    transform: translateY(-1px);
+}
+
+.kpi-card.status-green  { border-top-color: var(--kpi-green); }
+.kpi-card.status-yellow { border-top-color: var(--kpi-amber); }
+.kpi-card.status-red    { border-top-color: var(--kpi-red); }
+.kpi-card.status-default { border-top-color: var(--kpi-blue-line); }
+
+.kpi-card .kpi-header {
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid var(--kpi-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.kpi-card .kpi-title {
+    font-weight: 600;
+    color: var(--kpi-navy);
+    font-size: .98rem;
+    line-height: 1.3;
+}
+
+.kpi-card .kpi-code {
+    display: block;
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--kpi-muted);
+    letter-spacing: .04em;
+    margin-top: 2px;
+}
+
+.kpi-card .kpi-body { padding: 14px 16px 16px; }
+
+.kpi-card .kpi-actual {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--kpi-navy);
+    font-variant-numeric: tabular-nums;
+}
+
+.kpi-card .kpi-unit-inline {
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--kpi-muted);
+    margin-left: 4px;
+}
+
+.kpi-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin: 8px 0 10px;
+    font-size: .84rem;
+    color: var(--kpi-muted);
+}
+
+.kpi-meta strong {
+    color: var(--kpi-ink);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.kpi-mom { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.kpi-formula {
+    color: var(--kpi-muted);
+    font-size: .76rem;
+    margin: 0 0 10px;
+    padding: 6px 9px;
+    background: #f7f9fc;
+    border-left: 2px solid var(--kpi-blue-line);
+    border-radius: 0 3px 3px 0;
+}
+
+.kpi-chart-box { position: relative; height: 155px; }
+
+/* ---------- แถบความคืบหน้า (Achievement) ---------- */
+
+.kpi-progress {
+    height: 6px;
+    background: #edf1f6;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 4px 0 12px;
+}
+
+.kpi-progress > span {
+    display: block;
+    height: 100%;
+    border-radius: 3px;
+    background: var(--kpi-blue-mid);
+}
+
+.status-green  .kpi-progress > span { background: var(--kpi-green); }
+.status-yellow .kpi-progress > span { background: var(--kpi-amber); }
+.status-red    .kpi-progress > span { background: var(--kpi-red); }
+
+/* ---------- Badge สถานะ ---------- */
+
+.kpi-badge {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+
+.kpi-badge-green  { background: var(--kpi-green-soft); color: var(--kpi-green); border-color: #bfe3cb; }
+.kpi-badge-yellow { background: var(--kpi-amber-soft); color: var(--kpi-amber); border-color: #ecd9a3; }
+.kpi-badge-red    { background: var(--kpi-red-soft);   color: var(--kpi-red);   border-color: #f4c4bf; }
+.kpi-badge-default{ background: #eef1f5; color: var(--kpi-muted); border-color: var(--kpi-border); }
+
+/* ---------- สรุปด้านบน ---------- */
+
+.kpi-stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.kpi-stat {
+    flex: 1 1 150px;
+    background: var(--kpi-surface);
+    border: 1px solid var(--kpi-border);
+    border-radius: var(--kpi-radius);
+    box-shadow: var(--kpi-shadow);
+    padding: 12px 16px;
+}
+
+.kpi-stat .kpi-stat-label {
+    font-size: .74rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--kpi-muted);
+    margin: 0 0 4px;
+}
+
+.kpi-stat .kpi-stat-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+    color: var(--kpi-navy);
+    font-variant-numeric: tabular-nums;
+}
+
+.kpi-stat.is-green .kpi-stat-value  { color: var(--kpi-green); }
+.kpi-stat.is-yellow .kpi-stat-value { color: var(--kpi-amber); }
+.kpi-stat.is-red .kpi-stat-value    { color: var(--kpi-red); }
+
+/* ---------- ตาราง ---------- */
+
+.kpi-table-wrap {
+    background: var(--kpi-surface);
+    border: 1px solid var(--kpi-border);
+    border-radius: var(--kpi-radius);
+    box-shadow: var(--kpi-shadow);
+    overflow: hidden;
+}
+
+.kpi-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    font-size: .88rem;
+}
+
+.kpi-table thead th {
+    background: var(--kpi-blue);
+    color: #fff;
+    font-weight: 600;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 10px 12px;
+    border: none;
+    white-space: nowrap;
+}
+
+.kpi-table tbody td {
+    padding: 9px 12px;
+    border-top: 1px solid var(--kpi-border);
+    vertical-align: middle;
+}
+
+.kpi-table tbody tr:nth-child(even) { background: #fafbfd; }
+.kpi-table tbody tr:hover { background: var(--kpi-blue-soft); }
+.kpi-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------- Card ทั่วไป / หน้า Login / Home ---------- */
+
+.kpi-panel {
+    background: var(--kpi-surface);
+    border: 1px solid var(--kpi-border);
+    border-radius: var(--kpi-radius);
+    box-shadow: var(--kpi-shadow);
+    padding: 24px;
+}
+
+.kpi-auth {
+    max-width: 430px;
+    margin: 40px auto;
+}
+
+.kpi-auth .kpi-auth-head {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.kpi-auth .kpi-auth-head h2 {
+    margin: 0 0 4px;
+    font-size: 1.4rem;
+}
+
+.kpi-auth .kpi-auth-head p {
+    color: var(--kpi-muted);
+    font-size: .88rem;
+    margin: 0;
+}
+
+.kpi-auth label {
+    font-weight: 600;
+    font-size: .85rem;
+    color: var(--kpi-ink);
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.kpi-auth .form-check-label { font-weight: 500; }
+
+/* ทุกแถวในฟอร์ม login กว้างเท่ากันและอยู่กึ่งกลางกล่อง
+   (ช่องกรอก ปุ่ม และ checkbox ขอบซ้าย-ขวาตรงกันหมด) */
+.kpi-auth form {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.kpi-auth .form-check {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.kpi-auth .form-check-input {
+    margin: 0;
+    flex: 0 0 auto;
+}
+
+.kpi-hero {
+    background: linear-gradient(135deg, var(--kpi-navy) 0%, var(--kpi-blue) 100%);
+    color: #fff;
+    border-radius: var(--kpi-radius);
+    box-shadow: var(--kpi-shadow-lg);
+    padding: 40px 36px;
+    margin-bottom: 24px;
+}
+
+.kpi-hero h1 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+
+.kpi-hero p {
+    color: rgba(255, 255, 255, .88);
+    font-size: 1rem;
+    max-width: 640px;
+    margin: 0 0 18px;
+}
+
+.kpi-hero .btn-kpi-outline { background: #fff; border-color: #fff; }
+
+.kpi-feature {
+    background: var(--kpi-surface);
+    border: 1px solid var(--kpi-border);
+    border-radius: var(--kpi-radius);
+    box-shadow: var(--kpi-shadow);
+    padding: 20px;
+    height: 100%;
+}
+
+.kpi-feature h3 {
+    font-size: 1.02rem;
+    margin: 0 0 8px;
+}
+
+.kpi-feature p {
+    color: var(--kpi-muted);
+    font-size: .88rem;
+    margin: 0;
+}
+
+/* ---------- Alert ---------- */
+
+.alert {
+    border-radius: var(--kpi-radius);
+    border-width: 1px;
+    font-size: .9rem;
+}
+
+.alert-warning {
+    background-color: var(--kpi-amber-soft);
+    border-color: #ecd9a3;
+    color: #6b4700;
+}
+
+.alert-info {
+    background-color: var(--kpi-blue-soft);
+    border-color: var(--kpi-blue-line);
+    color: var(--kpi-blue-dark);
+}
+
+.alert-danger {
+    background-color: var(--kpi-red-soft);
+    border-color: #f4c4bf;
+    color: var(--kpi-red);
+}
+
+/* ---------- Footer ---------- */
+
+.kpi-footer {
+    flex-shrink: 0;
+    border-top: 1px solid var(--kpi-border);
+    background: var(--kpi-surface);
+    margin-top: 0;
+    padding: 16px 0;
+    color: var(--kpi-muted);
+    font-size: .84rem;
+}
+
+.kpi-footer .container {
+    max-width: 1240px;
+}
+
+.kpi-footer p { margin: 0; }
+
+/* ---------- จอเล็ก ---------- */
+
+@media (max-width: 767px) {
+    .kpi-page-head { flex-direction: column; align-items: stretch; }
+    .kpi-toolbar { width: 100%; }
+    .kpi-toolbar .form-control,
+    .kpi-toolbar select { min-width: 0; flex: 1 1 auto; }
+    .kpi-card .kpi-actual { font-size: 1.7rem; }
+}
+
+/* ---------- สั่งพิมพ์ ---------- */
+
+@media print {
+    .navbar, .kpi-toolbar, .kpi-footer { display: none !important; }
+    body { background: #fff; }
+    .kpi-card, .kpi-panel, .kpi-table-wrap { box-shadow: none; break-inside: avoid; }
+}

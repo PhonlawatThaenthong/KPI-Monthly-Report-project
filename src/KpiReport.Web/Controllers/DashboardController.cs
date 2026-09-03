@@ -1,7 +1,10 @@
+﻿using System;
 using System.Configuration;
 using System.Linq;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using KpiReport.Web.Models;
+using KpiReport.Web.Reporting;
 using KpiReport.Web.Repositories;
 
 namespace KpiReport.Web.Controllers
@@ -84,6 +87,128 @@ namespace KpiReport.Web.Controllers
                   detail: $"DepartmentId={effectiveDepartmentId}");
 
             return View(vm);
+        }
+
+        // ===============================================================
+        // Export
+        // ===============================================================
+
+        /// <summary>
+        /// GET /Dashboard/ExportExcel?monthKey=202606&amp;departmentId=2
+        /// ไฟล์ .xlsx : sheet "Summary" + sheet "By Department" (เฉพาะคนที่เห็นได้ทุกแผนก)
+        /// </summary>
+        [HttpGet]
+        public ActionResult ExportExcel(int? monthKey, int? departmentId)
+        {
+            KpiReportData data = BuildReportData(monthKey, departmentId);
+            if (data == null)
+                return RedirectToIndexWithNoData(monthKey, departmentId);
+
+            byte[] bytes = ExcelReportBuilder.Build(data);
+
+            Audit("EXPORT_EXCEL", "Dashboard", data.MonthKey.ToString(),
+                  detail: "Scope=" + data.ScopeLabel + "; Rows=" + data.Rows.Count);
+
+            return File(bytes,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        data.FileName("xlsx"));
+        }
+
+        /// <summary>
+        /// GET /Dashboard/ExportPdf?monthKey=202606&amp;departmentId=2
+        /// ไฟล์ .pdf : สรุปสถานะ + ตาราง KPI + แยกรายแผนก (เฉพาะคนที่เห็นได้ทุกแผนก)
+        /// </summary>
+        [HttpGet]
+        public ActionResult ExportPdf(int? monthKey, int? departmentId)
+        {
+            KpiReportData data = BuildReportData(monthKey, departmentId);
+            if (data == null)
+                return RedirectToIndexWithNoData(monthKey, departmentId);
+
+            byte[] bytes = PdfReportBuilder.Build(data);
+
+            Audit("EXPORT_PDF", "Dashboard", data.MonthKey.ToString(),
+                  detail: "Scope=" + data.ScopeLabel + "; Rows=" + data.Rows.Count);
+
+            return File(bytes, "application/pdf", data.FileName("pdf"));
+        }
+
+        // ---------------------------------------------------------------
+
+        /// <summary>
+        /// เตรียมข้อมูลชุดเดียวให้ทั้ง Excel และ PDF ใช้ร่วมกัน
+        ///
+        /// สำคัญ: ใช้ ResolveDepartmentFilter ตัวเดียวกับหน้า Dashboard
+        /// ดังนั้น Viewer ของแผนก A จะ export ได้เฉพาะข้อมูลแผนก A
+        /// และจะไม่ได้ส่วน "By Department" เพราะ CanViewAllDepartments เป็น false
+        ///
+        /// คืน null เมื่อยังไม่มีข้อมูล KPI ในระบบ
+        /// </summary>
+        private KpiReportData BuildReportData(int? monthKey, int? departmentId)
+        {
+            int? latestMonth = _repo.GetLatestMonthKey();
+            if (latestMonth == null)
+                return null;
+
+            int resolvedMonthKey = monthKey ?? latestMonth.Value;
+
+            int? deptFilter = ResolveDepartmentFilter(departmentId);
+            int effectiveDepartmentId = deptFilter ?? -99;
+
+            var rows = _repo.GetDashboard(resolvedMonthKey, effectiveDepartmentId)
+                            .OrderBy(r => r.SortOrder)
+                            .ToList();
+
+            var data = new KpiReportData
+            {
+                MonthKey = resolvedMonthKey,
+                MonthLabel = rows.Any() ? rows.First().MonthLabel : resolvedMonthKey.ToString(),
+                ScopeLabel = ResolveScopeLabel(effectiveDepartmentId, rows),
+                GeneratedBy = CurrentUserName,
+                GeneratedAt = DateTime.Now,
+                Rows = rows
+            };
+
+            // ส่วนแยกรายแผนกให้เฉพาะคนที่มีสิทธิ์เห็นทุกแผนกเท่านั้น
+            if (CanViewAllDepartments)
+            {
+                var deptRows = _repo.GetByDepartment(resolvedMonthKey)
+                                    .OrderBy(r => r.DepartmentName)
+                                    .ThenBy(r => r.SortOrder)
+                                    .ToList();
+
+                if (deptRows.Count > 0)
+                    data.DepartmentRows = deptRows;
+            }
+
+            return data;
+        }
+
+        /// <summary>ชื่อขอบเขตที่จะพิมพ์บนหัวรายงาน</summary>
+        private string ResolveScopeLabel(int effectiveDepartmentId, List<KpiDashboardRow> rows)
+        {
+            if (effectiveDepartmentId == -99)
+                return "All Departments";
+
+            var named = rows.FirstOrDefault(r => !string.IsNullOrEmpty(r.DepartmentName));
+            if (named != null)
+                return named.DepartmentName;
+
+            if (CanViewAllDepartments && _repo != null)
+            {
+                var option = _repo.GetDepartmentOptions()
+                                  .FirstOrDefault(d => d.DepartmentId == effectiveDepartmentId);
+                if (option != null)
+                    return option.DepartmentName;
+            }
+
+            return "Department #" + effectiveDepartmentId;
+        }
+
+        private ActionResult RedirectToIndexWithNoData(int? monthKey, int? departmentId)
+        {
+            TempData["ExportMessage"] = "No KPI data available to export.";
+            return RedirectToAction("Index", new { monthKey = monthKey, departmentId = departmentId });
         }
     }
 }

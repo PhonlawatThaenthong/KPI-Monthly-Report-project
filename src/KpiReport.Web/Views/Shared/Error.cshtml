@@ -1,9 +1,14 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
-
-@{
+﻿@{
     ViewBag.Title = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
+<div class="kpi-auth">
+    <div class="kpi-panel" style="text-align:center;">
+        <h2>Something went wrong</h2>
+        <p class="kpi-subtitle" style="margin:8px 0 18px;">
+            An unexpected error occurred while processing your request.
+            The details have been recorded &mdash; please try again.
+        </p>
+        <a class="btn-kpi" href="@Url.Action("Index", "Dashboard")">Back to Dashboard</a>
+    </div>
+</div>

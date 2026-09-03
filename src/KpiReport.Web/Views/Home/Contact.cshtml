@@ -1,19 +1,35 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
+<div class="kpi-page-head">
+    <div>
+        <h2>Contact</h2>
+        <p class="kpi-subtitle">@ViewBag.Message</p>
+    </div>
+</div>
 
-    <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-    </address>
-</main>
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="kpi-panel">
+            <h3>System owner</h3>
+            <p>
+                HR Analytics Team<br />
+                Internal extension 1200
+            </p>
+            <p>
+                <strong>Support:</strong> <a href="mailto:hr-kpi-support@example.com">hr-kpi-support@example.com</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="kpi-panel">
+            <h3>Reporting a data issue</h3>
+            <p>
+                If a KPI looks wrong, include the KPI code, the department and the month
+                shown on the card. That is enough to trace the figure back through the
+                pipeline to its source file.
+            </p>
+        </div>
+    </div>
+</div>

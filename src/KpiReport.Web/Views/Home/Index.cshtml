@@ -1,33 +1,44 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 
 <main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
+    <section class="kpi-hero">
+        <h1>HR KPI Monitoring System</h1>
+        <p>
+            Monthly HR and operations KPIs consolidated from attendance, downtime and cost sources
+            into one reviewed figure per department &mdash; ready to read, compare and export.
+        </p>
+        <a class="btn-kpi-outline" href="@Url.Action("Index", "Dashboard")">Open Dashboard &raquo;</a>
     </section>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="kpi-feature">
+                <h3>One monthly figure</h3>
+                <p>
+                    Each KPI is calculated once by the ETL pipeline and stored, so the dashboard,
+                    the Excel file and the PDF always show the same number.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="kpi-feature">
+                <h3>Target and trend</h3>
+                <p>
+                    Every card shows actual against target, achievement, month-over-month change
+                    and a twelve-month trend line.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="kpi-feature">
+                <h3>Scoped by permission</h3>
+                <p>
+                    Viewers see only their own department. Managers and administrators see the
+                    company view plus the department breakdown.
+                </p>
+            </div>
+        </div>
     </div>
 </main>

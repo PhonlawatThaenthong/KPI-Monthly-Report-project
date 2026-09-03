@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
@@ -85,6 +85,39 @@ namespace KpiReport.Web.Repositories
                 var rows = conn.Query<DepartmentOption>(sql);
                 return new List<DepartmentOption>(rows);
             }
+        }
+
+        /// <summary>
+        /// KPI ของทุกแผนกในเดือนที่ระบุ ใช้ทำ sheet/section "By Department" ตอน export
+        ///
+        /// วนเรียก rpt.usp_GetKpiDashboard ทีละแผนกแทนการเขียน SQL ใหม่
+        /// เพราะ proc ตัวนี้คือแหล่งความจริงเดียวของการคำนวณสถานะ/Achievement
+        /// ถ้าเขียน query แยกจะเสี่ยงให้ตัวเลขใน export ไม่ตรงกับหน้า Dashboard
+        ///
+        /// ผู้เรียกต้องตรวจสิทธิ์มาก่อนแล้วว่าเห็นได้ทุกแผนก (ดู CanViewAllDepartments)
+        /// </summary>
+        public List<KpiDashboardRow> GetByDepartment(int monthKey)
+        {
+            var result = new List<KpiDashboardRow>();
+
+            foreach (var dept in GetDepartmentOptions())
+            {
+                // -99 = แถว "ทุกแผนก" ซึ่งเป็นภาพรวม ไม่ใช่แผนกจริง
+                if (dept.DepartmentId == -99) continue;
+
+                foreach (var row in GetDashboard(monthKey, dept.DepartmentId))
+                {
+                    // proc บางเส้นทางไม่ได้คืนชื่อแผนกมาด้วย เติมจาก dropdown ให้ครบ
+                    if (string.IsNullOrEmpty(row.DepartmentName))
+                        row.DepartmentName = dept.DepartmentName;
+                    if (row.DepartmentId == 0)
+                        row.DepartmentId = dept.DepartmentId;
+
+                    result.Add(row);
+                }
+            }
+
+            return result;
         }
     }
 }
