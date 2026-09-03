@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
 using KpiReport.Web.Infrastructure;
 using KpiReport.Web.Models;
+using KpiReport.Web.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -25,6 +27,7 @@ namespace KpiReport.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private UserAdminRepository _repo;
 
         public ManageController()
         {
@@ -46,6 +49,15 @@ namespace KpiReport.Web.Controllers
         {
             get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
             private set { _userManager = value; }
+        }
+
+        private UserAdminRepository Repo
+        {
+            get
+            {
+                return _repo ?? (_repo = new UserAdminRepository(
+                    ConfigurationManager.ConnectionStrings["KpiDb"].ConnectionString));
+            }
         }
 
         // GET: /Manage/Index
@@ -88,6 +100,10 @@ namespace KpiReport.Web.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
+
+                // เจ้าตัวตั้งรหัสเองแล้ว ปลดธงบังคับเปลี่ยนออก
+                // ตั้งแต่จุดนี้ไปมีแต่เขาที่รู้รหัส แม้แต่ Admin ที่เพิ่ง reset ให้ก็ไม่รู้
+                Repo.SetMustChangePassword(userId, false, User.Identity.Name);
 
                 AuditLogger.Write("PASSWORD_CHANGED",
                     userId: userId,

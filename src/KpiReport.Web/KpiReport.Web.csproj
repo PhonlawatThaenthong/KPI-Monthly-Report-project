@@ -253,6 +253,7 @@
     <Compile Include="Infrastructure\AuditLogger.cs" />
     <Compile Include="Infrastructure\AuthSettings.cs" />
     <Compile Include="Infrastructure\IdentitySeeder.cs" />
+    <Compile Include="Infrastructure\RequirePasswordChangeFilter.cs" />
     <Compile Include="Infrastructure\UserContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DashboardViewModels.cs" />

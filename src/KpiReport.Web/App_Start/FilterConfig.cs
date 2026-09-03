@@ -18,6 +18,9 @@ namespace KpiReport.Web
             {
                 filters.Add(new RequireHttpsAttribute());
             }
+
+            // ผู้ใช้ที่ใช้รหัสที่ Admin ตั้งให้ ต้องเปลี่ยนรหัสก่อนทำอย่างอื่น
+            filters.Add(new RequirePasswordChangeFilter());
         }
     }
 }

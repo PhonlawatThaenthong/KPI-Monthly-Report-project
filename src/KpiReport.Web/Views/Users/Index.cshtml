@@ -108,6 +108,10 @@
                         {
                             <span class="kpi-badge kpi-badge-red">DISABLED</span>
                         }
+                        else if (user.MustChangePassword)
+                        {
+                            <span class="kpi-badge kpi-badge-yellow" title="ยังใช้รหัสที่ผู้ดูแลตั้งให้">TEMP PASSWORD</span>
+                        }
                         else
                         {
                             <span class="kpi-badge kpi-badge-green">ACTIVE</span>

@@ -23,6 +23,12 @@ namespace KpiReport.Web.Models
         public bool IsCurrentUser { get; set; }
 
         /// <summary>
+        /// true = ยังใช้รหัสที่ Admin ตั้งให้อยู่ ยังไม่ได้เปลี่ยนเอง
+        /// ระหว่างนี้ Admin ยังรู้รหัสของบัญชีนี้ ควรตามให้เจ้าตัวเข้ามาเปลี่ยน
+        /// </summary>
+        public bool MustChangePassword { get; set; }
+
+        /// <summary>
         /// Viewer ที่ยังไม่ผูกแผนก จะ login ได้แต่ไม่เห็นข้อมูลอะไรเลย
         /// (UserContext คืน -999 เมื่อหาแผนกไม่เจอ) ต้องเตือนให้เห็นในตาราง
         /// </summary>

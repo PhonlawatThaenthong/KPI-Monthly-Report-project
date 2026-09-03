@@ -94,6 +94,7 @@ namespace KpiReport.Web.Controllers
                 .ToList();
 
             var deptByUser = _repo.GetDepartmentByUser();
+            var pendingPasswordChange = _repo.GetMustChangePasswordUserIds();
             string currentUserId = User.Identity.GetUserId();
 
             var allRows = new List<UserRowViewModel>();
@@ -115,7 +116,8 @@ namespace KpiReport.Web.Controllers
                     DepartmentId = dept != null ? dept.DepartmentId : (int?)null,
                     DepartmentName = dept != null ? dept.DepartmentName : null,
                     IsDisabled = IsDisabled(u.LockoutEndDateUtc),
-                    IsCurrentUser = u.Id == currentUserId
+                    IsCurrentUser = u.Id == currentUserId,
+                    MustChangePassword = pendingPasswordChange.Contains(u.Id)
                 });
             }
 
@@ -197,6 +199,9 @@ namespace KpiReport.Web.Controllers
 
             UserManager.AddToRole(user.Id, model.Role);
             _repo.SetDepartment(user.Id, model.Role == "Viewer" ? model.DepartmentId : null);
+
+            // รหัสนี้คุณเป็นคนตั้ง ไม่ใช่เจ้าของบัญชี — บังคับให้เขาเปลี่ยนเองตอนเข้าครั้งแรก
+            _repo.SetMustChangePassword(user.Id, true, User.Identity.Name);
 
             Audit("USER_CREATED", user.Id,
                   model.Email + " · role=" + model.Role + " · dept=" + DescribeDept(model.DepartmentId));
@@ -332,6 +337,9 @@ namespace KpiReport.Web.Controllers
                 model.Email = user.UserName;
                 return View(model);
             }
+
+            // รหัสที่เพิ่งตั้งให้ต้องใช้ได้ครั้งเดียว เจ้าตัวต้องเปลี่ยนเองทันทีที่เข้ามา
+            _repo.SetMustChangePassword(user.Id, true, User.Identity.Name);
 
             // เตะทุก session เดิมของบัญชีนี้ออก
             UserManager.UpdateSecurityStamp(user.Id);

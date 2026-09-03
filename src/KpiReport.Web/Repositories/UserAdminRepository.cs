@@ -122,5 +122,72 @@ namespace KpiReport.Web.Repositories
                 tx.Commit();
             }
         }
+
+        // ---------------------------------------------------------------
+        // ธงบังคับเปลี่ยนรหัสผ่าน (meta.UserSecurity)
+        // ---------------------------------------------------------------
+
+        /// <summary>
+        /// ตั้ง/ปลดธง "ต้องเปลี่ยนรหัสผ่านก่อนใช้งาน"
+        ///
+        /// ตั้งเป็น true ทุกครั้งที่ Admin เป็นคนกำหนดรหัสให้ (สร้างบัญชี / reset)
+        /// ปลดเป็น false เมื่อเจ้าตัวเปลี่ยนรหัสด้วยตัวเองสำเร็จ
+        ///
+        /// ผลคือรหัสที่ Admin รู้ใช้เข้าระบบได้ครั้งเดียว จากนั้นมีแต่เจ้าของบัญชี
+        /// ที่รู้รหัสจริง — audit log จึงยังชี้ตัวคนทำได้อย่างมีน้ำหนัก
+        /// </summary>
+        public void SetMustChangePassword(string userId, bool value, string setByUserName)
+        {
+            const string sql = @"
+                MERGE meta.UserSecurity AS target
+                USING (SELECT @UserId AS UserId) AS source
+                    ON target.UserId = source.UserId
+                WHEN MATCHED THEN
+                    UPDATE SET MustChangePassword = @Value,
+                               SetByUserName      = @SetBy,
+                               UpdatedAt          = SYSDATETIME()
+                WHEN NOT MATCHED THEN
+                    INSERT (UserId, MustChangePassword, SetByUserName)
+                    VALUES (@UserId, @Value, @SetBy);";
+
+            using (var conn = Open())
+            {
+                conn.Execute(sql, new { UserId = userId, Value = value, SetBy = setByUserName });
+            }
+        }
+
+        /// <summary>
+        /// ถูกเรียกทุก request ของผู้ใช้ที่ login อยู่ (ผ่าน RequirePasswordChangeFilter)
+        /// จึงตั้งใจให้เป็น query เล็กที่สุด: อ่านค่าเดียวด้วย primary key
+        ///
+        /// ทางเลือกคือฝังไว้ใน claim ตอน sign in จะไม่ต้องแตะฐานข้อมูลเลย
+        /// แต่ต้องระวังเรื่อง claim ค้างเมื่อ Admin ตั้งธงตอนผู้ใช้ยัง login อยู่
+        /// สำหรับระบบภายในขนาดนี้ อ่านตรง ๆ ตรงไปตรงมากว่าและถูกต้องเสมอ
+        /// </summary>
+        public bool MustChangePassword(string userId)
+        {
+            using (var conn = Open())
+            {
+                return conn.QueryFirstOrDefault<bool>(@"
+                    SELECT MustChangePassword
+                    FROM meta.UserSecurity
+                    WHERE UserId = @UserId",
+                    new { UserId = userId });
+            }
+        }
+
+        /// <summary>UserId ทั้งหมดที่ยังติดธงอยู่ — ใช้ทำเครื่องหมายในตารางรายชื่อ</summary>
+        public HashSet<string> GetMustChangePasswordUserIds()
+        {
+            using (var conn = Open())
+            {
+                var ids = conn.Query<string>(@"
+                    SELECT UserId
+                    FROM meta.UserSecurity
+                    WHERE MustChangePassword = 1");
+
+                return new HashSet<string>(ids);
+            }
+        }
     }
 }
