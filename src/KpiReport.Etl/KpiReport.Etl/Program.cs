@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using KpiReport.Etl.Db;
 using KpiReport.Etl.Infrastructure;
+using KpiReport.Etl.Reports;
 using KpiReport.Etl.Sources;
 
 namespace KpiReport.Etl
@@ -18,6 +19,11 @@ namespace KpiReport.Etl
     ///   KpiReport.Etl.exe cost            โหลด+แปลงเฉพาะ Excel ต้นทุน
     ///   KpiReport.Etl.exe kpi 202601      คำนวณ KPI เฉพาะเดือนที่ระบุ
     ///   KpiReport.Etl.exe kpi-all         คำนวณ KPI ทุกเดือนที่มีข้อมูล
+    ///
+    ///   KpiReport.Etl.exe send-report               ส่งรายงานเดือนล่าสุดทางอีเมล
+    ///   KpiReport.Etl.exe send-report 202606        ส่งรายงานเดือนที่ระบุ
+    ///   KpiReport.Etl.exe send-report --dry-run     ลองดูว่าจะส่งอะไรให้ใคร ไม่ส่งจริง
+    ///   KpiReport.Etl.exe send-report 202606 --force ส่งซ้ำแม้เคยส่งสำเร็จไปแล้ว
     /// </summary>
     public static class Program
     {
@@ -83,6 +89,9 @@ namespace KpiReport.Etl
                         Console.WriteLine(">> คำนวณ KPI ทุกเดือนเสร็จแล้ว");
                         break;
 
+                    case "send-report":
+                        return RunSendReport(args);
+
                     default:
                         PrintUsage();
                         return 1;
@@ -102,6 +111,57 @@ namespace KpiReport.Etl
         private static void PrintUsage()
         {
             Console.WriteLine("คำสั่งที่ใช้ได้: run-all | production | downtime | cost | attendance | kpi <yyyyMM> | kpi-all");
+            Console.WriteLine("                send-report [yyyyMM] [--dry-run] [--force]");
+        }
+
+        // =========================================================
+        // SEND-REPORT — ส่งรายงาน KPI รายเดือนเป็น PDF ทางอีเมล
+        //
+        // คืน exit code = จำนวนฉบับที่ล้มเหลว (0 = สำเร็จหมด)
+        // ตั้ง Task Scheduler ให้แจ้งเตือนเมื่อ exit code ไม่ใช่ 0 ได้เลย
+        // =========================================================
+        private static int RunSendReport(string[] args)
+        {
+            Console.WriteLine("== ส่งรายงาน KPI รายเดือนทางอีเมล ==");
+
+            bool dryRun = args.Any(a => a.Equals("--dry-run", StringComparison.OrdinalIgnoreCase));
+            bool force = args.Any(a => a.Equals("--force", StringComparison.OrdinalIgnoreCase));
+
+            int? monthKey = null;
+            foreach (string arg in args.Skip(1))
+            {
+                int parsed;
+                if (int.TryParse(arg, out parsed))
+                {
+                    monthKey = parsed;
+                    break;
+                }
+            }
+
+            string connStr = ConfigurationManager.ConnectionStrings["KpiDb"].ConnectionString;
+
+            try
+            {
+                var job = new MonthlyReportJob(connStr);
+                int failed = job.Run(monthKey, dryRun, force);
+
+                if (failed > 0)
+                {
+                    Console.Error.WriteLine(">> มี " + failed + " ฉบับที่ส่งไม่สำเร็จ ดูรายละเอียดที่ meta.ReportDeliveryLog");
+                    return failed;
+                }
+
+                Console.WriteLine(">> เสร็จสมบูรณ์");
+                return 0;
+            }
+            catch (System.Configuration.ConfigurationErrorsException ex)
+            {
+                // แยกกรณีตั้งค่าไม่ครบออกมา เพราะเป็นความผิดพลาดที่แก้ได้ทันที
+                // ไม่ควรทำให้ดูเหมือนระบบพัง
+                Console.Error.WriteLine("   [ตั้งค่าไม่ครบ] " + ex.Message);
+                Console.Error.WriteLine("   ตรวจ App.config: appSettings 'Report:FromAddress' และ <system.net><mailSettings>");
+                return 1;
+            }
         }
 
         // =========================================================

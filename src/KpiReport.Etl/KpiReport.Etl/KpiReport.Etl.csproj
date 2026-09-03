@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -36,6 +36,19 @@
     <Reference Include="ClosedXML, Version=0.105.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
       <HintPath>..\packages\ClosedXML.0.105.0\lib\netstandard2.0\ClosedXML.dll</HintPath>
     </Reference>
+    <Reference Include="MigraDoc.DocumentObjectModel, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.5147\lib\net20\MigraDoc.DocumentObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.5147\lib\net20\MigraDoc.Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="ClosedXML.Parser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1d5f7376574c51ec, processorArchitecture=MSIL">
       <HintPath>..\packages\ClosedXML.Parser.2.0.0\lib\netstandard2.0\ClosedXML.Parser.dll</HintPath>
     </Reference>
@@ -98,6 +111,24 @@
     <Compile Include="Models\AttendanceRawRow.cs" />
     <Compile Include="Models\CostRawRow.cs" />
     <Compile Include="Models\DowntimeRawRow.cs" />
+    <Compile Include="Mail\SmtpMailSender.cs" />
+    <Compile Include="Reports\MonthlyReportJob.cs" />
+    <Compile Include="Reports\ReportRepository.cs" />
+    <Compile Include="Reports\ReportSubscription.cs" />
+    <!-- ใช้ไฟล์ชุดเดียวกับเว็บโดยไม่ copy: แก้ที่เดียวมีผลทั้งเว็บและอีเมล
+         ตัวเลขในไฟล์แนบจึงตรงกับหน้า Dashboard เสมอ -->
+    <Compile Include="..\..\KpiReport.Web\Models\KpiDashboardRow.cs">
+      <Link>Shared\KpiDashboardRow.cs</Link>
+    </Compile>
+    <Compile Include="..\..\KpiReport.Web\Repositories\KpiRepository.cs">
+      <Link>Shared\KpiRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\..\KpiReport.Web\Reporting\KpiReportData.cs">
+      <Link>Shared\KpiReportData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\KpiReport.Web\Reporting\PdfReportBuilder.cs">
+      <Link>Shared\PdfReportBuilder.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\AttendanceCsvReader.cs" />
