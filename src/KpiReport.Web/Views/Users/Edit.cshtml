@@ -1,0 +1,109 @@
+﻿@model KpiReport.Web.Models.UserEditViewModel
+@{
+    ViewBag.Title = "Edit user";
+}
+
+<div class="kpi-page-head">
+    <div>
+        <h2>@Model.Email</h2>
+        <p class="kpi-subtitle">
+            @if (Model.IsDisabled)
+            {
+                <span class="kpi-badge kpi-badge-red">DISABLED</span>
+            }
+            else
+            {
+                <span class="kpi-badge kpi-badge-green">ACTIVE</span>
+            }
+            @if (Model.IsCurrentUser)
+            {
+                <span style="margin-left:8px;">นี่คือบัญชีของคุณเอง</span>
+            }
+        </p>
+    </div>
+    <div class="kpi-toolbar">
+        <a class="btn-kpi-outline" href="@Url.Action("Index", "Users")">Back to users</a>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-7">
+        <div class="kpi-panel">
+            @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.UserId)
+                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.Role)
+                    @Html.DropDownListFor(m => m.Role,
+                        new SelectList(new[] { "Admin", "Manager", "Viewer" }, Model.Role),
+                        new { @class = "form-control", id = "roleSelect", disabled = Model.IsCurrentUser ? "disabled" : null })
+                    @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
+
+                    @if (Model.IsCurrentUser)
+                    {
+                        @Html.HiddenFor(m => m.Role)
+                        <p class="kpi-subtitle" style="margin-top:6px;">
+                            เปลี่ยนสิทธิ์ของตัวเองไม่ได้ — ให้ Admin คนอื่นเป็นคนเปลี่ยนให้
+                        </p>
+                    }
+                </div>
+
+                <div class="mb-3" id="departmentRow">
+                    @Html.LabelFor(m => m.DepartmentId)
+                    @Html.DropDownListFor(m => m.DepartmentId,
+                        new SelectList(Model.Departments, "DepartmentId", "DepartmentName", Model.DepartmentId),
+                        "— เลือกแผนก —",
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.DepartmentId, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn-kpi">Save changes</button>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="kpi-panel">
+            <h3>Other actions</h3>
+            <p class="kpi-subtitle" style="margin-bottom:12px;">
+                <a href="@Url.Action("ResetPassword", "Users", new { id = Model.UserId })">Reset this user's password</a>
+            </p>
+
+            @if (!Model.IsCurrentUser)
+            {
+                using (Html.BeginForm("ToggleActive", "Users", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", Model.UserId)
+                    <button type="submit" class="btn-kpi-sm @(Model.IsDisabled ? "" : "is-danger")">
+                        @(Model.IsDisabled ? "Enable account" : "Disable account")
+                    </button>
+                }
+            }
+
+            <h3 style="margin-top:20px;">What changes take effect</h3>
+            <p class="kpi-subtitle">
+                Saving a new role or department signs the user out of every device, so the new
+                permissions apply on their next sign-in rather than up to 15 minutes later.
+            </p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        (function () {
+            var role = document.getElementById('roleSelect');
+            var row = document.getElementById('departmentRow');
+            if (!role || !row) { return; }
+
+            function sync() { row.style.display = role.value === 'Viewer' ? '' : 'none'; }
+            role.addEventListener('change', sync);
+            sync();
+        })();
+    </script>
+}

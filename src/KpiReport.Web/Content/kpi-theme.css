@@ -328,6 +328,57 @@ input[type="radio"] {
     text-decoration: none;
 }
 
+/* ปุ่มเล็กในตาราง (แก้ไข / รีเซ็ตรหัส / ปิดใช้งาน) */
+.btn-kpi-sm {
+    display: inline-flex;
+    align-items: center;
+    font-size: .78rem;
+    font-weight: 600;
+    padding: .25rem .6rem;
+    border-radius: 4px;
+    border: 1px solid var(--kpi-blue-line);
+    background: #fff;
+    color: var(--kpi-blue);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s ease;
+}
+
+.btn-kpi-sm:hover, .btn-kpi-sm:focus {
+    background: var(--kpi-blue-soft);
+    border-color: var(--kpi-blue-mid);
+    color: var(--kpi-blue-dark);
+    text-decoration: none;
+}
+
+.btn-kpi-sm.is-danger {
+    border-color: #f0c2bd;
+    color: var(--kpi-red);
+}
+
+.btn-kpi-sm.is-danger:hover, .btn-kpi-sm.is-danger:focus {
+    background: var(--kpi-red-soft);
+    border-color: var(--kpi-red);
+    color: var(--kpi-red);
+}
+
+.kpi-row-actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.kpi-row-actions > *,
+.kpi-row-actions form {
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.kpi-muted-cell {
+    color: var(--kpi-muted);
+    font-size: .85rem;
+}
+
 .btn-primary {
     background-color: var(--kpi-blue);
     border-color: var(--kpi-blue);

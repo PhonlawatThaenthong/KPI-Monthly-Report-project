@@ -13,7 +13,7 @@ namespace KpiReport.Web.Controllers
     /// จัดการการเข้าสู่ระบบของเว็บภายใน
     ///
     /// ระบบนี้ตั้งใจให้มีทางเข้าออกทางเดียว: Login / LogOff
-    /// และให้ Admin เป็นคนสร้างบัญชีให้เท่านั้น (Register ต้องเป็น role Admin)
+    /// การสร้างและจัดการบัญชีทั้งหมดอยู่ที่ UsersController (Admin เท่านั้น)
     ///
     /// action ที่มากับ template ของ ASP.NET แต่ระบบนี้ไม่ได้ใช้ ถูกตัดออกทั้งหมด
     /// (ForgotPassword, ResetPassword, ConfirmEmail, SendCode, VerifyCode,
@@ -119,50 +119,6 @@ namespace KpiReport.Web.Controllers
 
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Login", "Account");
-        }
-
-        // ---------------------------------------------------------------
-        // สร้างบัญชีใหม่ — Admin เท่านั้น
-        // ---------------------------------------------------------------
-
-        // GET: /Account/Register
-        [Authorize(Roles = "Admin")]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        // POST: /Account/Register
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-            var result = await UserManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
-            {
-                // ห้าม SignInAsync ตรงนี้ (ของเดิมทำ) เพราะคนที่กดสร้างคือ Admin
-                // ถ้า sign in ให้ user ใหม่ = Admin หลุดออกจากระบบแล้วกลายเป็นคนที่เพิ่งสร้าง
-                AuditLogger.Write("USER_CREATED",
-                    userId: User.Identity.GetUserId(),
-                    userName: User.Identity.Name,
-                    entityName: "User",
-                    entityKey: user.Id,
-                    detail: "สร้างบัญชี " + model.Email);
-
-                TempData["AccountMessage"] = "สร้างบัญชี " + model.Email + " เรียบร้อยแล้ว";
-                return RedirectToAction("Register");
-            }
-
-            AddErrors(result);
-            return View(model);
         }
 
         // ---------------------------------------------------------------

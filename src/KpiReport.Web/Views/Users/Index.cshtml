@@ -1,0 +1,128 @@
+﻿@model KpiReport.Web.Models.UserListViewModel
+@{
+    ViewBag.Title = "Users";
+}
+
+<div class="kpi-page-head">
+    <div>
+        <h2>User management</h2>
+        <p class="kpi-subtitle">@Model.Users.Count accounts &middot; administrators only</p>
+    </div>
+    <div class="kpi-toolbar">
+        <a class="btn-kpi" href="@Url.Action("Create", "Users")">&#43; New user</a>
+    </div>
+</div>
+
+@if (TempData["UserMessage"] != null)
+{
+    <div class="alert alert-info">@TempData["UserMessage"]</div>
+}
+@if (TempData["UserError"] != null)
+{
+    <div class="alert alert-danger">@TempData["UserError"]</div>
+}
+
+<div class="kpi-stat-row">
+    <div class="kpi-stat">
+        <p class="kpi-stat-label">Active</p>
+        <p class="kpi-stat-value">@Model.CountActive</p>
+    </div>
+    <div class="kpi-stat">
+        <p class="kpi-stat-label">Disabled</p>
+        <p class="kpi-stat-value">@Model.CountDisabled</p>
+    </div>
+    <div class="kpi-stat @(Model.CountNeedsAttention > 0 ? "is-red" : "")">
+        <p class="kpi-stat-label">Needs setup</p>
+        <p class="kpi-stat-value">@Model.CountNeedsAttention</p>
+    </div>
+</div>
+
+@if (Model.CountNeedsAttention > 0)
+{
+    <div class="alert alert-warning">
+        บางบัญชียังไม่มีสิทธิ์ หรือเป็น Viewer ที่ยังไม่ผูกแผนก — บัญชีเหล่านี้ login ได้แต่จะไม่เห็นข้อมูลใด ๆ
+    </div>
+}
+
+<div class="kpi-table-wrap">
+    <table class="kpi-table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th style="text-align:right;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>
+                        <strong>@user.Email</strong>
+                        @if (user.IsCurrentUser)
+                        {
+                            <span class="kpi-badge kpi-badge-default" style="margin-left:6px;">YOU</span>
+                        }
+                    </td>
+                    <td>
+                        @if (string.IsNullOrEmpty(user.Role))
+                        {
+                            <span class="kpi-badge kpi-badge-red">NO ROLE</span>
+                        }
+                        else
+                        {
+                            <span class="kpi-badge @(user.Role == "Admin" ? "kpi-badge-yellow" : "kpi-badge-default")">@user.Role.ToUpper()</span>
+                        }
+                    </td>
+                    <td>
+                        @if (user.DepartmentId.HasValue)
+                        {
+                            @user.DepartmentName
+                        }
+                        else if (user.Role == "Viewer")
+                        {
+                            <span class="kpi-badge kpi-badge-red">NOT SET</span>
+                        }
+                        else
+                        {
+                            <span class="kpi-muted-cell">All departments</span>
+                        }
+                    </td>
+                    <td>
+                        @if (user.IsDisabled)
+                        {
+                            <span class="kpi-badge kpi-badge-red">DISABLED</span>
+                        }
+                        else
+                        {
+                            <span class="kpi-badge kpi-badge-green">ACTIVE</span>
+                        }
+                    </td>
+                    <td class="kpi-row-actions">
+                        <a class="btn-kpi-sm" href="@Url.Action("Edit", "Users", new { id = user.UserId })">Edit</a>
+                        <a class="btn-kpi-sm" href="@Url.Action("ResetPassword", "Users", new { id = user.UserId })">Reset password</a>
+
+                        @if (!user.IsCurrentUser)
+                        {
+                            using (Html.BeginForm("ToggleActive", "Users", FormMethod.Post, new { style = "display:inline;" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", user.UserId)
+                                <button type="submit" class="btn-kpi-sm @(user.IsDisabled ? "" : "is-danger")">
+                                    @(user.IsDisabled ? "Enable" : "Disable")
+                                </button>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p class="kpi-subtitle" style="margin-top:14px;">
+    บัญชีถูก "ปิดใช้งาน" ไม่ใช่ลบทิ้ง เพราะ audit log อ้างถึง UserId อยู่ —
+    ลบแล้วประวัติจะชี้ไปยังบัญชีที่ไม่มีตัวตน ทุกการเปลี่ยนแปลงในหน้านี้ถูกบันทึกลง <code>meta.AuditLog</code>
+</p>

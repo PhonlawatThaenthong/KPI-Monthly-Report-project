@@ -245,6 +245,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -258,11 +259,13 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\KpiDashboardRow.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserAdminViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting\KpiReportData.cs" />
     <Compile Include="Reporting\ExcelReportBuilder.cs" />
     <Compile Include="Reporting\PdfReportBuilder.cs" />
     <Compile Include="Repositories\KpiRepository.cs" />
+    <Compile Include="Repositories\UserAdminRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +343,10 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
