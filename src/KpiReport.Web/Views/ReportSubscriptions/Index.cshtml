@@ -1,0 +1,202 @@
+﻿@model KpiReport.Web.Models.ReportSubscriptionListViewModel
+@{
+    ViewBag.Title = "Report email settings";
+}
+
+<div class="kpi-page-head">
+    <div>
+        <h2>ผู้รับรายงานทางอีเมล</h2>
+        <p class="kpi-subtitle">รายงาน KPI รายเดือนจะถูกส่งเป็นไฟล์ PDF ให้รายชื่อด้านล่างนี้</p>
+    </div>
+    <div class="kpi-toolbar">
+        <a class="btn-kpi-outline" href="@Url.Action("Index", "Users")">Back to users</a>
+    </div>
+</div>
+
+@if (TempData["SubMessage"] != null)
+{
+    <div class="alert alert-info">@TempData["SubMessage"]</div>
+}
+@if (TempData["SubError"] != null)
+{
+    <div class="alert alert-danger">@TempData["SubError"]</div>
+}
+
+<div class="kpi-stat-row">
+    <div class="kpi-stat is-green">
+        <p class="kpi-stat-label">จะได้รับรอบหน้า</p>
+        <p class="kpi-stat-value">@Model.CountReceiving</p>
+    </div>
+    <div class="kpi-stat @(Model.CountSilent > 0 ? "is-yellow" : "")">
+        <p class="kpi-stat-label">ถูกระงับ</p>
+        <p class="kpi-stat-value">@Model.CountSilent</p>
+    </div>
+</div>
+
+<div class="kpi-panel" style="margin-bottom:20px;">
+    <h3>เพิ่มผู้รับ</h3>
+
+    @using (Html.BeginForm("Add", "ReportSubscriptions", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row g-2" style="align-items:flex-end;">
+            <div class="col-md-3 mb-3">
+                <label for="SourceType">ประเภทผู้รับ</label>
+                <select name="SourceType" id="SourceType" class="form-control">
+                    <option value="User">บัญชีในระบบ</option>
+                    <option value="External">อีเมลภายนอก</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 mb-3" id="userPicker">
+                <label for="UserId">บัญชีผู้ใช้</label>
+                <select name="UserId" id="UserId" class="form-control">
+                    <option value="">— เลือกบัญชี —</option>
+                    @foreach (var user in Model.AvailableUsers)
+                    {
+                        <option value="@user.UserId" data-dept="@(user.DepartmentId.HasValue ? user.DepartmentId.Value.ToString() : "")">@user.Label</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-4 mb-3" id="emailPicker" style="display:none;">
+                <label for="Email">อีเมล</label>
+                <input type="email" name="Email" id="Email" class="form-control" placeholder="name@company.com" />
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="DepartmentId">ขอบเขตข้อมูล</label>
+                <select name="DepartmentId" id="DepartmentId" class="form-control">
+                    <option value="">ทุกแผนก (ภาพรวม + แยกรายแผนก)</option>
+                    @foreach (var dept in Model.Departments)
+                    {
+                        <option value="@dept.DepartmentId">@dept.DepartmentName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2 mb-3">
+                <button type="submit" class="btn-kpi" style="width:100%; justify-content:center;">เพิ่ม</button>
+            </div>
+        </div>
+    }
+
+    <p class="kpi-subtitle" style="margin:0;">
+        ผู้รับที่ผูกกับบัญชีในระบบจะใช้อีเมลของบัญชีนั้นเสมอ และหยุดรับรายงานเองเมื่อบัญชีถูกปิดใช้งาน —
+        ไม่ต้องมาปิดซ้ำที่หน้านี้ ส่วนอีเมลภายนอกเหมาะกับผู้บริหารที่อยากได้แค่ไฟล์ ไม่ต้องมีบัญชีในระบบ
+    </p>
+</div>
+
+@if (!Model.Rows.Any())
+{
+    <p class="kpi-empty">ยังไม่มีผู้รับรายงาน — เพิ่มจากแบบฟอร์มด้านบน</p>
+}
+else
+{
+    <div class="kpi-table-wrap">
+        <table class="kpi-table">
+            <thead>
+                <tr>
+                    <th>ผู้รับ</th>
+                    <th>ประเภท</th>
+                    <th>ขอบเขตข้อมูล</th>
+                    <th>สถานะ</th>
+                    <th style="text-align:right;">จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model.Rows)
+                {
+                    <tr>
+                        <td>
+                            <strong>@row.Email</strong>
+                            @if (!string.IsNullOrEmpty(row.DisplayName) && row.DisplayName != row.Email)
+                            {
+                                <span class="kpi-muted-cell"> · @row.DisplayName</span>
+                            }
+                        </td>
+                        <td>
+                            @if (row.IsLinkedToUser)
+                            {
+                                <span class="kpi-badge kpi-badge-default">บัญชีในระบบ</span>
+                            }
+                            else
+                            {
+                                <span class="kpi-badge kpi-badge-default">อีเมลภายนอก</span>
+                            }
+                        </td>
+                        <td>
+                            @row.ScopeLabel
+                            @if (!row.DepartmentId.HasValue)
+                            {
+                                <span class="kpi-muted-cell"> (รวมแยกรายแผนก)</span>
+                            }
+                        </td>
+                        <td>
+                            @if (row.WillReceive)
+                            {
+                                <span class="kpi-badge kpi-badge-green">ส่งอยู่</span>
+                            }
+                            else
+                            {
+                                <span class="kpi-badge kpi-badge-yellow" title="@row.SilentReason">ระงับ</span>
+                                <span class="kpi-muted-cell" style="display:block;">@row.SilentReason</span>
+                            }
+                        </td>
+                        <td class="kpi-row-actions">
+                            @using (Html.BeginForm("Toggle", "ReportSubscriptions", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", row.SubscriptionId)
+                                <button type="submit" class="btn-kpi-sm"
+                                        disabled="@(row.LinkedUserMissing || row.LinkedUserDisabled ? "disabled" : null)">
+                                    @(row.IsActive ? "หยุดส่ง" : "ส่งต่อ")
+                                </button>
+                            }
+
+                            @using (Html.BeginForm("Delete", "ReportSubscriptions", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", row.SubscriptionId)
+                                <button type="submit" class="btn-kpi-sm is-danger">ลบ</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        (function () {
+            var source = document.getElementById('SourceType');
+            var userBox = document.getElementById('userPicker');
+            var mailBox = document.getElementById('emailPicker');
+            var userSel = document.getElementById('UserId');
+            var deptSel = document.getElementById('DepartmentId');
+            if (!source) { return; }
+
+            function syncSource() {
+                var isUser = source.value === 'User';
+                userBox.style.display = isUser ? '' : 'none';
+                mailBox.style.display = isUser ? 'none' : '';
+            }
+
+            // เลือกบัญชีแล้วเติมขอบเขตให้ตรงกับแผนกของบัญชีนั้นอัตโนมัติ
+            // เป็นค่าที่ถูกต้องเกือบทุกครั้ง แต่ยังแก้เองได้ถ้าต้องการ
+            function syncDepartment() {
+                if (source.value !== 'User' || !userSel || !deptSel) { return; }
+                var option = userSel.options[userSel.selectedIndex];
+                if (!option) { return; }
+                deptSel.value = option.getAttribute('data-dept') || '';
+            }
+
+            source.addEventListener('change', syncSource);
+            if (userSel) { userSel.addEventListener('change', syncDepartment); }
+            syncSource();
+        })();
+    </script>
+}
