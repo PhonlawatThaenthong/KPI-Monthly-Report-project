@@ -9,7 +9,7 @@ namespace KpiReport.Etl.Sources
 {
     /// <summary>
     /// อ่านไฟล์ CSV ลงเวลา 1 ไฟล์ -> list ของแถวดิบ
-    /// โครงสร้างเหมือน DowntimeCsvReader (TextFieldParser + จับคู่ด้วยชื่อ header)
+    /// ใช้ TextFieldParser + จับคู่คอลัมน์ด้วยชื่อ header
     /// </summary>
     public static class AttendanceCsvReader
     {

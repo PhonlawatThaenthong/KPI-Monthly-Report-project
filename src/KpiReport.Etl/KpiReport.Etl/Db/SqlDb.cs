@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -123,46 +123,6 @@ namespace KpiReport.Etl.Db
             }
         }
 
-        // =========================================================
-        // BULK INSERT -> STAGING
-        // =========================================================
-
-        public void BulkInsertDowntimeRaw(long runId, List<DowntimeRawRow> rows)
-        {
-            if (rows.Count == 0) return;
-
-            var table = new DataTable();
-            table.Columns.Add("RunId", typeof(long));
-            table.Columns.Add("SourceFileName", typeof(string));
-            table.Columns.Add("SourceLineNo", typeof(int));
-            table.Columns.Add("EventDate", typeof(string));
-            table.Columns.Add("DepartmentText", typeof(string));
-            table.Columns.Add("MachineCode", typeof(string));
-            table.Columns.Add("ReasonCode", typeof(string));
-            table.Columns.Add("ReasonText", typeof(string));
-            table.Columns.Add("StartTimeText", typeof(string));
-            table.Columns.Add("EndTimeText", typeof(string));
-            table.Columns.Add("DurationMinText", typeof(string));
-
-            foreach (var r in rows)
-            {
-                table.Rows.Add(
-                    runId,
-                    (object)r.SourceFileName ?? DBNull.Value,
-                    (object)r.SourceLineNo ?? DBNull.Value,
-                    (object)r.EventDate ?? DBNull.Value,
-                    (object)r.DepartmentText ?? DBNull.Value,
-                    (object)r.MachineCode ?? DBNull.Value,
-                    (object)r.ReasonCode ?? DBNull.Value,
-                    (object)r.ReasonText ?? DBNull.Value,
-                    (object)r.StartTimeText ?? DBNull.Value,
-                    (object)r.EndTimeText ?? DBNull.Value,
-                    (object)r.DurationMinText ?? DBNull.Value);
-            }
-
-            BulkCopy(table, "stg.DowntimeRaw");
-        }
-
         public void BulkInsertAttendanceRaw(long runId, List<AttendanceRawRow> rows)
         {
             if (rows.Count == 0) return;
@@ -213,40 +173,6 @@ namespace KpiReport.Etl.Db
             }
         }
 
-        public void BulkInsertCostRaw(long runId, List<CostRawRow> rows)
-        {
-            if (rows.Count == 0) return;
-
-            var table = new DataTable();
-            table.Columns.Add("RunId", typeof(long));
-            table.Columns.Add("SourceFileName", typeof(string));
-            table.Columns.Add("SourceSheetName", typeof(string));
-            table.Columns.Add("SourceRowNo", typeof(int));
-            table.Columns.Add("PeriodText", typeof(string));
-            table.Columns.Add("DepartmentText", typeof(string));
-            table.Columns.Add("CostTypeText", typeof(string));
-            table.Columns.Add("AmountText", typeof(string));
-            table.Columns.Add("CurrencyText", typeof(string));
-            table.Columns.Add("Remark", typeof(string));
-
-            foreach (var r in rows)
-            {
-                table.Rows.Add(
-                    runId,
-                    (object)r.SourceFileName ?? DBNull.Value,
-                    (object)r.SourceSheetName ?? DBNull.Value,
-                    (object)r.SourceRowNo ?? DBNull.Value,
-                    (object)r.PeriodText ?? DBNull.Value,
-                    (object)r.DepartmentText ?? DBNull.Value,
-                    (object)r.CostTypeText ?? DBNull.Value,
-                    (object)r.AmountText ?? DBNull.Value,
-                    (object)r.CurrencyText ?? DBNull.Value,
-                    (object)r.Remark ?? DBNull.Value);
-            }
-
-            BulkCopy(table, "stg.CostRaw");
-        }
-
         private void BulkCopy(DataTable table, string destinationTable)
         {
             using (var conn = Open())
@@ -256,57 +182,6 @@ namespace KpiReport.Etl.Db
                     bulk.ColumnMappings.Add(col.ColumnName, col.ColumnName);
 
                 bulk.WriteToServer(table);
-            }
-        }
-
-        // =========================================================
-        // TRANSFORM (staging -> core)
-        // =========================================================
-
-        public (int written, int rejected) TransformDowntime(long runId)
-        {
-            using (var conn = Open())
-            {
-                var p = new DynamicParameters();
-                p.Add("@RunId", runId);
-                p.Add("@RowsWritten", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                p.Add("@RowsRejected", dbType: DbType.Int32, direction: ParameterDirection.Output);
-
-                conn.Execute("core.usp_Transform_Downtime", p,
-                    commandType: CommandType.StoredProcedure, commandTimeout: 120);
-
-                return (p.Get<int>("@RowsWritten"), p.Get<int>("@RowsRejected"));
-            }
-        }
-
-        public (int written, int rejected) TransformCost(long runId)
-        {
-            using (var conn = Open())
-            {
-                var p = new DynamicParameters();
-                p.Add("@RunId", runId);
-                p.Add("@RowsWritten", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                p.Add("@RowsRejected", dbType: DbType.Int32, direction: ParameterDirection.Output);
-
-                conn.Execute("core.usp_Transform_Cost", p,
-                    commandType: CommandType.StoredProcedure, commandTimeout: 120);
-
-                return (p.Get<int>("@RowsWritten"), p.Get<int>("@RowsRejected"));
-            }
-        }
-
-        // =========================================================
-        // PRODUCTION (extract + transform ทำในฝั่ง SQL ล้วน)
-        // =========================================================
-
-        public void RunEtlProduction(string triggeredBy)
-        {
-            using (var conn = Open())
-            {
-                conn.Execute("core.usp_RunEtl_Production",
-                    new { TriggeredBy = triggeredBy },
-                    commandType: CommandType.StoredProcedure,
-                    commandTimeout: 300);
             }
         }
 
