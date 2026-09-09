@@ -14,11 +14,39 @@ using KpiReport.Web.Models;
 
 namespace KpiReport.Web
 {
+    /// <summary>
+    /// ตัวส่งอีเมลที่ ASP.NET Identity เรียกใช้ (UserManager.SendEmailAsync)
+    ///
+    /// ต่อเข้ากับ SmtpMailSender ตัวเดียวกับที่งานส่งรายงานรายเดือนใช้
+    /// (src/Shared/Mail/SmtpMailSender.cs ผูกเข้าโปรเจกต์ด้วย csproj Link)
+    /// อ่านค่า SMTP จาก &lt;system.net&gt;&lt;mailSettings&gt; ใน Web.config
+    ///
+    /// ส่งแบบ synchronous ครอบด้วย Task.FromResult เพราะ SmtpClient
+    /// รุ่นที่ใช้อยู่ไม่มี async ที่ยกเลิกได้จริง และปริมาณเมลของระบบนี้น้อยมาก
+    /// การทำให้ซับซ้อนกว่านี้ไม่คุ้ม
+    /// </summary>
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
+            try
+            {
+                var sender = new KpiReport.Shared.Mail.SmtpMailSender();
+                sender.Send(message.Destination, message.Subject, message.Body);
+            }
+            catch (Exception ex)
+            {
+                // ห้ามโยนต่อ ไม่งั้นหน้า "ลืมรหัสผ่าน" จะแสดง error
+                // ซึ่งบอกคนนอกได้ว่าอีเมลที่กรอกมีอยู่จริงในระบบ
+                // (ถ้าไม่มีบัญชี controller จะไม่เรียกมาถึงตรงนี้เลย)
+                System.Diagnostics.Debug.WriteLine("[EmailService] ส่งเมลไม่สำเร็จ: " + ex.Message);
+
+                Infrastructure.AuditLogger.Write("EMAIL_SEND_FAILED",
+                    userName: message.Destination,
+                    detail: ex.Message,
+                    isSuccess: false);
+            }
+
             return Task.FromResult(0);
         }
     }
@@ -81,8 +109,14 @@ namespace KpiReport.Web
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider =
+                    new DataProtectorTokenProvider<ApplicationUser>(
+                        dataProtectionProvider.Create("ASP.NET Identity"))
+                    {
+                        // ค่า default ของ Identity คือ 1 วัน ซึ่งยาวเกินไปสำหรับลิงก์
+                        // ที่วิ่งอยู่ในกล่องจดหมาย ใครเปิดกล่องเจอก็ใช้ได้
+                        TokenLifespan = TimeSpan.FromHours(1)
+                    };
             }
             return manager;
         }

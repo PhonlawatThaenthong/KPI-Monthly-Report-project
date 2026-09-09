@@ -109,7 +109,9 @@
     <Compile Include="Infrastructure\CsvEncodingDetector.cs" />
     <Compile Include="Infrastructure\FileHashUtil.cs" />
     <Compile Include="Models\AttendanceRawRow.cs" />
-    <Compile Include="Mail\SmtpMailSender.cs" />
+    <Compile Include="..\..\Shared\Mail\SmtpMailSender.cs">
+      <Link>Shared\SmtpMailSender.cs</Link>
+    </Compile>
     <Compile Include="Reports\MonthlyReportJob.cs" />
     <Compile Include="Reports\ReportRepository.cs" />
     <Compile Include="Reports\ReportSubscription.cs" />

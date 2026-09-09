@@ -83,30 +83,35 @@ namespace KpiReport.Web.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        /// <summary>
+        /// มาจากลิงก์ในอีเมล ไม่ได้ให้ผู้ใช้กรอก
+        ///
+        /// ของเดิมให้กรอกอีเมลซ้ำอีกครั้งบนหน้านี้ ซึ่งไม่จำเป็น
+        /// เพราะลิงก์ระบุตัวบัญชีอยู่แล้ว และการให้กรอกเปิดช่องให้ลองสุ่ม
+        /// จับคู่อีเมลกับ token ที่ได้มาจากบัญชีอื่น
+        /// </summary>
+        public string UserId { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        /// <summary>token จากลิงก์ อายุ 1 ชั่วโมง ใช้ได้ครั้งเดียว</summary>
+        public string Code { get; set; }
+
+        [Required(ErrorMessage = "กรุณากรอกรหัสผ่านใหม่")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "รหัสผ่านต้องยาวอย่างน้อย {2} ตัวอักษร")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "รหัสผ่านใหม่")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "ยืนยันรหัสผ่านใหม่")]
+        [Compare("Password", ErrorMessage = "รหัสผ่านทั้งสองช่องไม่ตรงกัน")]
         public string ConfirmPassword { get; set; }
-
-        public string Code { get; set; }
     }
 
     public class ForgotPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        [Required(ErrorMessage = "กรุณากรอกอีเมล")]
+        [EmailAddress(ErrorMessage = "รูปแบบอีเมลไม่ถูกต้อง")]
+        [Display(Name = "อีเมลที่ใช้เข้าระบบ")]
         public string Email { get; set; }
     }
 }

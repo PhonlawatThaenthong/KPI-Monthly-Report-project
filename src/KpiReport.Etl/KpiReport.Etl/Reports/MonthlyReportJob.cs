@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using KpiReport.Etl.Mail;
+using KpiReport.Shared.Mail;
 using KpiReport.Web.Models;
 using KpiReport.Web.Reporting;
 using KpiReport.Web.Repositories;

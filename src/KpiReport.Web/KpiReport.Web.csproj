@@ -254,7 +254,11 @@
     <Compile Include="Infrastructure\AuditLogger.cs" />
     <Compile Include="Infrastructure\AuthSettings.cs" />
     <Compile Include="Infrastructure\IdentitySeeder.cs" />
+    <Compile Include="Infrastructure\PasswordResetThrottle.cs" />
     <Compile Include="Infrastructure\RequirePasswordChangeFilter.cs" />
+    <Compile Include="..\Shared\Mail\SmtpMailSender.cs">
+      <Link>Shared\SmtpMailSender.cs</Link>
+    </Compile>
     <Compile Include="Infrastructure\UserContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DashboardViewModels.cs" />
@@ -335,6 +339,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordInvalid.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />

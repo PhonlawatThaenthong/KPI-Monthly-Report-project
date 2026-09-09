@@ -3,14 +3,18 @@ using System.Configuration;
 using System.IO;
 using System.Net.Mail;
 
-namespace KpiReport.Etl.Mail
+namespace KpiReport.Shared.Mail
 {
     /// <summary>
-    /// ส่งอีเมลผ่าน SMTP โดยอ่านค่าจาก &lt;system.net&gt;&lt;mailSettings&gt; ใน App.config
+    /// ส่งอีเมลผ่าน SMTP โดยอ่านค่าจาก &lt;system.net&gt;&lt;mailSettings&gt;
+    /// ของโปรเจกต์ที่เรียกใช้ (App.config ของ ETL หรือ Web.config ของเว็บ)
     ///
-    /// ตั้งใจให้เป็นชั้นบาง ๆ ครอบ SmtpClient ไม่ใส่ logic อะไรเพิ่ม
-    /// เพราะฝั่งเว็บจะต้องใช้ตัวเดียวกันนี้ตอนทำ forgot-password ทางอีเมล
-    /// ถ้าถึงตอนนั้น ให้ย้ายไฟล์นี้ไป class library กลางแล้วอ้างจากทั้งสองฝั่ง
+    /// ไฟล์นี้อยู่ใน src/Shared และถูกผูกเข้าทั้งสองโปรเจกต์ด้วย csproj Link
+    /// ไม่ได้ copy — แก้ที่เดียวมีผลทั้งงานส่งรายงานรายเดือน (ETL)
+    /// และงานส่งลิงก์ตั้งรหัสผ่านใหม่ (เว็บ)
+    ///
+    /// *** ค่าตั้ง SMTP ต้องอยู่ทั้ง App.config และ Web.config ***
+    /// เปลี่ยนเซิร์ฟเวอร์เมลเมื่อไหร่ ต้องแก้ทั้งสองไฟล์
     ///
     /// ทดสอบโดยไม่มีเซิร์ฟเวอร์จริงได้ ตั้ง deliveryMethod เป็น
     /// SpecifiedPickupDirectory ใน App.config แล้วเมลจะถูกเขียนเป็นไฟล์ .eml
