@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using KpiReport.Web.Infrastructure;
 using KpiReport.Web.Models;
+using KpiReport.Web.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -93,6 +95,17 @@ namespace KpiReport.Web.Controllers
                         userId: loggedInUser?.Id,
                         userName: model.Email,
                         isSuccess: true);
+
+                    // รหัสที่ Admin ตั้งให้ต้องเปลี่ยนก่อนใช้งานอย่างอื่น — พาไปหน้าเปลี่ยนรหัส
+                    // จากที่นี่ตรง ๆ ไม่ปล่อยให้เด้งเข้า returnUrl/Dashboard ก่อนแล้วรอ
+                    // RequirePasswordChangeFilter จับ เพราะผู้ใช้จะเห็นหน้าอื่นคั่นหนึ่งจังหวะ
+                    // ตัว filter ยังอยู่เป็นด่านบังคับสำหรับทางเข้าอื่น ๆ
+                    if (loggedInUser != null && MustChangePassword(loggedInUser.Id))
+                    {
+                        TempData["ForcePasswordChange"] = RequirePasswordChangeFilter.PendingNotice;
+                        return RedirectToAction("ChangePassword", "Manage");
+                    }
+
                     return RedirectToLocal(returnUrl);
 
                 case SignInStatus.LockedOut:
@@ -343,6 +356,12 @@ namespace KpiReport.Web.Controllers
         /// ถ้าไม่ตรวจ คนร้ายส่งลิงก์ /Account/Login?returnUrl=http://evil.example
         /// แล้วเหยื่อจะถูกพาไปหน้าปลอมทันทีหลัง login สำเร็จ
         /// </summary>
+        private static bool MustChangePassword(string userId)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["KpiDb"].ConnectionString;
+            return new UserAdminRepository(connStr).MustChangePassword(userId);
+        }
+
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

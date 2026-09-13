@@ -18,6 +18,13 @@ namespace KpiReport.Web.Infrastructure
     /// </summary>
     public class RequirePasswordChangeFilter : IActionFilter
     {
+        /// <summary>
+        /// ข้อความที่แสดงบนหน้าเปลี่ยนรหัส — AccountController.Login ใช้ตัวเดียวกัน
+        /// ตอนพาผู้ใช้ไปหน้านี้ทันทีหลัง login สำเร็จ
+        /// </summary>
+        public const string PendingNotice =
+            "รหัสผ่านปัจจุบันถูกตั้งให้โดยผู้ดูแลระบบ กรุณาตั้งรหัสใหม่ของคุณเองก่อนใช้งานต่อ";
+
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var user = filterContext.HttpContext.User;
@@ -45,8 +52,7 @@ namespace KpiReport.Web.Infrastructure
 
             if (!repo.MustChangePassword(userId)) return;
 
-            filterContext.Controller.TempData["ForcePasswordChange"] =
-                "รหัสผ่านปัจจุบันถูกตั้งให้โดยผู้ดูแลระบบ กรุณาตั้งรหัสใหม่ของคุณเองก่อนใช้งานต่อ";
+            filterContext.Controller.TempData["ForcePasswordChange"] = PendingNotice;
 
             filterContext.Result = new RedirectToRouteResult(
                 new RouteValueDictionary(new { controller = "Manage", action = "ChangePassword" }));

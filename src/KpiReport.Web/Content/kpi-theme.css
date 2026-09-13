@@ -375,6 +375,18 @@ input[type="radio"] {
     color: var(--color-danger);
 }
 
+/* ปุ่มฝั่งกู้คืน (Enable account) — คู่ตรงข้ามของ is-danger */
+.btn-kpi-sm.is-go {
+    border-color: var(--color-success-line);
+    color: var(--color-success);
+}
+
+.btn-kpi-sm.is-go:hover, .btn-kpi-sm.is-go:focus {
+    background: var(--color-success-soft);
+    border-color: var(--color-success);
+    color: var(--color-success);
+}
+
 .kpi-row-actions {
     text-align: right;
     white-space: nowrap;
@@ -612,6 +624,8 @@ input[type="radio"] {
 .kpi-badge-green  { background: var(--color-success-soft); color: var(--color-success); border-color: var(--color-success-line); }
 .kpi-badge-yellow { background: var(--color-warning-soft); color: var(--color-warning); border-color: var(--color-warning-line); }
 .kpi-badge-red    { background: var(--color-danger-soft);   color: var(--color-danger);   border-color: var(--color-danger-line); }
+.kpi-badge-blue   { background: var(--color-accent-soft);   color: var(--color-accent-dark); border-color: var(--color-accent-line); }
+.kpi-badge-purple { background: var(--color-purple-soft);   color: var(--color-purple);      border-color: var(--color-purple-line); }
 .kpi-badge-default{ background: var(--color-paper-2); color: var(--color-ink-2); border-color: var(--color-rule); }
 
 /* ---------- สรุปด้านบน ---------- */
@@ -856,6 +870,33 @@ input[type="radio"] {
 }
 
 /* ---------- Alert ---------- */
+
+/* Html.ValidationSummary / Html.ValidationMessageFor always render their
+   container, even with zero errors, so unobtrusive validation has somewhere
+   to inject messages into without a postback. MVC marks that empty state
+   with "validation-summary-valid" / "field-validation-valid" instead of
+   "-errors" — but our views force @class="alert alert-danger" on top of it,
+   so without this rule the red box shows permanently, empty, on every form
+   (e.g. Manage/ChangePassword) even before the user does anything wrong. */
+.validation-summary-valid,
+.field-validation-valid {
+    display: none;
+}
+
+/* รายการเกณฑ์รหัสผ่าน และ error summary ที่แชร์กล่อง alert เดียวกัน
+   (Manage/ChangePassword — เกณฑ์ขึ้นตั้งแต่เปิดหน้า, error แทรกด้านบนเมื่อ submit ไม่ผ่าน) */
+.kpi-req-list {
+    margin: var(--space-2xs) 0 0;
+    padding-left: 1.15rem;
+}
+
+.kpi-req-list li { margin-top: 2px; }
+
+.kpi-vsum ul {
+    margin: 0 0 var(--space-xs);
+    padding-left: 1.15rem;
+    font-weight: 600;
+}
 
 .alert {
     border-radius: var(--radius-md);

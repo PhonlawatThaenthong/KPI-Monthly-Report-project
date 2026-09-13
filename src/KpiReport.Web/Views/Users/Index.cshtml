@@ -76,7 +76,7 @@
                         <strong>@user.Email</strong>
                         @if (user.IsCurrentUser)
                         {
-                            <span class="kpi-badge kpi-badge-default" style="margin-left:6px;">YOU</span>
+                            <span class="kpi-badge kpi-badge-green" style="margin-left:6px;">YOU</span>
                         }
                     </td>
                     <td>
@@ -86,7 +86,11 @@
                         }
                         else
                         {
-                            <span class="kpi-badge @(user.Role == "Admin" ? "kpi-badge-yellow" : "kpi-badge-default")">@user.Role.ToUpper()</span>
+                            string roleBadgeClass = "kpi-badge-default";
+                            if (user.Role == "Admin") { roleBadgeClass = "kpi-badge-yellow"; }
+                            else if (user.Role == "Manager") { roleBadgeClass = "kpi-badge-purple"; }
+
+                            <span class="kpi-badge @roleBadgeClass">@user.Role.ToUpper()</span>
                         }
                     </td>
                     <td>
@@ -127,7 +131,7 @@
                             {
                                 @Html.AntiForgeryToken()
                                 @Html.Hidden("id", user.UserId)
-                                <button type="submit" class="btn-kpi-sm @(user.IsDisabled ? "" : "is-danger")">
+                                <button type="submit" class="btn-kpi-sm @(user.IsDisabled ? "is-go" : "is-danger")">
                                     @(user.IsDisabled ? "Enable" : "Disable")
                                 </button>
                             }

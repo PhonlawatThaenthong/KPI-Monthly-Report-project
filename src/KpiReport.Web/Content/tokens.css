@@ -39,6 +39,10 @@
     --color-danger-soft:  oklch(94%   0.040 20);
     --color-danger-line:  oklch(83%   0.075 20);
 
+    --color-purple:       oklch(48%   0.130 305);
+    --color-purple-soft:  oklch(94%   0.035 305);
+    --color-purple-line:  oklch(82%   0.070 305);
+
     /* ---------- type ---------- */
     /* Offline-safe pairing: ui-serif resolves to the OS's real serif
        (Georgia/Cambria on Windows, New York on macOS, Noto Serif on Linux) —

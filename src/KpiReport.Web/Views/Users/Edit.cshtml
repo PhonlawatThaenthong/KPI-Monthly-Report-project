@@ -21,7 +21,7 @@
 <div class="kpi-page-head">
     <div>
         <h2>@Model.Email</h2>
-        <p class="kpi-subtitle">
+        <p class="kpi-subtitle" style="margin-top:8px;">
             @if (Model.IsDisabled)
             {
                 <span class="kpi-badge kpi-badge-red">DISABLED</span>
@@ -93,7 +93,7 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.Hidden("id", Model.UserId)
-                    <button type="submit" class="btn-kpi-sm @(Model.IsDisabled ? "" : "is-danger")">
+                    <button type="submit" class="btn-kpi-sm @(Model.IsDisabled ? "is-go" : "is-danger")">
                         @(Model.IsDisabled ? "Enable account" : "Disable account")
                     </button>
                 }
