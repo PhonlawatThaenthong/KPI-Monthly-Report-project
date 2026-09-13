@@ -1,119 +1,110 @@
-﻿/* ============================================================
+/* Hallmark · macrostructure: Workbench (app pages) + Letter (content/auth pages)
+ * genre: modern-minimal · theme: custom (office intranet, blue/white brief)
+ * design-system: design.md · designed-as-app
+ * pre-emit critique: P4 H4 E4 S4 R4 V4
+ */
+
+/* ============================================================
    HR KPI System — Corporate theme (white / blue)
-   โหลดหลัง bootstrap.css และ dashboard.css ใน ~/Content/css bundle
-   ปรับสีทั้งระบบได้จากตัวแปรชุดเดียวด้านล่างนี้
+   โหลดหลัง tokens.css ใน ~/Content/css bundle
+   ปรับสีทั้งระบบได้จาก Content/tokens.css เพียงไฟล์เดียว
    ============================================================ */
-
-:root {
-    --kpi-navy: #0b2545;
-    --kpi-blue-dark: #13315c;
-    --kpi-blue: #1b4d89;
-    --kpi-blue-mid: #2b579a;
-    --kpi-blue-soft: #e8f0fb;
-    --kpi-blue-line: #c7d8ef;
-
-    --kpi-bg: #f4f6f9;
-    --kpi-surface: #ffffff;
-    --kpi-border: #dde3ea;
-
-    --kpi-ink: #1b2430;
-    --kpi-muted: #5c6b7a;
-
-    --kpi-green: #1a7f37;
-    --kpi-green-soft: #e7f5ec;
-    --kpi-amber: #9a6700;
-    --kpi-amber-soft: #fdf3d8;
-    --kpi-red: #b42318;
-    --kpi-red-soft: #fdeceb;
-
-    --kpi-radius: 6px;
-    --kpi-shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
-    --kpi-shadow-lg: 0 4px 12px rgba(16, 24, 40, .10);
-}
 
 /* ---------- พื้นฐาน ---------- */
 
-/* จัด body เป็นคอลัมน์ยืดเต็มจอ เพื่อดัน footer ไปติดขอบล่างเสมอ
-   ไม่งั้นหน้าที่เนื้อหาสั้น ๆ (เช่นหน้า Login) จะเหลือพื้นเทาโผล่ใต้ footer */
 html {
     height: 100%;
+    overflow-x: clip;
 }
 
 body {
-    background-color: var(--kpi-bg);
-    color: var(--kpi-ink);
-    font-family: "Segoe UI", "Sarabun", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-    font-size: 15px;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-x: clip;
 }
 
-a { color: var(--kpi-blue); text-decoration: none; }
-a:hover { color: var(--kpi-blue-dark); text-decoration: underline; }
+a { color: var(--color-accent); text-decoration: none; }
+a:hover { color: var(--color-accent-dark); text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 
-h1, h2, h3, h4 { color: var(--kpi-navy); font-weight: 600; letter-spacing: -.01em; }
+h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-navy);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
 
-hr { border-color: var(--kpi-border); opacity: 1; }
+hr { border-color: var(--color-rule); opacity: 1; }
 
 .body-content {
     max-width: 1240px;
     width: 100%;
     margin: 0 auto;
-    padding-top: 24px;
-    padding-bottom: 40px;
-    flex: 1 0 auto;   /* กินพื้นที่ที่เหลือทั้งหมด footer จะได้ถูกดันลงล่างสุด */
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-xl);
+    flex: 1 0 auto;
 }
 
 /* ---------- Navbar ---------- */
 
 .navbar-kpi {
-    background: linear-gradient(90deg, var(--kpi-navy) 0%, var(--kpi-blue-dark) 100%) !important;
-    border-bottom: 3px solid var(--kpi-blue-mid);
-    box-shadow: var(--kpi-shadow);
-    padding: .55rem 0;
+    background: var(--color-navy) !important;
+    border-bottom: 1px solid var(--color-navy-2);
+    box-shadow: var(--shadow-whisper);
+    padding: var(--space-sm) 0;
 }
 
 .navbar-kpi .navbar-brand {
+    font-family: var(--font-display);
     color: #fff !important;
     font-weight: 600;
-    letter-spacing: .01em;
+    letter-spacing: 0.005em;
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: var(--space-xs);
 }
 
 .navbar-kpi .navbar-brand::before {
     content: "";
     display: inline-block;
-    width: 6px; height: 20px;
-    border-radius: 2px;
-    background: #6ea8f0;
+    width: 8px; height: 8px;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent-line);
 }
 
 .navbar-kpi .nav-link {
-    color: rgba(255, 255, 255, .82) !important;
+    color: oklch(97% 0.006 258 / 0.78) !important;
     font-weight: 500;
-    padding: .4rem .85rem !important;
-    border-radius: var(--kpi-radius);
-    transition: background-color .15s ease, color .15s ease;
+    padding: var(--space-2xs) var(--space-sm) !important;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
 }
 
 .navbar-kpi .nav-link:hover,
 .navbar-kpi .nav-link:focus {
     color: #fff !important;
-    background-color: rgba(255, 255, 255, .12);
+    background-color: oklch(100% 0 0 / 0.10);
     text-decoration: none;
 }
 
-.navbar-kpi .navbar-nav { align-items: center; gap: .15rem; }
+.navbar-kpi .nav-link:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: -2px;
+}
+
+.navbar-kpi .navbar-nav { align-items: center; gap: var(--space-3xs); }
 .navbar-kpi .navbar-nav > li { list-style: none; }
 .navbar-kpi ul { margin-bottom: 0; padding-left: 0; }
 
 .navbar-kpi .navbar-toggler {
-    border-color: rgba(255, 255, 255, .35);
+    border-color: oklch(100% 0 0 / 0.35);
 }
 
 .navbar-kpi .navbar-toggler-icon {
@@ -121,35 +112,48 @@ hr { border-color: var(--kpi-border); opacity: 1; }
 }
 
 .navbar-kpi .kpi-user {
-    color: rgba(255, 255, 255, .95) !important;
+    color: oklch(97% 0.006 258 / 0.95) !important;
     font-weight: 500;
 }
 
 /* ---------- แถบหัวหน้า (page header) ---------- */
 
+/* หลีกเลี่ยง "side-stripe card" (แถบสีหนาด้านซ้าย/บน) — ใช้กรอบบางรอบทิศแทน
+   และปักหมุดสีด้วยจุดเล็ก ๆ ข้างหัวเรื่องแทนแถบเน้นด้านข้าง */
 .kpi-page-head {
-    background: var(--kpi-surface);
-    border: 1px solid var(--kpi-border);
-    border-left: 4px solid var(--kpi-blue);
-    border-radius: var(--kpi-radius);
-    box-shadow: var(--kpi-shadow);
-    padding: 16px 20px;
-    margin-bottom: 20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-whisper);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-lg);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: var(--space-md);
 }
 
 .kpi-page-head h2 {
     margin: 0;
-    font-size: 1.35rem;
+    font-size: var(--text-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.kpi-page-head h2::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 2px;
+    background: var(--color-accent);
+    flex: 0 0 auto;
 }
 
 .kpi-page-head .kpi-subtitle {
-    color: var(--kpi-muted);
-    font-size: .88rem;
+    color: var(--color-ink-2);
+    font-size: var(--text-xs);
     margin: 2px 0 0;
 }
 
@@ -157,51 +161,47 @@ hr { border-color: var(--kpi-border); opacity: 1; }
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 10px;
+    gap: var(--space-sm);
 }
 
 .kpi-toolbar label {
-    color: var(--kpi-muted);
-    font-size: .85rem;
+    color: var(--color-ink-2);
+    font-size: var(--text-xs);
     font-weight: 600;
-    margin: 0 6px 0 0;
+    margin: 0 var(--space-2xs) 0 0;
     white-space: nowrap;
 }
 
 .kpi-toolbar .form-control,
 .kpi-toolbar .form-select,
 .kpi-toolbar select {
-    border-color: var(--kpi-border);
-    border-radius: var(--kpi-radius);
+    border-color: var(--color-rule);
+    border-radius: var(--radius-sm);
     min-width: 190px;
-    font-size: .9rem;
-    padding: .38rem .6rem;
-    color: var(--kpi-ink);
-    background-color: #fff;
+    font-size: var(--text-sm);
+    padding: 0.38rem 0.6rem;
+    color: var(--color-ink);
+    background-color: var(--color-surface);
 }
 
 /* ---------- ช่องกรอกข้อมูล ---------- */
 
-/* กำหนดกรอบเองทั้งหมด ไม่ปล่อยให้ bootstrap ทำ จะได้กรอบหนาเท่ากันทุกช่อง
-   ทั้งตอนปกติ ตอน focus และตอน validate ไม่ผ่าน */
 .form-control,
 .form-select,
 .kpi-toolbar select {
-    border: 1px solid var(--kpi-border);
-    border-radius: var(--kpi-radius);
-    background-color: #fff;
-    color: var(--kpi-ink);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
     box-shadow: none;
-    transition: border-color .15s ease, box-shadow .15s ease;
+    transition: border-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
 }
 
 .form-control,
 .form-select {
-    padding: .5rem .75rem;
-    font-size: .93rem;
+    padding: 0.5rem 0.75rem;
+    font-size: var(--text-sm);
     line-height: 1.45;
-    /* Content/Site.css ของ template MVC ตั้ง input,select,textarea { max-width: 280px }
-       ไว้ ทำให้ช่องกรอกสั้นกว่าปุ่มจนดูไม่ตรงกลางกล่อง — ปลดล็อกตรงนี้ */
     width: 100%;
     max-width: 100%;
 }
@@ -212,7 +212,6 @@ hr { border-color: var(--kpi-border); opacity: 1; }
     max-width: none;
 }
 
-/* checkbox / radio ต้องไม่โดนยืดเต็มความกว้างตามกฎด้านบน */
 .form-check-input,
 input[type="checkbox"],
 input[type="radio"] {
@@ -221,67 +220,72 @@ input[type="radio"] {
 }
 
 .form-control::placeholder {
-    color: #9aa8b6;
+    color: var(--color-ink-3);
     opacity: 1;
 }
 
 .kpi-toolbar select:focus,
 .form-control:focus,
 .form-select:focus {
-    border-color: var(--kpi-blue-mid);
-    box-shadow: 0 0 0 3px rgba(43, 87, 154, .13);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px oklch(48% 0.135 255 / 0.15);
     outline: none;
+}
+
+.form-control:focus-visible,
+.form-select:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 1px;
 }
 
 .form-control:hover:not(:focus),
 .form-select:hover:not(:focus) {
-    border-color: var(--kpi-blue-line);
+    border-color: var(--color-accent-line);
 }
 
 .form-control:disabled,
 .form-control[readonly] {
-    background-color: #f6f8fa;
-    color: var(--kpi-muted);
+    background-color: var(--color-paper-2);
+    color: var(--color-ink-2);
 }
 
-/* ช่องที่ validate ไม่ผ่าน — ใช้กรอบหนาเท่าเดิม เปลี่ยนแค่สี */
 .form-control.input-validation-error,
 .form-control.is-invalid {
-    border-color: var(--kpi-red);
+    border-color: var(--color-danger);
     box-shadow: none;
 }
 
 .form-control.input-validation-error:focus,
 .form-control.is-invalid:focus {
-    border-color: var(--kpi-red);
-    box-shadow: 0 0 0 3px rgba(180, 35, 24, .13);
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 3px oklch(50% 0.17 25 / 0.15);
 }
 
 .field-validation-error,
 .text-danger {
-    color: var(--kpi-red) !important;
-    font-size: .8rem;
+    color: var(--color-danger) !important;
+    font-size: var(--text-xs);
 }
 
 .form-check-input:checked {
-    background-color: var(--kpi-blue);
-    border-color: var(--kpi-blue);
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
 }
 
-.form-check-input:focus {
-    border-color: var(--kpi-blue-mid);
-    box-shadow: 0 0 0 3px rgba(43, 87, 154, .13);
+.form-check-input:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 1px;
 }
 
 .form-check-label {
-    font-size: .9rem;
-    color: var(--kpi-ink);
+    font-size: var(--text-sm);
+    color: var(--color-ink);
 }
 
 .kpi-divider {
     width: 1px;
     height: 26px;
-    background: var(--kpi-border);
+    background: var(--color-rule);
 }
 
 /* ---------- ปุ่ม ---------- */
@@ -290,76 +294,85 @@ input[type="radio"] {
 .btn-kpi-outline {
     display: inline-flex;
     align-items: center;
-    gap: .4rem;
-    font-size: .875rem;
+    gap: var(--space-2xs);
+    font-size: var(--text-sm);
     font-weight: 600;
-    padding: .42rem .9rem;
-    border-radius: var(--kpi-radius);
+    padding: 0.42rem 0.9rem;
+    border-radius: var(--radius-sm);
     border: 1px solid transparent;
-    transition: all .15s ease;
+    transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
     white-space: nowrap;
     text-decoration: none;
 }
 
 .btn-kpi {
-    background-color: var(--kpi-blue);
-    border-color: var(--kpi-blue);
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
     color: #fff;
 }
 
 .btn-kpi:hover, .btn-kpi:focus {
-    background-color: var(--kpi-blue-dark);
-    border-color: var(--kpi-blue-dark);
+    background-color: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
     color: #fff;
     text-decoration: none;
-    box-shadow: var(--kpi-shadow);
+}
+
+.btn-kpi:focus-visible,
+.btn-kpi-outline:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
 }
 
 .btn-kpi-outline {
-    background-color: #fff;
-    border-color: var(--kpi-blue-line);
-    color: var(--kpi-blue);
+    background-color: var(--color-surface);
+    border-color: var(--color-accent-line);
+    color: var(--color-accent);
 }
 
 .btn-kpi-outline:hover, .btn-kpi-outline:focus {
-    background-color: var(--kpi-blue-soft);
-    border-color: var(--kpi-blue-mid);
-    color: var(--kpi-blue-dark);
+    background-color: var(--color-accent-soft);
+    border-color: var(--color-accent);
+    color: var(--color-accent-dark);
     text-decoration: none;
 }
 
-/* ปุ่มเล็กในตาราง (แก้ไข / รีเซ็ตรหัส / ปิดใช้งาน) */
 .btn-kpi-sm {
     display: inline-flex;
     align-items: center;
-    font-size: .78rem;
+    font-size: var(--text-xs);
     font-weight: 600;
-    padding: .25rem .6rem;
-    border-radius: 4px;
-    border: 1px solid var(--kpi-blue-line);
-    background: #fff;
-    color: var(--kpi-blue);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-accent-line);
+    background: var(--color-surface);
+    color: var(--color-accent);
     cursor: pointer;
     white-space: nowrap;
-    transition: all .15s ease;
+    transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
 }
 
 .btn-kpi-sm:hover, .btn-kpi-sm:focus {
-    background: var(--kpi-blue-soft);
-    border-color: var(--kpi-blue-mid);
-    color: var(--kpi-blue-dark);
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent);
+    color: var(--color-accent-dark);
     text-decoration: none;
 }
 
+.btn-kpi-sm:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 1px;
+}
+
 .btn-kpi-sm.is-danger {
-    border-color: #f0c2bd;
-    color: var(--kpi-red);
+    border-color: var(--color-danger-line);
+    color: var(--color-danger);
 }
 
 .btn-kpi-sm.is-danger:hover, .btn-kpi-sm.is-danger:focus {
-    background: var(--kpi-red-soft);
-    border-color: var(--kpi-red);
-    color: var(--kpi-red);
+    background: var(--color-danger-soft);
+    border-color: var(--color-danger);
+    color: var(--color-danger);
 }
 
 .kpi-row-actions {
@@ -374,7 +387,6 @@ input[type="radio"] {
     vertical-align: middle;
 }
 
-/* ช่องตั้งเวลาส่งในตารางผู้รับรายงาน */
 .kpi-schedule-form {
     display: flex;
     align-items: center;
@@ -384,53 +396,51 @@ input[type="radio"] {
 .kpi-schedule-form select {
     width: auto;
     min-width: 62px;
-    padding: .2rem .4rem;
-    font-size: .8rem;
+    padding: 0.2rem 0.4rem;
+    font-size: var(--text-xs);
 }
 
 .kpi-schedule-cell {
     white-space: nowrap;
 }
 
-/* แถบแบ่งหน้าใต้ตาราง */
 .kpi-pager {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    margin-top: 12px;
-    font-size: .85rem;
-    color: var(--kpi-muted);
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    font-size: var(--text-xs);
+    color: var(--color-ink-2);
 }
 
 .kpi-pager-nav {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-xs);
 }
 
 .kpi-pager-page {
     font-weight: 600;
-    color: var(--kpi-ink);
+    color: var(--color-ink);
 }
 
-/* ปุ่มหน้าถัด/ก่อนหน้าที่กดไม่ได้ */
 .btn-kpi-sm.is-off {
-    color: #a8b3bf;
-    border-color: var(--kpi-border);
-    background: #f7f9fc;
+    color: var(--color-ink-3);
+    border-color: var(--color-rule);
+    background: var(--color-paper-2);
     cursor: default;
 }
 
 .kpi-empty {
-    background: var(--kpi-surface);
-    border: 1px dashed var(--kpi-border);
-    border-radius: var(--kpi-radius);
-    padding: 28px;
-    margin-top: 12px;
+    background: var(--color-surface);
+    border: 1px dashed var(--color-rule);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
+    margin-top: var(--space-sm);
     text-align: center;
-    color: var(--kpi-muted);
+    color: var(--color-ink-2);
 }
 
 .kpi-toolbar input[type="search"] {
@@ -438,93 +448,99 @@ input[type="radio"] {
 }
 
 .kpi-muted-cell {
-    color: var(--kpi-muted);
-    font-size: .85rem;
+    color: var(--color-ink-2);
+    font-size: var(--text-xs);
 }
 
 .btn-primary {
-    background-color: var(--kpi-blue);
-    border-color: var(--kpi-blue);
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
 }
 
 .btn-primary:hover, .btn-primary:focus {
-    background-color: var(--kpi-blue-dark);
-    border-color: var(--kpi-blue-dark);
+    background-color: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
 }
 
 .btn-outline-dark {
-    border-color: var(--kpi-blue-line);
-    color: var(--kpi-blue);
+    border-color: var(--color-accent-line);
+    color: var(--color-accent);
 }
 
 .btn-outline-dark:hover {
-    background-color: var(--kpi-blue);
-    border-color: var(--kpi-blue);
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
     color: #fff;
 }
 
-/* ---------- การ์ด KPI ---------- */
+/* ---------- การ์ด KPI ----------
+   สถานะ (green/yellow/red) เป็นสัญญาณข้อมูลจริง ไม่ใช่ของแต่งหน้า
+   จึงยังใช้แถบสีบนได้ (ต่างจาก kpi-page-head ที่เป็นของตกแต่งล้วน) แต่บางลง
+   ให้เป็นเส้นสถานะ ไม่ใช่แถบหนาแบบ 2018-SaaS ---------- */
 
 .kpi-card {
-    background: var(--kpi-surface);
-    border: 1px solid var(--kpi-border);
-    border-top: 3px solid var(--kpi-blue-line);
-    border-radius: var(--kpi-radius);
-    box-shadow: var(--kpi-shadow);
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-top: 2px solid var(--color-rule-strong);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-whisper);
     height: 100%;
-    transition: box-shadow .18s ease, transform .18s ease;
+    transition: box-shadow var(--dur-med) var(--ease-out);
 }
 
 .kpi-card:hover {
-    box-shadow: var(--kpi-shadow-lg);
-    transform: translateY(-1px);
+    box-shadow: var(--shadow-hairline), var(--shadow-whisper);
 }
 
-.kpi-card.status-green  { border-top-color: var(--kpi-green); }
-.kpi-card.status-yellow { border-top-color: var(--kpi-amber); }
-.kpi-card.status-red    { border-top-color: var(--kpi-red); }
-.kpi-card.status-default { border-top-color: var(--kpi-blue-line); }
+.kpi-card.status-green  { border-top-color: var(--color-success); }
+.kpi-card.status-yellow { border-top-color: var(--color-warning); }
+.kpi-card.status-red    { border-top-color: var(--color-danger); }
+.kpi-card.status-default { border-top-color: var(--color-rule-strong); }
 
 .kpi-card .kpi-header {
-    padding: 12px 16px 10px;
-    border-bottom: 1px solid var(--kpi-border);
+    padding: var(--space-sm) var(--space-md) var(--space-xs);
+    border-bottom: 1px solid var(--color-rule);
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 10px;
+    gap: var(--space-sm);
 }
 
 .kpi-card .kpi-title {
+    font-family: var(--font-display);
     font-weight: 600;
-    color: var(--kpi-navy);
-    font-size: .98rem;
+    color: var(--color-navy);
+    font-size: 0.98rem;
     line-height: 1.3;
 }
 
 .kpi-card .kpi-code {
     display: block;
-    font-size: .72rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
     font-weight: 500;
-    color: var(--kpi-muted);
-    letter-spacing: .04em;
+    color: var(--color-ink-2);
+    letter-spacing: 0.02em;
     margin-top: 2px;
 }
 
-.kpi-card .kpi-body { padding: 14px 16px 16px; }
+.kpi-card .kpi-body { padding: var(--space-sm) var(--space-md) var(--space-md); }
 
 .kpi-card .kpi-actual {
-    font-size: 2rem;
-    font-weight: 700;
+    font-family: var(--font-mono);
+    font-size: var(--text-2xl);
+    font-weight: 600;
     line-height: 1.1;
     margin: 0;
-    color: var(--kpi-navy);
+    color: var(--color-navy);
     font-variant-numeric: tabular-nums;
 }
 
 .kpi-card .kpi-unit-inline {
-    font-size: .85rem;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
     font-weight: 500;
-    color: var(--kpi-muted);
+    color: var(--color-ink-2);
     margin-left: 4px;
 }
 
@@ -532,14 +548,14 @@ input[type="radio"] {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 6px 14px;
-    margin: 8px 0 10px;
-    font-size: .84rem;
-    color: var(--kpi-muted);
+    gap: 6px var(--space-md);
+    margin: var(--space-xs) 0 var(--space-sm);
+    font-size: var(--text-xs);
+    color: var(--color-ink-2);
 }
 
 .kpi-meta strong {
-    color: var(--kpi-ink);
+    color: var(--color-ink);
     font-weight: 600;
     font-variant-numeric: tabular-nums;
 }
@@ -547,13 +563,13 @@ input[type="radio"] {
 .kpi-mom { font-weight: 600; font-variant-numeric: tabular-nums; }
 
 .kpi-formula {
-    color: var(--kpi-muted);
-    font-size: .76rem;
-    margin: 0 0 10px;
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    margin: 0 0 var(--space-sm);
     padding: 6px 9px;
-    background: #f7f9fc;
-    border-left: 2px solid var(--kpi-blue-line);
-    border-radius: 0 3px 3px 0;
+    background: var(--color-paper-2);
+    border-radius: var(--radius-sm);
 }
 
 .kpi-chart-box { position: relative; height: 155px; }
@@ -562,88 +578,90 @@ input[type="radio"] {
 
 .kpi-progress {
     height: 6px;
-    background: #edf1f6;
+    background: var(--color-paper-2);
     border-radius: 3px;
     overflow: hidden;
-    margin: 4px 0 12px;
+    margin: 4px 0 var(--space-sm);
 }
 
 .kpi-progress > span {
     display: block;
     height: 100%;
     border-radius: 3px;
-    background: var(--kpi-blue-mid);
+    background: var(--color-accent);
+    transition: width var(--dur-med) var(--ease-out);
 }
 
-.status-green  .kpi-progress > span { background: var(--kpi-green); }
-.status-yellow .kpi-progress > span { background: var(--kpi-amber); }
-.status-red    .kpi-progress > span { background: var(--kpi-red); }
+.status-green  .kpi-progress > span { background: var(--color-success); }
+.status-yellow .kpi-progress > span { background: var(--color-warning); }
+.status-red    .kpi-progress > span { background: var(--color-danger); }
 
 /* ---------- Badge สถานะ ---------- */
 
 .kpi-badge {
     display: inline-block;
-    font-size: .7rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     padding: 3px 9px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid transparent;
     white-space: nowrap;
 }
 
-.kpi-badge-green  { background: var(--kpi-green-soft); color: var(--kpi-green); border-color: #bfe3cb; }
-.kpi-badge-yellow { background: var(--kpi-amber-soft); color: var(--kpi-amber); border-color: #ecd9a3; }
-.kpi-badge-red    { background: var(--kpi-red-soft);   color: var(--kpi-red);   border-color: #f4c4bf; }
-.kpi-badge-default{ background: #eef1f5; color: var(--kpi-muted); border-color: var(--kpi-border); }
+.kpi-badge-green  { background: var(--color-success-soft); color: var(--color-success); border-color: var(--color-success-line); }
+.kpi-badge-yellow { background: var(--color-warning-soft); color: var(--color-warning); border-color: var(--color-warning-line); }
+.kpi-badge-red    { background: var(--color-danger-soft);   color: var(--color-danger);   border-color: var(--color-danger-line); }
+.kpi-badge-default{ background: var(--color-paper-2); color: var(--color-ink-2); border-color: var(--color-rule); }
 
 /* ---------- สรุปด้านบน ---------- */
 
 .kpi-stat-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
 }
 
 .kpi-stat {
     flex: 1 1 150px;
-    background: var(--kpi-surface);
-    border: 1px solid var(--kpi-border);
-    border-radius: var(--kpi-radius);
-    box-shadow: var(--kpi-shadow);
-    padding: 12px 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-whisper);
+    padding: var(--space-sm) var(--space-md);
 }
 
 .kpi-stat .kpi-stat-label {
-    font-size: .74rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: .06em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--kpi-muted);
+    color: var(--color-ink-2);
     margin: 0 0 4px;
 }
 
 .kpi-stat .kpi-stat-value {
+    font-family: var(--font-mono);
     font-size: 1.6rem;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1;
     margin: 0;
-    color: var(--kpi-navy);
+    color: var(--color-navy);
     font-variant-numeric: tabular-nums;
 }
 
-.kpi-stat.is-green .kpi-stat-value  { color: var(--kpi-green); }
-.kpi-stat.is-yellow .kpi-stat-value { color: var(--kpi-amber); }
-.kpi-stat.is-red .kpi-stat-value    { color: var(--kpi-red); }
+.kpi-stat.is-green .kpi-stat-value  { color: var(--color-success); }
+.kpi-stat.is-yellow .kpi-stat-value { color: var(--color-warning); }
+.kpi-stat.is-red .kpi-stat-value    { color: var(--color-danger); }
 
 /* ---------- ตาราง ---------- */
 
 .kpi-table-wrap {
-    background: var(--kpi-surface);
-    border: 1px solid var(--kpi-border);
-    border-radius: var(--kpi-radius);
-    box-shadow: var(--kpi-shadow);
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-whisper);
     overflow: hidden;
 }
 
@@ -651,74 +669,72 @@ input[type="radio"] {
     width: 100%;
     margin: 0;
     border-collapse: collapse;
-    font-size: .88rem;
+    font-size: var(--text-sm);
 }
 
 .kpi-table thead th {
-    background: var(--kpi-blue);
+    background: var(--color-navy);
     color: #fff;
     font-weight: 600;
-    font-size: .78rem;
-    letter-spacing: .04em;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 10px 12px;
+    padding: 10px var(--space-sm);
     border: none;
     white-space: nowrap;
 }
 
 .kpi-table tbody td {
-    padding: 9px 12px;
-    border-top: 1px solid var(--kpi-border);
+    padding: 9px var(--space-sm);
+    border-top: 1px solid var(--color-rule);
     vertical-align: middle;
 }
 
-.kpi-table tbody tr:nth-child(even) { background: #fafbfd; }
-.kpi-table tbody tr:hover { background: var(--kpi-blue-soft); }
+.kpi-table tbody tr:nth-child(even) { background: var(--color-paper-2); }
+.kpi-table tbody tr:hover { background: var(--color-accent-soft); }
 .kpi-table .num { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* ---------- Card ทั่วไป / หน้า Login / Home ---------- */
 
 .kpi-panel {
-    background: var(--kpi-surface);
-    border: 1px solid var(--kpi-border);
-    border-radius: var(--kpi-radius);
-    box-shadow: var(--kpi-shadow);
-    padding: 24px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-whisper);
+    padding: var(--space-lg);
 }
 
 .kpi-auth {
     max-width: 430px;
-    margin: 40px auto;
+    margin: var(--space-2xl) auto;
 }
 
 .kpi-auth .kpi-auth-head {
     text-align: center;
-    margin-bottom: 22px;
+    margin-bottom: var(--space-lg);
 }
 
 .kpi-auth .kpi-auth-head h2 {
     margin: 0 0 4px;
-    font-size: 1.4rem;
+    font-size: var(--text-md);
 }
 
 .kpi-auth .kpi-auth-head p {
-    color: var(--kpi-muted);
-    font-size: .88rem;
+    color: var(--color-ink-2);
+    font-size: var(--text-sm);
     margin: 0;
 }
 
 .kpi-auth label {
     font-weight: 600;
-    font-size: .85rem;
-    color: var(--kpi-ink);
+    font-size: var(--text-sm);
+    color: var(--color-ink);
     margin-bottom: 5px;
     display: inline-block;
 }
 
 .kpi-auth .form-check-label { font-weight: 500; }
 
-/* ทุกแถวในฟอร์ม login กว้างเท่ากันและอยู่กึ่งกลางกล่อง
-   (ช่องกรอก ปุ่ม และ checkbox ขอบซ้าย-ขวาตรงกันหมด) */
 .kpi-auth form {
     width: 100%;
     margin: 0 auto;
@@ -727,7 +743,7 @@ input[type="radio"] {
 .kpi-auth .form-check {
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: var(--space-xs);
     padding-left: 0;
     margin-left: 0;
 }
@@ -737,87 +753,144 @@ input[type="radio"] {
     flex: 0 0 auto;
 }
 
+/* ---------- Home — content page, biased left, no gradient banner ----------
+   เดิมเป็น hero กึ่งกลาง + feature grid 3 คอลัมน์เท่ากันทุกใบ (AI tell แบบคลาสสิก)
+   เปลี่ยนเป็น panel เอกสารชิดซ้าย + list แนวนอนไม่เท่ากัน 3 แถว ---------- */
+
+.kpi-intro {
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-whisper);
+    padding: var(--space-xl) var(--space-2xl) var(--space-xl) var(--space-xl);
+    margin-bottom: var(--space-xl);
+    max-width: 760px;
+}
+
+.kpi-intro h1 {
+    font-size: var(--text-display);
+    line-height: 1.1;
+    margin: 0 0 var(--space-sm);
+}
+
+.kpi-intro p {
+    color: var(--color-ink-2);
+    font-size: var(--text-base);
+    max-width: 60ch;
+    margin: 0 0 var(--space-lg);
+}
+
+.kpi-point-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+}
+
+.kpi-point {
+    display: grid;
+    grid-template-columns: minmax(0, 220px) 1fr;
+    gap: var(--space-md) var(--space-lg);
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--color-rule);
+}
+
+.kpi-point:first-child { border-top: none; }
+
+.kpi-point h3 {
+    font-size: var(--text-base);
+    margin: 0;
+    color: var(--color-navy);
+}
+
+.kpi-point p {
+    color: var(--color-ink-2);
+    font-size: var(--text-sm);
+    margin: 0;
+    max-width: 62ch;
+}
+
+/* Deprecated markup kept styled for other views still referencing it. */
 .kpi-hero {
-    background: linear-gradient(135deg, var(--kpi-navy) 0%, var(--kpi-blue) 100%);
+    background: var(--color-navy);
     color: #fff;
-    border-radius: var(--kpi-radius);
-    box-shadow: var(--kpi-shadow-lg);
-    padding: 40px 36px;
-    margin-bottom: 24px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-hairline);
+    padding: var(--space-xl) var(--space-lg);
+    margin-bottom: var(--space-lg);
 }
 
 .kpi-hero h1 {
     color: #fff;
-    font-size: 2rem;
+    font-size: var(--text-xl);
     font-weight: 700;
-    margin: 0 0 8px;
+    margin: 0 0 var(--space-xs);
 }
 
 .kpi-hero p {
-    color: rgba(255, 255, 255, .88);
-    font-size: 1rem;
+    color: oklch(97% 0.006 258 / 0.88);
+    font-size: var(--text-base);
     max-width: 640px;
-    margin: 0 0 18px;
+    margin: 0 0 var(--space-md);
 }
 
 .kpi-hero .btn-kpi-outline { background: #fff; border-color: #fff; }
 
 .kpi-feature {
-    background: var(--kpi-surface);
-    border: 1px solid var(--kpi-border);
-    border-radius: var(--kpi-radius);
-    box-shadow: var(--kpi-shadow);
-    padding: 20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-whisper);
+    padding: var(--space-md);
     height: 100%;
 }
 
 .kpi-feature h3 {
     font-size: 1.02rem;
-    margin: 0 0 8px;
+    margin: 0 0 var(--space-xs);
 }
 
 .kpi-feature p {
-    color: var(--kpi-muted);
-    font-size: .88rem;
+    color: var(--color-ink-2);
+    font-size: var(--text-sm);
     margin: 0;
 }
 
 /* ---------- Alert ---------- */
 
 .alert {
-    border-radius: var(--kpi-radius);
+    border-radius: var(--radius-md);
     border-width: 1px;
-    font-size: .9rem;
+    font-size: var(--text-sm);
 }
 
 .alert-warning {
-    background-color: var(--kpi-amber-soft);
-    border-color: #ecd9a3;
-    color: #6b4700;
+    background-color: var(--color-warning-soft);
+    border-color: var(--color-warning-line);
+    color: oklch(38% 0.11 75);
 }
 
 .alert-info {
-    background-color: var(--kpi-blue-soft);
-    border-color: var(--kpi-blue-line);
-    color: var(--kpi-blue-dark);
+    background-color: var(--color-accent-soft);
+    border-color: var(--color-accent-line);
+    color: var(--color-accent-dark);
 }
 
 .alert-danger {
-    background-color: var(--kpi-red-soft);
-    border-color: #f4c4bf;
-    color: var(--kpi-red);
+    background-color: var(--color-danger-soft);
+    border-color: var(--color-danger-line);
+    color: var(--color-danger);
 }
 
 /* ---------- Footer ---------- */
 
 .kpi-footer {
     flex-shrink: 0;
-    border-top: 1px solid var(--kpi-border);
-    background: var(--kpi-surface);
+    border-top: 1px solid var(--color-rule);
+    background: var(--color-surface);
     margin-top: 0;
-    padding: 16px 0;
-    color: var(--kpi-muted);
-    font-size: .84rem;
+    padding: var(--space-md) 0;
+    color: var(--color-ink-2);
+    font-size: var(--text-xs);
 }
 
 .kpi-footer .container {
@@ -834,6 +907,16 @@ input[type="radio"] {
     .kpi-toolbar .form-control,
     .kpi-toolbar select { min-width: 0; flex: 1 1 auto; }
     .kpi-card .kpi-actual { font-size: 1.7rem; }
+    .kpi-intro { padding: var(--space-lg); }
+    .kpi-point { grid-template-columns: 1fr; gap: var(--space-2xs); }
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .kpi-card, .kpi-progress > span, .form-control, .form-select, .btn-kpi, .btn-kpi-outline, .btn-kpi-sm, .navbar-kpi .nav-link {
+        transition: none !important;
+    }
 }
 
 /* ---------- สั่งพิมพ์ ---------- */
@@ -841,5 +924,5 @@ input[type="radio"] {
 @media print {
     .navbar, .kpi-toolbar, .kpi-footer { display: none !important; }
     body { background: #fff; }
-    .kpi-card, .kpi-panel, .kpi-table-wrap { box-shadow: none; break-inside: avoid; }
+    .kpi-card, .kpi-panel, .kpi-table-wrap, .kpi-intro { box-shadow: none; break-inside: avoid; }
 }

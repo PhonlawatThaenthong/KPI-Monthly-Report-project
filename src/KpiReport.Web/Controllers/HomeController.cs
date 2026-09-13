@@ -8,11 +8,6 @@ namespace KpiReport.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult About()
         {
             ViewBag.Message = "How KPI figures are produced and who can see them";

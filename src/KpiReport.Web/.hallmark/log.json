@@ -1,0 +1,12 @@
+[
+  {
+    "date": "2026-09-13",
+    "scope": "app",
+    "macrostructure": "Workbench (app pages) + Letter (content/auth pages)",
+    "theme": "custom",
+    "theme_axes": "light / roman-serif+grotesk-sans pairing / cool-blue",
+    "vibe": "internal office tool, blue and white, non-slop",
+    "enrichment": "none",
+    "brief": "HR KPI Monitoring System — hallmark redesign of existing corporate white-blue theme"
+  }
+]

@@ -1,0 +1,92 @@
+/* ============================================================
+   HR KPI System — design tokens
+   Single source of truth for colour / type / space / motion.
+   Loaded before kpi-theme.css in ~/Content/css (see BundleConfig.cs).
+   See design.md at the project root for the full system spec.
+   ============================================================ */
+
+:root {
+    /* ---------- colour — cool-blue anchor hue 258, OKLCH ---------- */
+    --color-paper:        oklch(97.5% 0.006 258);   /* app background */
+    --color-paper-2:      oklch(94%   0.008 258);   /* table stripe / subtle fill */
+    --color-surface:      oklch(99%   0.003 258);   /* card / panel surface */
+    --color-rule:         oklch(87%   0.012 258);   /* borders, dividers */
+    --color-rule-strong:  oklch(78%   0.016 258);
+
+    --color-ink:          oklch(22%   0.020 258);   /* primary text */
+    --color-ink-2:        oklch(46%   0.020 258);   /* secondary / muted text */
+    --color-ink-3:        oklch(64%   0.014 258);   /* placeholder, disabled */
+
+    --color-navy:         oklch(26%   0.050 258);   /* deep chrome — navbar, thead */
+    --color-navy-2:       oklch(33%   0.055 258);
+
+    --color-accent:       oklch(48%   0.135 255);   /* links, primary actions, focus */
+    --color-accent-dark:  oklch(38%   0.125 255);   /* hover/active on accent */
+    --color-accent-soft:  oklch(93%   0.030 255);   /* accent tint fill */
+    --color-accent-line:  oklch(80%   0.045 255);   /* accent-tinted border */
+    --color-focus:        oklch(58%   0.160 255);
+
+    /* status — semantic, not decorative: keep hue distinct per state */
+    --color-success:      oklch(46%   0.130 150);
+    --color-success-soft: oklch(94%   0.035 150);
+    --color-success-line: oklch(82%   0.070 150);
+
+    --color-warning:      oklch(52%   0.130 75);
+    --color-warning-soft: oklch(94%   0.045 85);
+    --color-warning-line: oklch(83%   0.080 85);
+
+    --color-danger:       oklch(50%   0.170 25);
+    --color-danger-soft:  oklch(94%   0.040 20);
+    --color-danger-line:  oklch(83%   0.075 20);
+
+    /* ---------- type ---------- */
+    /* Offline-safe pairing: ui-serif resolves to the OS's real serif
+       (Georgia/Cambria on Windows, New York on macOS, Noto Serif on Linux) —
+       no network font request, still a genuine display/body pairing. */
+    --font-display: ui-serif, "Cambria", Georgia, serif;
+    --font-body:    "Segoe UI", "Sarabun", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    --font-mono:    ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+    --text-xs:   0.8rem;      /* 12.8px */
+    --text-sm:   0.875rem;    /* 14px   */
+    --text-base: 1rem;        /* 16px   */
+    --text-md:   1.25rem;     /* 20px   */
+    --text-lg:   1.5625rem;   /* 25px   */
+    --text-xl:   1.9531rem;   /* 31px   */
+    --text-2xl:  2.4414rem;   /* 39px   */
+    --text-display: clamp(2rem, 2.4vw + 1.2rem, 2.75rem);
+
+    /* ---------- space — 4pt scale ---------- */
+    --space-3xs: 0.125rem;
+    --space-2xs: 0.25rem;
+    --space-xs:  0.5rem;
+    --space-sm:  0.75rem;
+    --space-md:  1rem;
+    --space-lg:  1.5rem;
+    --space-xl:  2.5rem;
+    --space-2xl: 4rem;
+    --space-3xl: 6rem;
+
+    /* ---------- shape / elevation ---------- */
+    --radius-sm:  4px;
+    --radius-md:  8px;
+    --radius-pill: 999px;
+
+    --shadow-whisper: 0 1px 2px oklch(24% 0.02 258 / 0.06);
+    --shadow-hairline: 0 0 0 1px oklch(30% 0.02 258 / 0.07);
+
+    /* ---------- motion ---------- */
+    --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --dur-short:   150ms;
+    --dur-med:     220ms;
+
+    /* ---------- z-index ---------- */
+    --z-base:     1;
+    --z-raised:   10;
+    --z-dropdown: 100;
+    --z-sticky:   200;
+    --z-modal:    400;
+    --z-toast:    500;
+}

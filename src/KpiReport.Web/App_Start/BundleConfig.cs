@@ -26,6 +26,7 @@ namespace KpiReport.Web
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/dashboard.css",
+                      "~/Content/tokens.css",
                       "~/Content/kpi-theme.css"));
         }
     }
