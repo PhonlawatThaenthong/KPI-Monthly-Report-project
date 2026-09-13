@@ -19,7 +19,8 @@ namespace KpiReport.Web
     ///
     /// ต่อเข้ากับ SmtpMailSender ตัวเดียวกับที่งานส่งรายงานรายเดือนใช้
     /// (src/Shared/Mail/SmtpMailSender.cs ผูกเข้าโปรเจกต์ด้วย csproj Link)
-    /// อ่านค่า SMTP จาก &lt;system.net&gt;&lt;mailSettings&gt; ใน Web.config
+    /// อ่านค่า SMTP จาก appSettings "Smtp.*" ใน Web.config (รหัสผ่านจาก
+    /// environment variable KPI_SMTP_PASSWORD — ดู Shared/Mail/SmtpSettings.cs)
     ///
     /// ส่งแบบ synchronous ครอบด้วย Task.FromResult เพราะ SmtpClient
     /// รุ่นที่ใช้อยู่ไม่มี async ที่ยกเลิกได้จริง และปริมาณเมลของระบบนี้น้อยมาก

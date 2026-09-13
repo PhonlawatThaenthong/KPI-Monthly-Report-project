@@ -259,6 +259,9 @@
     <Compile Include="..\Shared\Mail\SmtpMailSender.cs">
       <Link>Shared\SmtpMailSender.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\Mail\SmtpSettings.cs">
+      <Link>Shared\SmtpSettings.cs</Link>
+    </Compile>
     <Compile Include="Infrastructure\UserContext.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DashboardViewModels.cs" />

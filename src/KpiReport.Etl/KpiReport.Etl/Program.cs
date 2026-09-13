@@ -151,7 +151,8 @@ namespace KpiReport.Etl
                 // แยกกรณีตั้งค่าไม่ครบออกมา เพราะเป็นความผิดพลาดที่แก้ได้ทันที
                 // ไม่ควรทำให้ดูเหมือนระบบพัง
                 Console.Error.WriteLine("   [ตั้งค่าไม่ครบ] " + ex.Message);
-                Console.Error.WriteLine("   ตรวจ App.config: appSettings 'Report:FromAddress' และ <system.net><mailSettings>");
+                Console.Error.WriteLine("   ตรวจ App.config: appSettings 'Report:FromAddress' และ 'Smtp.*'"
+                    + " รวมถึง environment variable KPI_SMTP_PASSWORD (ถ้า Smtp.DeliveryMethod=Network)");
                 return 1;
             }
         }

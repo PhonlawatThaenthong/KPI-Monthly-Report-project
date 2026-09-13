@@ -112,6 +112,9 @@
     <Compile Include="..\..\Shared\Mail\SmtpMailSender.cs">
       <Link>Shared\SmtpMailSender.cs</Link>
     </Compile>
+    <Compile Include="..\..\Shared\Mail\SmtpSettings.cs">
+      <Link>Shared\SmtpSettings.cs</Link>
+    </Compile>
     <Compile Include="Reports\MonthlyReportJob.cs" />
     <Compile Include="Reports\ReportRepository.cs" />
     <Compile Include="Reports\ReportSubscription.cs" />

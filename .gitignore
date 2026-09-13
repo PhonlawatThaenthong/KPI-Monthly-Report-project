@@ -1,6 +1,6 @@
 bin/
 obj/
-*.user
-Web.config
 .vs/
+*.user
 *.suo
+packages/
