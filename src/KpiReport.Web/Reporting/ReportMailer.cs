@@ -174,49 +174,97 @@ namespace KpiReport.Web.Reporting
         /// เนื้ออีเมลตั้งใจให้สั้น: บอกว่าเป็นเดือนไหน ขอบเขตไหน
         /// และภาพรวมสถานะพอให้ตัดสินใจได้ว่าต้องเปิดไฟล์ดูด่วนหรือไม่
         /// รายละเอียดทั้งหมดอยู่ใน PDF ที่แนบไป
+        ///
+        /// จัดด้วยตาราง (ไม่ใช้ flex/grid) และ inline style ล้วน เพราะต้อง
+        /// เรนเดอร์ถูกทั้งใน Gmail และ Outlook desktop (Word engine) — ทั้งคู่
+        /// ตัด &lt;style&gt;/คลาส CSS ทิ้งเป็นปกติ
         /// </summary>
         private static string BuildBody(KpiReportData data, ReportRecipient recipient)
         {
+            const string borderColor = "#e3e8ee";
+            const string mutedColor = "#5c6b7a";
+            const string textColor = "#1b2430";
+
             var sb = new StringBuilder();
 
-            sb.Append("<div style=\"font-family:Segoe UI,Arial,sans-serif;font-size:14px;color:#1b2430;\">");
-            sb.Append("<p>เรียน ").Append(Encode(recipient.DisplayName ?? recipient.Email)).Append("</p>");
+            sb.Append("<div style=\"background:#eef1f5;padding:32px 16px;font-family:'Segoe UI',Arial,sans-serif;\">");
+            sb.Append("<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" ")
+              .Append("style=\"max-width:600px;margin:0 auto;background:#ffffff;border:1px solid ")
+              .Append(borderColor).Append(";border-radius:8px;\">");
 
-            sb.Append("<p>รายงาน KPI ประจำเดือน <strong>").Append(Encode(data.MonthLabel))
+            // หัวเอกสาร
+            sb.Append("<tr><td style=\"background:#0b2545;padding:22px 28px;border-radius:8px 8px 0 0;\">");
+            sb.Append("<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>");
+            sb.Append("<td style=\"color:#ffffff;font-size:16px;font-weight:700;letter-spacing:.2px;\">")
+              .Append("HR KPI Monitoring System</td>");
+            sb.Append("<td style=\"color:#aebdcf;font-size:12px;text-align:right;vertical-align:bottom;\">")
+              .Append("รายงานประจำเดือน</td>");
+            sb.Append("</tr></table></td></tr>");
+
+            // คำทักทาย + สรุปหัวเรื่อง
+            sb.Append("<tr><td style=\"padding:28px 28px 4px 28px;\">");
+            sb.Append("<p style=\"margin:0 0 16px 0;font-size:14px;color:").Append(textColor).Append(";\">เรียน ")
+              .Append(Encode(recipient.DisplayName ?? recipient.Email)).Append("</p>");
+            sb.Append("<p style=\"margin:0;font-size:14px;color:").Append(textColor).Append(";line-height:1.7;\">")
+              .Append("รายงาน KPI ประจำเดือน <strong>").Append(Encode(data.MonthLabel))
               .Append("</strong> ขอบเขต <strong>").Append(Encode(data.ScopeLabel))
-              .Append("</strong> แนบมาในไฟล์ PDF</p>");
+              .Append("</strong> รายละเอียดฉบับเต็มแนบมาในไฟล์ PDF</p>");
+            sb.Append("</td></tr>");
 
-            sb.Append("<table style=\"border-collapse:collapse;font-size:13px;margin:14px 0;\">");
-            AppendStat(sb, "KPI ทั้งหมด", data.Rows.Count, "#0b2545");
-            AppendStat(sb, "เข้าเป้า", data.CountGreen, "#1a7f37");
-            AppendStat(sb, "เฝ้าระวัง", data.CountYellow, "#9a6700");
-            AppendStat(sb, "ต่ำกว่าเป้า", data.CountRed, "#b42318");
-            sb.Append("</table>");
+            // การ์ดสรุปสถานะ KPI
+            sb.Append("<tr><td style=\"padding:20px 28px 4px 28px;\">");
+            sb.Append("<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"8\"><tr>");
+            AppendStatCell(sb, "KPI ทั้งหมด", data.Rows.Count, "#0b2545", "#f4f6f8", borderColor);
+            AppendStatCell(sb, "เข้าเป้า", data.CountGreen, "#1a7f37", "#eef8f0", borderColor);
+            AppendStatCell(sb, "เฝ้าระวัง", data.CountYellow, "#9a6700", "#fdf6e8", borderColor);
+            AppendStatCell(sb, "ต่ำกว่าเป้า", data.CountRed, "#b42318", "#fbeae8", borderColor);
+            sb.Append("</tr></table>");
+            sb.Append("</td></tr>");
 
             if (data.CountRed > 0)
             {
-                sb.Append("<p style=\"color:#b42318;\">มี KPI ที่ต่ำกว่าเป้า ")
-                  .Append(data.CountRed)
-                  .Append(" ตัว รายละเอียดอยู่ในไฟล์แนบ</p>");
+                sb.Append("<tr><td style=\"padding:12px 28px 0 28px;\">");
+                sb.Append("<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" ")
+                  .Append("style=\"background:#fbeae8;border-left:3px solid #b42318;\"><tr>");
+                sb.Append("<td style=\"padding:12px 16px;font-size:13px;color:#8f1f13;\">")
+                  .Append("มี KPI ที่ต่ำกว่าเป้า <strong>").Append(data.CountRed)
+                  .Append("</strong> ตัว รายละเอียดอยู่ในไฟล์แนบ")
+                  .Append("</td></tr></table>");
+                sb.Append("</td></tr>");
             }
 
-            sb.Append("<p style=\"color:#5c6b7a;font-size:12px;margin-top:20px;\">")
-              .Append("อีเมลฉบับนี้ส่งอัตโนมัติจากระบบ HR KPI Monitoring ")
-              .Append("หากต้องการเปลี่ยนแปลงการรับรายงาน กรุณาติดต่อทีม HR Analytics")
-              .Append("</p>");
+            // ท้ายเอกสาร
+            sb.Append("<tr><td style=\"padding:24px 28px 0 28px;\">");
+            sb.Append("<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" ")
+              .Append("style=\"border-top:1px solid ").Append(borderColor).Append(";\"><tr>")
+              .Append("<td style=\"padding-top:16px;font-size:12px;color:").Append(mutedColor).Append(";line-height:1.7;\">")
+              .Append("อีเมลฉบับนี้ส่งอัตโนมัติจากระบบ HR KPI Monitoring หากต้องการเปลี่ยนแปลงการรับรายงาน ")
+              .Append("กรุณาติดต่อทีม HR Analytics")
+              .Append("</td></tr></table>");
+            sb.Append("</td></tr>");
 
-            sb.Append("</div>");
+            sb.Append("<tr><td style=\"padding:10px 28px 24px 28px;font-size:11px;color:#9aa7b4;\">")
+              .Append("© ").Append(data.GeneratedAt.Year.ToString(CultureInfo.InvariantCulture))
+              .Append(" HR Analytics Team — ระบบรายงาน KPI อัตโนมัติ")
+              .Append("</td></tr>");
+
+            sb.Append("</table></div>");
             return sb.ToString();
         }
 
-        private static void AppendStat(StringBuilder sb, string label, int value, string color)
+        private static void AppendStatCell(StringBuilder sb, string label, int value, string color,
+                                            string backgroundColor, string borderColor)
         {
-            sb.Append("<tr>")
-              .Append("<td style=\"padding:4px 16px 4px 0;color:#5c6b7a;\">").Append(Encode(label)).Append("</td>")
-              .Append("<td style=\"padding:4px 0;font-weight:700;color:").Append(color).Append(";\">")
+            sb.Append("<td style=\"width:25%;padding:14px 6px;text-align:center;background:")
+              .Append(backgroundColor).Append(";border:1px solid ").Append(borderColor)
+              .Append(";border-radius:6px;\">")
+              .Append("<div style=\"font-size:22px;font-weight:700;color:").Append(color).Append(";\">")
               .Append(value.ToString(CultureInfo.InvariantCulture))
-              .Append("</td>")
-              .Append("</tr>");
+              .Append("</div>")
+              .Append("<div style=\"font-size:11px;color:#5c6b7a;margin-top:4px;\">")
+              .Append(Encode(label))
+              .Append("</div>")
+              .Append("</td>");
         }
 
         /// <summary>
