@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using KpiReport.Web.Infrastructure;
 using KpiReport.Web.Models;
+using KpiReport.Web.Reporting;
 using KpiReport.Web.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -156,6 +157,80 @@ namespace KpiReport.Web.Controllers
                   row.Email + " · ขอบเขต=" + row.ScopeLabel);
 
             TempData["SubMessage"] = (row.IsActive ? "หยุดส่งให้ " : "กลับมาส่งให้ ") + row.Email + " แล้ว";
+            return RedirectToAction("Index");
+        }
+
+        // POST: /ReportSubscriptions/SendNow
+        /// <summary>
+        /// ส่งรายงานเดือนล่าสุดให้ผู้รับรายนี้เดี๋ยวนี้ ไม่ต้องรอรอบตามตาราง
+        ///
+        /// ใช้ ReportMailer ตัวเดียวกับงานส่งอัตโนมัติ (MonthlyReportJob)
+        /// ไฟล์แนบ เนื้อเมล และขอบเขตข้อมูลจึงเหมือนกันทุกประการ
+        /// รวมถึงกติกาที่ว่าผู้รับที่ผูกกับแผนกเดียวไม่เห็นตัวเลขแผนกอื่น
+        ///
+        /// เขียน log ด้วยคีย์ KPI_Monthly_Manual: แยกจากรอบอัตโนมัติ การกดส่ง
+        /// ด้วยมือจึงไม่ทำให้ผู้รับรายนี้หลุดรอบประจำเดือน และยังแยกใน log ได้
+        /// ว่าฉบับไหนมาจากใครกด
+        ///
+        /// ผู้รับที่ถูกระงับไว้ (IsActive = 0) ยังกดส่งได้ ถือว่าผู้ดูแลตั้งใจ
+        /// แต่บัญชีที่ถูกลบหรือถูกปิดใช้งานส่งไม่ได้ เพราะไม่มีอีเมลที่เชื่อถือได้
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SendNow(int id)
+        {
+            var row = _subs.GetById(id);
+            if (row == null) return HttpNotFound();
+
+            if (row.LinkedUserMissing || row.LinkedUserDisabled)
+            {
+                TempData["SubError"] = "ส่งไม่ได้ — " + row.SilentReason;
+                return RedirectToAction("Index");
+            }
+
+            string connStr = ConfigurationManager.ConnectionStrings["KpiDb"].ConnectionString;
+
+            int? monthKey = new ReportDeliveryRepository(connStr).GetLatestMonthKey();
+            if (monthKey == null)
+            {
+                TempData["SubError"] = "ยังไม่มีเดือนที่มีข้อมูลรายงาน — รัน ETL ก่อน";
+                return RedirectToAction("Index");
+            }
+
+            var recipient = new ReportRecipient
+            {
+                Email = row.Email,
+                DisplayName = row.DisplayName,
+                DepartmentId = row.DepartmentId,
+                DepartmentName = row.DepartmentName
+            };
+
+            try
+            {
+                var result = new ReportMailer(connStr).Send(
+                    recipient, monthKey.Value,
+                    ReportMailer.ManualReportNameFor(recipient),
+                    "Sent manually by " + User.Identity.Name, dryRun: false);
+
+                if (!result.HasData)
+                {
+                    TempData["SubError"] = "ไม่มีข้อมูล KPI ของเดือน " + monthKey.Value
+                                           + " ในขอบเขต " + row.ScopeLabel + " — ยังไม่ได้ส่ง";
+                    return RedirectToAction("Index");
+                }
+
+                Audit("REPORT_SENT_NOW",
+                      row.Email + " · ขอบเขต=" + row.ScopeLabel + " · เดือน " + monthKey.Value);
+
+                TempData["SubMessage"] = "ส่งรายงานเดือน " + result.MonthLabel + " ให้ " + row.Email
+                                         + " แล้ว — รอบอัตโนมัติเดือนนี้ยังส่งตามปกติ";
+            }
+            catch (Exception ex)
+            {
+                Audit("REPORT_SENT_NOW_FAILED", row.Email + " · " + ex.Message);
+                TempData["SubError"] = "ส่งไม่สำเร็จ: " + ex.Message;
+            }
+
             return RedirectToAction("Index");
         }
 

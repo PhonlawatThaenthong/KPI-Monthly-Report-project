@@ -274,7 +274,9 @@
     <Compile Include="Reporting\KpiReportData.cs" />
     <Compile Include="Reporting\ExcelReportBuilder.cs" />
     <Compile Include="Reporting\PdfReportBuilder.cs" />
+    <Compile Include="Reporting\ReportMailer.cs" />
     <Compile Include="Repositories\KpiRepository.cs" />
+    <Compile Include="Repositories\ReportDeliveryRepository.cs" />
     <Compile Include="Repositories\ReportSubscriptionRepository.cs" />
     <Compile Include="Repositories\UserAdminRepository.cs" />
     <Compile Include="Startup.cs" />

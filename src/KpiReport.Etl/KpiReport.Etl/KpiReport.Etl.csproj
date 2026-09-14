@@ -132,6 +132,12 @@
     <Compile Include="..\..\KpiReport.Web\Reporting\PdfReportBuilder.cs">
       <Link>Shared\PdfReportBuilder.cs</Link>
     </Compile>
+    <Compile Include="..\..\KpiReport.Web\Reporting\ReportMailer.cs">
+      <Link>Shared\ReportMailer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\KpiReport.Web\Repositories\ReportDeliveryRepository.cs">
+      <Link>Shared\ReportDeliveryRepository.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\AttendanceCsvReader.cs" />

@@ -197,6 +197,17 @@ else
                             }
                         </td>
                         <td class="kpi-row-actions">
+                            @using (Html.BeginForm("SendNow", "ReportSubscriptions", FormMethod.Post, new { @class = "kpi-sendnow-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", row.SubscriptionId)
+                                <button type="submit" class="btn-kpi-sm"
+                                        title="ส่งรายงานเดือนล่าสุดให้ทันที — ไม่กระทบรอบอัตโนมัติของเดือนนี้"
+                                        disabled="@(row.LinkedUserMissing || row.LinkedUserDisabled ? "disabled" : null)">
+                                    ส่งเดี๋ยวนี้
+                                </button>
+                            }
+
                             @using (Html.BeginForm("Toggle", "ReportSubscriptions", FormMethod.Post))
                             {
                                 @Html.AntiForgeryToken()
@@ -249,6 +260,20 @@ else
             source.addEventListener('change', syncSource);
             if (userSel) { userSel.addEventListener('change', syncDepartment); }
             syncSource();
+        })();
+
+        // ส่งเมลจริงตอนกด — สร้าง PDF + SMTP ทำให้ request ช้าพอที่คนจะกดซ้ำ
+        // ปิดปุ่มทันทีหลังกด กดสองทีคือเมลสองฉบับ
+        (function () {
+            var forms = document.querySelectorAll('.kpi-sendnow-form');
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].addEventListener('submit', function (e) {
+                    var btn = this.querySelector('button[type=submit]');
+                    if (!btn || btn.disabled) { e.preventDefault(); return; }
+                    btn.disabled = true;
+                    btn.textContent = 'กำลังส่ง…';
+                });
+            }
         })();
     </script>
 }
