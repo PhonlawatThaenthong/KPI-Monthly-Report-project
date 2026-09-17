@@ -65,15 +65,21 @@ namespace KpiReport.Web.Infrastructure
         }
 
         /// <summary>
-        /// รหัสผ่านของบัญชีตัวอย่าง — ต้องมาจาก Web.config เท่านั้น
+        /// รหัสผ่านของบัญชีตัวอย่าง — อ่านจาก environment variable เท่านั้น
+        /// ไม่เก็บใน Web.config อีกต่อไป (เหมือน KPI_SMTP_PASSWORD ใน SmtpSettings.cs)
         ///
         /// ของเดิม hardcode ไว้ในโค้ด ซึ่งหลุดขึ้น GitHub ไปพร้อมกับ source
-        /// ย้ายมาไว้ที่นี่เพราะ Web.config อยู่ใน .gitignore อยู่แล้ว
+        /// รอบที่แล้วย้ายมาไว้ใน Web.config โดยเข้าใจผิดว่าไฟล์นั้นอยู่ใน .gitignore
+        /// — จริง ๆ แล้วไม่ได้ ignore (และไม่ควร ignore ทั้งไฟล์ เพราะมี Debug/Release
+        /// transform และค่าตั้งอื่นที่ไม่ใช่ความลับต้อง track ไว้) ตอนนี้จึงย้ายค่านี้
+        /// ออกมาเป็น environment variable แทน ตั้งด้วย setx (เครื่อง dev) หรือ
+        /// Application Pool environmentVariables (IIS) ชื่อ KPI_DEMO_PASSWORD
+        ///
         /// ถ้าไม่ได้ตั้งค่าไว้ จะไม่ seed อะไรเลย (ไม่มีรหัสผ่าน default ให้เดา)
         /// </summary>
         public static string DemoPassword
         {
-            get { return ConfigurationManager.AppSettings["Auth:DemoPassword"]; }
+            get { return Environment.GetEnvironmentVariable("KPI_DEMO_PASSWORD"); }
         }
 
         // ---------------------------------------------------------------

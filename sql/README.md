@@ -87,8 +87,6 @@ ALTER ROLE db_kpi_web ADD MEMBER kpi_web_user;
 
 ## สิ่งที่ยังไม่มีในชุดนี้ (ขั้นถัดไป)
 
-- `core.usp_CalcKpi_*` ทั้ง 5 ตัว — proc คำนวณ KPI จริง
-- Transform proc: `stg` → `core`
 - Mock data generator
 - SQL Agent Job / Task Scheduler script
 

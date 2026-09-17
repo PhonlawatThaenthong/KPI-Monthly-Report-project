@@ -13,12 +13,13 @@ namespace KpiReport.Web.Infrastructure
     /// สร้าง Role และบัญชีตัวอย่างตอนแอปเริ่มทำงาน
     ///
     /// *** สำหรับ Development / เดโม เท่านั้น ***
-    /// การทำงานถูกคุมด้วย AuthSettings สองค่า:
-    ///   Auth:SeedDemoUsers — Release build ปิดเป็นค่าตั้งต้น
-    ///   Auth:DemoPassword  — ไม่ตั้งค่าไว้ = ไม่ seed อะไรเลย
+    /// การทำงานถูกคุมด้วยสองอย่าง:
+    ///   Auth:SeedDemoUsers (ใน Web.config) — Release build ปิดเป็นค่าตั้งต้น
+    ///   KPI_DEMO_PASSWORD (environment variable) — ไม่ตั้งค่าไว้ = ไม่ seed อะไรเลย
     ///
     /// เดิมรหัสผ่านถูก hardcode ไว้ในไฟล์นี้ ซึ่งหลุดขึ้น GitHub ไปพร้อม source
-    /// ตอนนี้ย้ายไปอยู่ใน Web.config ที่อยู่ใน .gitignore แล้ว
+    /// ตอนนี้อ่านจาก environment variable แทน (ดู AuthSettings.DemoPassword)
+    /// ไม่เก็บไว้ใน Web.config เลย เพราะไฟล์นั้น track อยู่ใน git ตามปกติ
     ///
     /// สร้าง Role เสมอ (ไม่ใช่ความลับ และระบบต้องมี Role ถึงจะทำงานได้)
     /// แต่จะสร้าง "บัญชี" ให้เฉพาะเมื่อเปิดสวิตช์ไว้เท่านั้น
