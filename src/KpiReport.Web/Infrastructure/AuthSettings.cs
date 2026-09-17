@@ -65,6 +65,32 @@ namespace KpiReport.Web.Infrastructure
         }
 
         /// <summary>
+        /// อีเมลของ Admin คนแรกของระบบจริง (production bootstrap)
+        ///
+        /// ตั้งค่านี้ (ไม่ใช่ความลับ เป็นแค่ที่อยู่อีเมล ใส่ตรงใน Web.config ได้)
+        /// แล้วตอนแอปเริ่มทำงานครั้งแรก ถ้ายังไม่มีใครอยู่ role Admin เลย
+        /// IdentitySeeder จะสร้างบัญชีนี้ให้พร้อม role Admin ด้วยรหัสผ่านสุ่มที่
+        /// สร้างแล้วทิ้งทันที (ไม่ log ไม่เก็บที่ไหน ไม่มีใครรู้ค่า)
+        ///
+        /// วิธีเข้าระบบครั้งแรก: ไปหน้า "ลืมรหัสผ่าน" (/Account/ForgotPassword)
+        /// แล้วกรอกอีเมลนี้ ระบบจะส่งลิงก์ตั้งรหัสผ่านใหม่ผ่าน SMTP ที่ตั้งไว้
+        /// (Smtp.* ใน Web.config) — ใช้ path เดียวกับที่ผู้ใช้ทั่วไปกดลืมรหัสผ่าน
+        /// เอง 100% ไม่มีโค้ดพิเศษแยกออกไป จึงได้ token/ลิงก์ที่ปลอดภัยระดับ
+        /// เดียวกัน (หมดอายุใน 1 ชั่วโมง ตาม TokenLifespan ใน IdentityConfig.cs)
+        ///
+        /// เหตุผลที่ไม่ส่งอีเมลนี้ให้อัตโนมัติตอน Application_Start เอง:
+        /// ตอนนั้นยังไม่มี OWIN/HTTP context จะสร้างลิงก์ callback ที่ถูกต้อง
+        /// (Url.Action) และ token provider ที่ตรงกับที่ AccountController ใช้
+        /// ตรวจสอบตอนกดลิงก์ไม่ได้ ปล่อยให้ผู้ดูแลกดเองครั้งแรกจึงปลอดภัยกว่า
+        ///
+        /// ทิ้งว่างไว้ (ค่าตั้งต้น) = ปิดฟีเจอร์นี้ ไม่ auto-create อะไร
+        /// </summary>
+        public static string InitialAdminEmail
+        {
+            get { return ConfigurationManager.AppSettings["Auth:InitialAdminEmail"]; }
+        }
+
+        /// <summary>
         /// รหัสผ่านของบัญชีตัวอย่าง — อ่านจาก environment variable เท่านั้น
         /// ไม่เก็บใน Web.config อีกต่อไป (เหมือน KPI_SMTP_PASSWORD ใน SmtpSettings.cs)
         ///
