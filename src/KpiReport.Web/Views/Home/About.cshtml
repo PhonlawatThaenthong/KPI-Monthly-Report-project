@@ -12,14 +12,15 @@
 <div class="kpi-panel">
     <h3>What this system does</h3>
     <p>
-        The HR KPI Monitoring System collects monthly source files (attendance, downtime and cost),
-        validates and loads them through an ETL pipeline, calculates each KPI against its target,
-        and publishes the result to this dashboard.
+        The HR KPI Monitoring System pulls the monthly KPI figures already produced by the
+        source HR system, validates and loads them through an ETL pipeline, compares each one
+        against its target, and publishes the result to this dashboard. The figures are never
+        recalculated here, so the dashboard and the source system always agree.
     </p>
 
     <h3>Data flow</h3>
     <p>
-        Source files &rarr; staging &rarr; core tables &rarr; KPI calculation &rarr; reporting views &rarr; dashboard and exports.
+        Source KPI system &rarr; staging &rarr; core tables &rarr; reporting views &rarr; dashboard and exports.
         Only the reporting layer is exposed to the web application, which keeps the raw data
         out of reach of the site.
     </p>

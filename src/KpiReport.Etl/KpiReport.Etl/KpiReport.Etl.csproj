@@ -52,6 +52,9 @@
     <Reference Include="ClosedXML.Parser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1d5f7376574c51ec, processorArchitecture=MSIL">
       <HintPath>..\packages\ClosedXML.Parser.2.0.0\lib\netstandard2.0\ClosedXML.Parser.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.1.79\lib\net461\Dapper.dll</HintPath>
     </Reference>
@@ -106,9 +109,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db\SqlDb.cs" />
-    <Compile Include="Infrastructure\CsvEncodingDetector.cs" />
     <Compile Include="Infrastructure\FileHashUtil.cs" />
-    <Compile Include="Models\AttendanceRawRow.cs" />
+    <Compile Include="Models\KpiFeedRow.cs" />
+    <Compile Include="Feed\IKpiFeedSource.cs" />
+    <Compile Include="Feed\KpiFeedBatch.cs" />
+    <Compile Include="Feed\KpiFeedSourceFactory.cs" />
+    <Compile Include="Feed\MockJsonKpiFeedSource.cs" />
+    <Compile Include="Feed\HttpKpiFeedSource.cs" />
     <Compile Include="..\..\Shared\Mail\SmtpMailSender.cs">
       <Link>Shared\SmtpMailSender.cs</Link>
     </Compile>
@@ -140,7 +147,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sources\AttendanceCsvReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
