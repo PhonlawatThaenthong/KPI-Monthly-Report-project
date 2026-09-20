@@ -70,7 +70,8 @@ namespace KpiReport.Web.Reporting
             AddFooter(section);
             AddTitleBlock(section, data);
             AddSummaryBlock(section, data);
-            AddKpiTable(section, data);
+            if (!data.RowsAreDepartmentBreakdown)
+                AddKpiTable(section, data);
 
             if (data.HasDepartmentBreakdown)
                 AddDepartmentTables(section, data);

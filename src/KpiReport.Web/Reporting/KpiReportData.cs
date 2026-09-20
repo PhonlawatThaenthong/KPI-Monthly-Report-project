@@ -25,10 +25,20 @@ namespace KpiReport.Web.Reporting
         public List<KpiDashboardRow> Rows { get; set; } = new List<KpiDashboardRow>();
 
         /// <summary>
-        /// KPI แยกรายแผนก — มีค่าเฉพาะเมื่อผู้ใช้เห็นได้ทุกแผนก (Admin/Manager)
-        /// Viewer จะเป็น null เสมอ เพื่อไม่ให้ข้อมูลแผนกอื่นหลุดออกไป
+        /// KPI แยกรายแผนก — มีเฉพาะแผนกที่ผู้ใช้/ผู้รับรายนั้นมีสิทธิ์เห็นเท่านั้น
+        /// Manager ที่ดูแลแผนกเดียวจะเป็น null เสมอ เพื่อไม่ให้ข้อมูลแผนกอื่นหลุดออกไป
         /// </summary>
         public List<KpiDashboardRow> DepartmentRows { get; set; }
+
+        /// <summary>
+        /// true = Rows เป็นข้อมูลแยกรายแผนกอยู่แล้ว (ผู้รับเลือกไว้หลายแผนก)
+        ///
+        /// กรณีนี้ตาราง "KPI Detail" แบบแบนจะซ้ำกับตารางแยกรายแผนก และอ่านแล้ว
+        /// สับสนเพราะ KPI ชื่อเดียวกันโผล่หลายครั้งโดยไม่บอกว่าของแผนกไหน
+        /// จึงให้ builder ข้ามตารางแบนไป เหลือเฉพาะตารางแยกรายแผนก
+        /// ส่วนตัวเลขสรุปด้านบนยังนับจาก Rows ตามปกติ (นับทุกแผนกที่เลือก)
+        /// </summary>
+        public bool RowsAreDepartmentBreakdown { get; set; }
 
         public bool HasDepartmentBreakdown
         {

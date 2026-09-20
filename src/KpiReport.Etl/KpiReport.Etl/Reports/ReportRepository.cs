@@ -32,10 +32,11 @@ namespace KpiReport.Etl.Reports
             using (var conn = Open())
             {
                 var rows = conn.Query<ReportSubscription>(@"
-                    SELECT SubscriptionId, Email, DisplayName, DepartmentId, DepartmentName,
+                    SELECT SubscriptionId, Email, DisplayName,
+                           DepartmentIds, DepartmentNames, DepartmentCount,
                            SendDayOfMonth, SendHour
                     FROM meta.vw_ActiveReportSubscription
-                    ORDER BY CASE WHEN DepartmentId IS NULL THEN 0 ELSE 1 END, Email");
+                    ORDER BY CASE WHEN DepartmentCount = 0 THEN 0 ELSE 1 END, Email");
 
                 return new List<ReportSubscription>(rows);
             }

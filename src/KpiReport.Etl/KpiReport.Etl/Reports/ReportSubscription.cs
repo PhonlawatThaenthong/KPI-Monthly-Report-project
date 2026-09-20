@@ -9,14 +9,22 @@ namespace KpiReport.Etl.Reports
         public string Email { get; set; }
         public string DisplayName { get; set; }
 
-        /// <summary>null = ได้รายงานภาพรวมทั้งบริษัท + แยกรายแผนก</summary>
-        public int? DepartmentId { get; set; }
+        /// <summary>
+        /// รายการ DepartmentId คั่นด้วย comma ('3,5,8')
+        /// null/ว่าง = ได้รายงานภาพรวมทั้งบริษัท + แยกรายแผนก
+        ///
+        /// ผู้รับหนึ่งคนได้อีเมลฉบับเดียวต่อเดือน ไม่ว่าจะดูแลกี่แผนก
+        /// </summary>
+        public string DepartmentIds { get; set; }
 
-        public string DepartmentName { get; set; }
+        /// <summary>ชื่อแผนกที่เลือกไว้ คั่นด้วย comma (แสดงผลอย่างเดียว)</summary>
+        public string DepartmentNames { get; set; }
+
+        public int DepartmentCount { get; set; }
 
         public bool IsCompanyWide
         {
-            get { return !DepartmentId.HasValue; }
+            get { return DepartmentCount == 0 || string.IsNullOrEmpty(DepartmentIds); }
         }
 
         /// <summary>วันที่ของเดือนที่ผู้รับรายนี้ตั้งไว้ (1–31)</summary>
@@ -28,7 +36,7 @@ namespace KpiReport.Etl.Reports
         /// <summary>ชื่อขอบเขตที่จะพิมพ์บนหัวรายงานและใช้เป็นคีย์กันส่งซ้ำ</summary>
         public string ScopeLabel
         {
-            get { return IsCompanyWide ? "All Departments" : (DepartmentName ?? "#" + DepartmentId); }
+            get { return IsCompanyWide ? "All Departments" : (DepartmentNames ?? DepartmentIds); }
         }
 
         /// <summary>

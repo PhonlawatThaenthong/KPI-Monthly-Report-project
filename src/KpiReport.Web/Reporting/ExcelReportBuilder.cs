@@ -91,9 +91,14 @@ namespace KpiReport.Web.Reporting
 
             // --- ตาราง ---
             const int headerRow = 7;
+
+            // ผู้รับที่เลือกไว้หลายแผนก จะได้ KPI ชื่อเดียวกันหลายแถว
+            // คอลัมน์ลำดับจึงไม่มีประโยชน์ เปลี่ยนเป็นชื่อแผนกแทนให้อ่านออก
+            string firstHeader = data.RowsAreDepartmentBreakdown ? "Department" : "#";
+
             string[] headers =
             {
-                "#", "KPI Code", "KPI Name", "Unit", "Actual",
+                firstHeader, "KPI Code", "KPI Name", "Unit", "Actual",
                 "Target", "Achievement %", "MoM %", "Status"
             };
 
@@ -109,7 +114,11 @@ namespace KpiReport.Web.Reporting
 
             foreach (var k in data.Rows)
             {
-                ws.Cell(row, 1).Value = index;
+                if (data.RowsAreDepartmentBreakdown)
+                    ws.Cell(row, 1).Value = k.DepartmentName ?? "";
+                else
+                    ws.Cell(row, 1).Value = index;
+
                 ws.Cell(row, 2).Value = k.KpiCode ?? "";
                 ws.Cell(row, 3).Value = k.KpiName ?? "";
                 ws.Cell(row, 4).Value = k.Unit ?? "";
@@ -121,7 +130,9 @@ namespace KpiReport.Web.Reporting
 
                 StyleStatusCell(ws.Cell(row, 9), k.StatusFlag);
 
-                ws.Cell(row, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                if (!data.RowsAreDepartmentBreakdown)
+                    ws.Cell(row, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
                 ws.Cell(row, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                 if (index % 2 == 0)
@@ -147,7 +158,7 @@ namespace KpiReport.Web.Reporting
             ws.SheetView.FreezeRows(headerRow);
 
             ws.Columns(1, headers.Length).AdjustToContents();
-            ws.Column(1).Width = 5;
+            if (!data.RowsAreDepartmentBreakdown) ws.Column(1).Width = 5;
             if (ws.Column(3).Width < 30) ws.Column(3).Width = 30;
 
             ws.PageSetup.PageOrientation = XLPageOrientation.Landscape;

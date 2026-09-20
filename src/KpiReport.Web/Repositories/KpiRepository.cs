@@ -56,6 +56,25 @@ namespace KpiReport.Web.Repositories
             }
         }
 
+        /// <summary>
+        /// KPI ของหลายแผนกพร้อมกัน — ใช้กับผู้รับรายงานที่ดูแลหลายแผนก
+        /// departmentIdCsv = '3,5,8'; null/ว่าง = ทุกแผนก
+        ///
+        /// ส่งเป็น parameter ให้ proc ไปทำ STRING_SPLIT เอง ไม่ต่อสตริงเป็น SQL
+        /// ผู้เรียกต้องกรองสิทธิ์มาก่อนแล้ว (ดู UserContext.FilterAllowedDepartments)
+        /// </summary>
+        public List<KpiDashboardRow> GetDashboardMulti(int monthKey, string departmentIdCsv)
+        {
+            using (var conn = Open())
+            {
+                var rows = conn.Query<KpiDashboardRow>(
+                    "rpt.usp_GetKpiDashboardMulti",
+                    new { MonthKey = monthKey, DepartmentIds = departmentIdCsv },
+                    commandType: CommandType.StoredProcedure);
+                return new List<KpiDashboardRow>(rows);
+            }
+        }
+
         public List<TrendPointViewModel> GetTrend(string kpiCode, int departmentId, int monthsBack)
         {
             using (var conn = Open())

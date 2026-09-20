@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity.Owin;
 namespace KpiReport.Web.Controllers
 {
     /// <summary>
-    /// ตั้งค่าว่ารายงาน KPI รายเดือนจะถูกส่งไปหาใครบ้าง — Admin เท่านั้น
+    /// ตั้งค่าว่ารายงาน KPI รายเดือนจะถูกส่งไปหาใครบ้าง — Admin และ Manager
     ///
     /// ผู้รับมี 2 แบบ
     ///   1. ผูกกับบัญชีในระบบ — กรณีปกติของ HR ประจำแผนก
@@ -23,10 +23,13 @@ namespace KpiReport.Web.Controllers
     ///   2. อีเมลภายนอก — ผู้บริหารหรือคนนอกที่อยากได้แค่ไฟล์
     ///      ไม่ต้องสร้างบัญชีทิ้งไว้ในระบบเพียงเพื่อรับเมล
     ///
-    /// ขอบเขตข้อมูลใช้กติกาเดียวกับสิทธิ์ในเว็บ: ผูกกับแผนกไหน
-    /// ได้เฉพาะแผนกนั้น ไม่ผูกแผนก = ได้ภาพรวม + แยกรายแผนก
+    /// ขอบเขตข้อมูล: เลือกได้หลายแผนกต่อผู้รับหนึ่งคน (เช่น แผนก 1, 3, 5)
+    /// และได้อีเมลฉบับเดียวที่รวมแผนกที่เลือกไว้ ไม่เลือกเลย = ทุกแผนก
+    ///
+    /// Manager เลือกได้เฉพาะแผนกที่ตัวเองดูแล — กรองที่ฝั่ง server เสมอ
+    /// ค่าที่ส่งมาจากฟอร์มไม่เคยถูกเชื่อตรง ๆ (ดู UserContext.FilterAllowedDepartments)
     /// </summary>
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     public class ReportSubscriptionsController : Controller
     {
         private readonly ReportSubscriptionRepository _subs;
@@ -104,7 +107,8 @@ namespace KpiReport.Web.Controllers
             byte day = ClampDay(model.SendDayOfMonth);
             byte hour = ClampHour(model.SendHour);
 
-            bool added = _subs.Add(userId, email, displayName, model.DepartmentId, day, hour);
+            int[] scope = AllowedScope(model.DepartmentIds);
+            bool added = _subs.Add(userId, email, displayName, scope, day, hour);
 
             if (!added)
             {
@@ -113,7 +117,7 @@ namespace KpiReport.Web.Controllers
             }
 
             Audit("REPORT_SUB_ADDED",
-                  (userId ?? email) + " · ขอบเขต=" + DescribeScope(model.DepartmentId)
+                  (userId ?? email) + " · ขอบเขต=" + DescribeScope(scope)
                   + " · ส่งทุกวันที่ " + day + " เวลา " + hour.ToString("00") + ":00");
 
             if (TempData["SubMessage"] == null)
@@ -127,7 +131,7 @@ namespace KpiReport.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Schedule(int id, byte sendDayOfMonth, byte sendHour)
         {
-            var row = _subs.GetById(id);
+            var row = FindManageable(id);
             if (row == null) return HttpNotFound();
 
             byte day = ClampDay(sendDayOfMonth);
@@ -143,12 +147,34 @@ namespace KpiReport.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST: /ReportSubscriptions/Scope
+        /// <summary>
+        /// เปลี่ยนว่ารายงานของผู้รับรายนี้จะรวมแผนกไหนบ้าง
+        /// ไม่ติ๊กเลย = ทุกแผนก (สำหรับ Admin) หรือทุกแผนกที่ดูแล (สำหรับ Manager)
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Scope(int id, int[] departmentIds)
+        {
+            var row = FindManageable(id);
+            if (row == null) return HttpNotFound();
+
+            int[] scope = AllowedScope(departmentIds);
+            _subs.SetDepartments(id, scope);
+
+            Audit("REPORT_SUB_SCOPE_CHANGED",
+                  row.Email + " · " + row.ScopeLabel + " -> " + DescribeScope(scope));
+
+            TempData["SubMessage"] = "อัปเดตขอบเขตแผนกของ " + row.Email + " แล้ว";
+            return RedirectToAction("Index");
+        }
+
         // POST: /ReportSubscriptions/Toggle
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Toggle(int id)
         {
-            var row = _subs.GetById(id);
+            var row = FindManageable(id);
             if (row == null) return HttpNotFound();
 
             _subs.SetActive(id, !row.IsActive);
@@ -179,7 +205,7 @@ namespace KpiReport.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SendNow(int id)
         {
-            var row = _subs.GetById(id);
+            var row = FindManageable(id);
             if (row == null) return HttpNotFound();
 
             if (row.LinkedUserMissing || row.LinkedUserDisabled)
@@ -201,8 +227,9 @@ namespace KpiReport.Web.Controllers
             {
                 Email = row.Email,
                 DisplayName = row.DisplayName,
-                DepartmentId = row.DepartmentId,
-                DepartmentName = row.DepartmentName
+                DepartmentIds = row.DepartmentIds,
+                DepartmentNames = row.DepartmentNames,
+                DepartmentCount = row.DepartmentCount
             };
 
             try
@@ -239,7 +266,7 @@ namespace KpiReport.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            var row = _subs.GetById(id);
+            var row = FindManageable(id);
             if (row == null) return HttpNotFound();
 
             _subs.Delete(id);
@@ -254,8 +281,12 @@ namespace KpiReport.Web.Controllers
 
         private ReportSubscriptionListViewModel BuildList()
         {
-            var rows = _subs.GetAll();
+            var rows = _subs.GetAll().Where(CanManage).ToList();
+
             var departments = _users.GetRealDepartments();
+            int[] allowedDepts = UserContext.GetAllowedDepartmentIds(User);
+            if (allowedDepts != null)
+                departments = departments.Where(d => allowedDepts.Contains(d.DepartmentId)).ToList();
             var alreadySubscribed = _subs.GetSubscribedUserIds();
             var deptByUser = _users.GetDepartmentByUser();
 
@@ -306,14 +337,69 @@ namespace KpiReport.Web.Controllers
             return value > 23 ? (byte)23 : value;
         }
 
-        private string DescribeScope(int? departmentId)
+        /// <summary>
+        /// ผู้ใช้คนนี้ยุ่งกับผู้รับรายนี้ได้หรือไม่
+        ///
+        /// Admin ได้ทุกราย ส่วน Manager ได้เฉพาะรายที่ขอบเขตอยู่ในแผนกที่ตัวเองดูแล
+        /// ทั้งหมด — ถ้าแตะรายที่กว้างกว่าสิทธิ์ตัวเองได้ ก็เท่ากับกดปุ่ม "ส่งเดี๋ยวนี้"
+        /// แล้วเห็นตัวเลขแผนกอื่นผ่านรายงานที่ส่งออกไป
+        /// </summary>
+        private bool CanManage(ReportSubscriptionRow row)
         {
-            if (!departmentId.HasValue) return "ทุกแผนก";
+            int[] allowed = UserContext.GetAllowedDepartmentIds(User);
+            if (allowed == null) return true;              // Admin
 
-            var dept = _users.GetRealDepartments()
-                             .FirstOrDefault(d => d.DepartmentId == departmentId.Value);
+            if (row.DepartmentCount == 0) return false;    // ขอบเขตทั้งบริษัท
 
-            return dept != null ? dept.DepartmentName : "#" + departmentId.Value;
+            return row.SelectedDepartmentIds.All(allowed.Contains);
+        }
+
+        /// <summary>
+        /// หาแถวที่จะแก้ พร้อมตรวจสิทธิ์ — คืน null เมื่อไม่มีสิทธิ์หรือไม่พบ
+        /// ทุก action ที่รับ id จากฟอร์มต้องผ่านตัวนี้ ไม่เรียก _subs.GetById ตรง ๆ
+        /// </summary>
+        private ReportSubscriptionRow FindManageable(int id)
+        {
+            var row = _subs.GetById(id);
+            if (row == null || !CanManage(row)) return null;
+            return row;
+        }
+
+        /// <summary>
+        /// กรองแผนกที่ฟอร์มส่งมาให้เหลือเฉพาะที่ผู้ใช้คนนี้มีสิทธิ์
+        ///
+        /// Admin เลือกได้ทุกแผนก / Manager เลือกได้เฉพาะแผนกที่ผูกไว้
+        /// ถ้า Manager ยิงฟอร์มมาพร้อม DepartmentId ที่ไม่ได้ดูแล จะถูกตัดทิ้ง
+        /// เงียบ ๆ ตรงนี้ ไม่หลุดไปเป็นขอบเขตของรายงาน
+        /// </summary>
+        private int[] AllowedScope(int[] requested)
+        {
+            if (requested == null || requested.Length == 0)
+            {
+                // ไม่เลือกเลย = ทุกแผนก — แต่ Manager ไม่มีสิทธิ์ "ทุกแผนก"
+                // จึงต้องถูกจำกัดให้เหลือเฉพาะแผนกที่ตัวเองดูแล
+                int[] allowed = UserContext.GetAllowedDepartmentIds(User);
+                return allowed ?? new int[0];
+            }
+
+            int[] filtered = UserContext.FilterAllowedDepartments(User, requested);
+            return filtered ?? new int[0];
+        }
+
+        private string DescribeScope(int[] departmentIds)
+        {
+            if (departmentIds == null || departmentIds.Length == 0) return "ทุกแผนก";
+
+            var all = _users.GetRealDepartments();
+            var names = departmentIds
+                .Select(id =>
+                {
+                    var dept = all.FirstOrDefault(d => d.DepartmentId == id);
+                    return dept != null ? dept.DepartmentName : "#" + id;
+                })
+                .ToList();
+
+            return string.Join(", ", names);
         }
 
         private void Audit(string actionType, string detail)

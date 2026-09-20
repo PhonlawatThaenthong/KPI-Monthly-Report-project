@@ -66,14 +66,17 @@
             </div>
 
             <div class="col-md-3 mb-3">
-                <label for="DepartmentId">ขอบเขตข้อมูล</label>
-                <select name="DepartmentId" id="DepartmentId" class="form-control">
-                    <option value="">ทุกแผนก (ภาพรวม + แยกรายแผนก)</option>
+                <label for="DepartmentIds">ขอบเขตข้อมูล</label>
+                <select name="DepartmentIds" id="DepartmentIds" class="form-select" multiple size="6">
                     @foreach (var dept in Model.Departments)
                     {
                         <option value="@dept.DepartmentId">@dept.DepartmentName</option>
                     }
                 </select>
+                <small class="kpi-muted-cell">
+                    เลือกได้หลายแผนก (กด Ctrl หรือ Cmd ค้าง) &mdash; ไม่เลือกเลย = ทุกแผนก
+                    ผู้รับได้อีเมลฉบับเดียวที่รวมทุกแผนกที่เลือกไว้
+                </small>
             </div>
 
             <div class="col-md-2 mb-3">
@@ -151,11 +154,26 @@ else
                             }
                         </td>
                         <td>
-                            @row.ScopeLabel
-                            @if (!row.DepartmentId.HasValue)
+                            @using (Html.BeginForm("Scope", "ReportSubscriptions", FormMethod.Post, new { @class = "kpi-schedule-form" }))
                             {
-                                <span class="kpi-muted-cell"> (รวมแยกรายแผนก)</span>
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", row.SubscriptionId)
+
+                                <select name="departmentIds" class="form-select" multiple size="4"
+                                        aria-label="แผนกที่รวมในรายงาน">
+                                    @foreach (var dept in Model.Departments)
+                                    {
+                                        <option value="@dept.DepartmentId"
+                                                selected="@(row.SelectedDepartmentIds.Contains(dept.DepartmentId))">
+                                            @dept.DepartmentName
+                                        </option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn-kpi-sm">บันทึก</button>
                             }
+                            <span class="kpi-muted-cell">
+                                @row.ScopeLabel@(row.DepartmentCount == 0 ? " (รวมแยกรายแผนก)" : "")
+                            </span>
                         </td>
                         <td class="kpi-schedule-cell">
                             @using (Html.BeginForm("Schedule", "ReportSubscriptions", FormMethod.Post, new { @class = "kpi-schedule-form" }))
@@ -239,7 +257,7 @@ else
             var userBox = document.getElementById('userPicker');
             var mailBox = document.getElementById('emailPicker');
             var userSel = document.getElementById('UserId');
-            var deptSel = document.getElementById('DepartmentId');
+            var deptSel = document.getElementById('DepartmentIds');
             if (!source) { return; }
 
             function syncSource() {
@@ -254,7 +272,13 @@ else
                 if (source.value !== 'User' || !userSel || !deptSel) { return; }
                 var option = userSel.options[userSel.selectedIndex];
                 if (!option) { return; }
-                deptSel.value = option.getAttribute('data-dept') || '';
+
+                // ช่องเลือกแผนกเป็นแบบหลายค่าแล้ว จึงต้องเคลียร์ก่อนแล้วค่อยติ๊ก
+                // ให้ตรงกับแผนกของบัญชีที่เลือก — ยังแก้เองได้ทั้งหมด
+                var preset = option.getAttribute('data-dept') || '';
+                for (var i = 0; i < deptSel.options.length; i++) {
+                    deptSel.options[i].selected = (preset !== '' && deptSel.options[i].value === preset);
+                }
             }
 
             source.addEventListener('change', syncSource);

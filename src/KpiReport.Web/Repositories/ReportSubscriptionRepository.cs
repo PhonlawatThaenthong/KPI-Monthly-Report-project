@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Data.SqlClient;
 using Dapper;
 using KpiReport.Web.Models;
@@ -33,12 +34,12 @@ namespace KpiReport.Web.Repositories
         {
             const string sql = @"
                 SELECT SubscriptionId, UserId, Email, DisplayName,
-                       DepartmentId, DepartmentName, IsActive,
+                       DepartmentIds, DepartmentNames, DepartmentCount, IsActive,
                        SendDayOfMonth, SendHour,
                        IsLinkedToUser, LinkedUserMissing, LinkedUserDisabled
                 FROM meta.vw_ReportSubscriptionAdmin
-                ORDER BY CASE WHEN DepartmentId IS NULL THEN 0 ELSE 1 END,
-                         DepartmentName, Email";
+                ORDER BY CASE WHEN DepartmentCount = 0 THEN 0 ELSE 1 END,
+                         DepartmentNames, Email";
 
             using (var conn = Open())
             {
@@ -62,35 +63,92 @@ namespace KpiReport.Web.Repositories
         /// คืน false เมื่อซ้ำกับที่มีอยู่แล้ว (unique index เป็นคนตัดสิน
         /// ไม่ใช่การเช็คก่อน insert ซึ่งมีช่องว่างให้แทรกได้ระหว่างทาง)
         /// </summary>
-        public bool Add(string userId, string email, string displayName, int? departmentId,
+        public bool Add(string userId, string email, string displayName, int[] departmentIds,
                         byte sendDayOfMonth, byte sendHour)
         {
             const string sql = @"
                 INSERT INTO meta.ReportSubscription
-                    (UserId, Email, DisplayName, DepartmentId, SendDayOfMonth, SendHour)
+                    (UserId, Email, DisplayName, SendDayOfMonth, SendHour)
                 VALUES
-                    (@UserId, @Email, @DisplayName, @DepartmentId, @SendDayOfMonth, @SendHour)";
+                    (@UserId, @Email, @DisplayName, @SendDayOfMonth, @SendHour);
+                SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             using (var conn = Open())
+            using (var tran = conn.BeginTransaction())
             {
                 try
                 {
-                    conn.Execute(sql, new
+                    int subscriptionId = conn.ExecuteScalar<int>(sql, new
                     {
                         UserId = userId,
                         Email = email,
                         DisplayName = displayName,
-                        DepartmentId = departmentId,
                         SendDayOfMonth = sendDayOfMonth,
                         SendHour = sendHour
-                    });
+                    }, tran);
+
+                    InsertDepartments(conn, tran, subscriptionId, departmentIds);
+
+                    tran.Commit();
                     return true;
                 }
                 catch (SqlException ex) when (ex.Number == 2601 || ex.Number == 2627)
                 {
-                    // 2601/2627 = ชนกับ unique index
+                    // 2601/2627 = ชนกับ unique index (ผู้รับรายนี้มีอยู่แล้ว)
+                    tran.Rollback();
                     return false;
                 }
+                catch
+                {
+                    tran.Rollback();
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// เปลี่ยนขอบเขตแผนกของผู้รับรายนี้ทั้งชุด
+        ///
+        /// ลบของเดิมแล้วใส่ใหม่ในทรานแซกชันเดียว ไม่ทำ diff ทีละแถว
+        /// เพราะชุดนี้เล็กมาก (ไม่เกินจำนวนแผนกทั้งบริษัท) และการลบ-ใส่ใหม่
+        /// ทำให้ไม่มีสถานะกลางที่ขอบเขตผิดชั่วคราว
+        ///
+        /// รายการว่าง = ทุกแผนก (ไม่มีแถวลูก)
+        /// </summary>
+        public void SetDepartments(int subscriptionId, int[] departmentIds)
+        {
+            using (var conn = Open())
+            using (var tran = conn.BeginTransaction())
+            {
+                try
+                {
+                    conn.Execute(
+                        "DELETE FROM meta.ReportSubscriptionDepartment WHERE SubscriptionId = @Id",
+                        new { Id = subscriptionId }, tran);
+
+                    InsertDepartments(conn, tran, subscriptionId, departmentIds);
+                    tran.Commit();
+                }
+                catch
+                {
+                    tran.Rollback();
+                    throw;
+                }
+            }
+        }
+
+        private static void InsertDepartments(SqlConnection conn, SqlTransaction tran,
+                                              int subscriptionId, int[] departmentIds)
+        {
+            if (departmentIds == null || departmentIds.Length == 0)
+                return;   // ไม่มีแถวลูก = ทุกแผนก
+
+            foreach (int deptId in departmentIds.Distinct())
+            {
+                conn.Execute(@"
+                    INSERT INTO meta.ReportSubscriptionDepartment (SubscriptionId, DepartmentId)
+                    VALUES (@SubscriptionId, @DepartmentId)",
+                    new { SubscriptionId = subscriptionId, DepartmentId = deptId }, tran);
             }
         }
 
@@ -139,7 +197,7 @@ namespace KpiReport.Web.Repositories
             {
                 return conn.QueryFirstOrDefault<ReportSubscriptionRow>(@"
                     SELECT SubscriptionId, UserId, Email, DisplayName,
-                           DepartmentId, DepartmentName, IsActive,
+                           DepartmentIds, DepartmentNames, DepartmentCount, IsActive,
                            SendDayOfMonth, SendHour,
                            IsLinkedToUser, LinkedUserMissing, LinkedUserDisabled
                     FROM meta.vw_ReportSubscriptionAdmin

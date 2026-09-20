@@ -137,8 +137,9 @@ namespace KpiReport.Etl.Reports
             {
                 Email = sub.Email,
                 DisplayName = sub.DisplayName,
-                DepartmentId = sub.DepartmentId,
-                DepartmentName = sub.DepartmentName
+                DepartmentIds = sub.DepartmentIds,
+                DepartmentNames = sub.DepartmentNames,
+                DepartmentCount = sub.DepartmentCount
             };
         }
     }

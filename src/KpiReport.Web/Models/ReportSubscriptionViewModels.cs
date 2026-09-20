@@ -12,9 +12,33 @@ namespace KpiReport.Web.Models
         public string Email { get; set; }
         public string DisplayName { get; set; }
 
-        /// <summary>null = ได้รายงานภาพรวมทั้งบริษัท + แยกรายแผนก</summary>
-        public int? DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+        /// <summary>
+        /// ขอบเขตของรายงานฉบับนี้ — รายการ DepartmentId คั่นด้วย comma ('3,5,8')
+        /// null/ว่าง = ได้รายงานภาพรวมทั้งบริษัท + แยกรายแผนก
+        ///
+        /// ผู้รับหนึ่งคนมีแถวเดียว แต่เลือกได้หลายแผนกในฉบับเดียว
+        /// (ของเดิมต้องสร้างหลายแถว = ได้อีเมลหลายฉบับต่อเดือน)
+        /// </summary>
+        public string DepartmentIds { get; set; }
+        public string DepartmentNames { get; set; }
+        public int DepartmentCount { get; set; }
+
+        /// <summary>รายการแผนกที่เลือกไว้ ใช้ติ๊กช่องในฟอร์มแก้ขอบเขต</summary>
+        public List<int> SelectedDepartmentIds
+        {
+            get
+            {
+                var list = new List<int>();
+                if (string.IsNullOrEmpty(DepartmentIds)) return list;
+
+                foreach (string part in DepartmentIds.Split(','))
+                {
+                    int id;
+                    if (int.TryParse(part.Trim(), out id)) list.Add(id);
+                }
+                return list;
+            }
+        }
 
         public bool IsActive { get; set; }
 
@@ -35,7 +59,11 @@ namespace KpiReport.Web.Models
 
         public string ScopeLabel
         {
-            get { return DepartmentId.HasValue ? (DepartmentName ?? "#" + DepartmentId) : "ทุกแผนก"; }
+            get
+            {
+                if (DepartmentCount == 0) return "ทุกแผนก";
+                return DepartmentNames ?? DepartmentIds;
+            }
         }
 
         /// <summary>สรุปว่ารอบเดือนหน้าจะได้รับจริงหรือไม่ — ต้องผ่านทุกเงื่อนไข</summary>
@@ -133,8 +161,8 @@ namespace KpiReport.Web.Models
 
         public string DisplayName { get; set; }
 
-        /// <summary>ว่าง = ทุกแผนก</summary>
-        public int? DepartmentId { get; set; }
+        /// <summary>ไม่เลือกเลย = ทุกแผนก</summary>
+        public int[] DepartmentIds { get; set; }
 
         /// <summary>ค่าเริ่มต้นวันที่ 3 : เผื่อเวลาให้ ETL ปิดยอดเดือนก่อนหน้าเสร็จก่อน</summary>
         public byte SendDayOfMonth { get; set; } = 3;

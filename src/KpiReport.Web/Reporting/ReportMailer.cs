@@ -13,20 +13,30 @@ namespace KpiReport.Web.Reporting
         public string Email { get; set; }
         public string DisplayName { get; set; }
 
-        /// <summary>null = ได้รายงานภาพรวมทั้งบริษัท + แยกรายแผนก</summary>
-        public int? DepartmentId { get; set; }
+        /// <summary>
+        /// รายการ DepartmentId คั่นด้วย comma ('3,5,8')
+        /// null/ว่าง = ได้รายงานภาพรวมทั้งบริษัท + แยกรายแผนก
+        /// </summary>
+        public string DepartmentIds { get; set; }
 
-        public string DepartmentName { get; set; }
+        /// <summary>ชื่อแผนกที่เลือกไว้ คั่นด้วย comma (ใช้แสดงผลอย่างเดียว)</summary>
+        public string DepartmentNames { get; set; }
+
+        public int DepartmentCount { get; set; }
 
         public bool IsCompanyWide
         {
-            get { return !DepartmentId.HasValue; }
+            get { return DepartmentCount == 0 || string.IsNullOrEmpty(DepartmentIds); }
         }
 
         /// <summary>ชื่อขอบเขตที่จะพิมพ์บนหัวรายงานและใช้เป็นคีย์กันส่งซ้ำ</summary>
         public string ScopeLabel
         {
-            get { return IsCompanyWide ? "All Departments" : (DepartmentName ?? "#" + DepartmentId); }
+            get
+            {
+                if (IsCompanyWide) return "All Departments";
+                return DepartmentNames ?? DepartmentIds;
+            }
         }
     }
 
@@ -103,11 +113,20 @@ namespace KpiReport.Web.Reporting
                                      string generatedBy, bool dryRun)
         {
             // -99 คือรหัส "ทุกแผนก" ตัวเดียวกับที่หน้า Dashboard ใช้
-            int effectiveDepartmentId = recipient.DepartmentId ?? -99;
+            //
+            // ผู้รับที่เลือกไว้หลายแผนก ได้แถวแยกรายแผนกมาเลยในครั้งเดียว
+            // ไม่วนเรียกทีละแผนกแล้วเอามาต่อกันเอง เพราะจะได้ลำดับที่เพี้ยน
+            // และยิง query ซ้ำโดยไม่จำเป็น
+            bool multiDepartment = !recipient.IsCompanyWide;
 
-            var rows = _kpiRepo.GetDashboard(monthKey, effectiveDepartmentId)
-                               .OrderBy(r => r.SortOrder)
-                               .ToList();
+            var rows = multiDepartment
+                ? _kpiRepo.GetDashboardMulti(monthKey, recipient.DepartmentIds)
+                          .OrderBy(r => r.DepartmentName)
+                          .ThenBy(r => r.SortOrder)
+                          .ToList()
+                : _kpiRepo.GetDashboard(monthKey, -99)
+                          .OrderBy(r => r.SortOrder)
+                          .ToList();
 
             if (rows.Count == 0)
                 return new ReportMailResult { HasData = false };
@@ -119,18 +138,28 @@ namespace KpiReport.Web.Reporting
                 ScopeLabel = recipient.ScopeLabel,
                 GeneratedBy = generatedBy,
                 GeneratedAt = DateTime.Now,
-                Rows = rows
+                Rows = rows,
+
+                // ผู้รับที่เลือกไว้หลายแผนก: Rows เป็นข้อมูลแยกรายแผนกอยู่แล้ว
+                // บอก builder ไว้ จะได้ไม่พิมพ์ตาราง KPI แบบแบนซ้ำอีกชุด
+                RowsAreDepartmentBreakdown = multiDepartment && recipient.DepartmentCount > 1
             };
 
-            // ส่วนแยกรายแผนกให้เฉพาะผู้รับที่มีขอบเขตทั้งบริษัท
             if (recipient.IsCompanyWide)
             {
+                // ขอบเขตทั้งบริษัท -> แนบส่วนแยกรายแผนกของทุกแผนกให้ด้วย
                 var deptRows = _kpiRepo.GetByDepartment(monthKey)
                                        .OrderBy(r => r.DepartmentName)
                                        .ThenBy(r => r.SortOrder)
                                        .ToList();
 
                 if (deptRows.Count > 0) data.DepartmentRows = deptRows;
+            }
+            else if (recipient.DepartmentCount > 1)
+            {
+                // เลือกไว้หลายแผนก -> ส่วนแยกรายแผนกมีเฉพาะแผนกที่เลือกเท่านั้น
+                // ผู้รับต้องไม่เห็นตัวเลขของแผนกที่ไม่ได้อยู่ในขอบเขตของตัวเอง
+                data.DepartmentRows = rows;
             }
 
             byte[] pdf = PdfReportBuilder.Build(data);
