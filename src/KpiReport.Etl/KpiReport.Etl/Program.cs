@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using KpiReport.Etl.Db;
-using KpiReport.Etl.Infrastructure;
+using KpiReport.Etl.Feed;
 using KpiReport.Etl.Reports;
-using KpiReport.Etl.Sources;
 
 namespace KpiReport.Etl
 {
     /// <summary>
     /// จุดเข้าโปรแกรม รับคำสั่งผ่าน command line argument เดียว
     ///
+    /// ระบบนี้ไม่คำนวณ KPI เอง — ดึงค่าที่ระบบต้นทางคำนวณไว้แล้วมาเก็บ
+    /// หน่วยข้อมูลเป็น KPI รายบุคคล แล้วสรุปขึ้นเป็นระดับแผนกในฐานข้อมูล
+    /// ตอนนี้ยังต่อของจริงไม่ได้ จึงอ่านจากไฟล์ JSON จำลองใน mock-data/kpi-feed
+    /// สลับไปใช้ของจริงได้ที่ App.config key 'KpiFeed:Provider'
+    ///
     /// การใช้งาน (จาก Task Scheduler หรือมือ):
-    ///   KpiReport.Etl.exe run-all         โหลดข้อมูลลงเวลา + คำนวณ KPI ทุกเดือน
-    ///   KpiReport.Etl.exe attendance      โหลด+แปลงเฉพาะ CSV ลงเวลา
-    ///   KpiReport.Etl.exe kpi 202601      คำนวณ KPI เฉพาะเดือนที่ระบุ
-    ///   KpiReport.Etl.exe kpi-all         คำนวณ KPI ทุกเดือนที่มีข้อมูล
+    ///   KpiReport.Etl.exe run-all           ดึงค่า KPI ทุกเดือนที่ต้นทางมี
+    ///   KpiReport.Etl.exe kpi-feed          เท่ากับ run-all
+    ///   KpiReport.Etl.exe kpi-feed 202606   ดึงเฉพาะเดือนที่ระบุ
+    ///   KpiReport.Etl.exe refresh-derived   คำนวณสี/ค่าเดือนก่อนใหม่ทั้งหมด
+    ///   KpiReport.Etl.exe rollup [yyyyMM]   สรุป KPI รายบุคคลขึ้นเป็นระดับแผนกใหม่
     ///
     ///   KpiReport.Etl.exe send-report               ส่งรายงานเดือนล่าสุดทางอีเมล
     ///   KpiReport.Etl.exe send-report 202606        ส่งรายงานเดือนที่ระบุ
@@ -54,28 +58,17 @@ namespace KpiReport.Etl
                 switch (command)
                 {
                     case "run-all":
-                        RunAttendance(db, triggeredBy);
-                        Console.WriteLine(">> คำนวณ KPI ทุกเดือน ...");
-                        db.RunKpiAllMonths(triggeredBy);
+                    case "kpi-feed":
+                        return RunKpiFeed(db, triggeredBy, ParseMonthArg(args));
+
+                    case "rollup":
+                        db.RollupKpiToDepartment(ParseMonthArg(args));
+                        Console.WriteLine(">> สรุป KPI รายบุคคลขึ้นระดับแผนกเรียบร้อย");
                         break;
 
-                    case "attendance":
-                        RunAttendance(db, triggeredBy);
-                        break;
-
-                    case "kpi":
-                        if (args.Length < 2 || !int.TryParse(args[1], out int monthKey))
-                        {
-                            Console.Error.WriteLine("ใช้งาน: KpiReport.Etl.exe kpi <yyyyMM>  เช่น kpi 202601");
-                            return 1;
-                        }
-                        db.RunKpiMonthly(monthKey, triggeredBy);
-                        Console.WriteLine($">> คำนวณ KPI เดือน {monthKey} เสร็จแล้ว");
-                        break;
-
-                    case "kpi-all":
-                        db.RunKpiAllMonths(triggeredBy);
-                        Console.WriteLine(">> คำนวณ KPI ทุกเดือนเสร็จแล้ว");
+                    case "refresh-derived":
+                        db.RefreshKpiDerived(ParseMonthArg(args));
+                        Console.WriteLine(">> คำนวณค่าเดือนก่อน/สถานะใหม่เรียบร้อย");
                         break;
 
                     case "send-report":
@@ -99,8 +92,20 @@ namespace KpiReport.Etl
 
         private static void PrintUsage()
         {
-            Console.WriteLine("คำสั่งที่ใช้ได้: run-all | attendance | kpi <yyyyMM> | kpi-all");
+            Console.WriteLine("คำสั่งที่ใช้ได้: run-all | kpi-feed [yyyyMM] | rollup [yyyyMM] | refresh-derived [yyyyMM]");
             Console.WriteLine("                send-report [yyyyMM] [--dry-run] [--force] [--ignore-schedule]");
+        }
+
+        /// <summary>หา argument ที่เป็นเลขเดือน yyyyMM ถ้าไม่มีคืน null = ทุกเดือน</summary>
+        private static int? ParseMonthArg(string[] args)
+        {
+            foreach (string arg in args.Skip(1))
+            {
+                int parsed;
+                if (int.TryParse(arg, out parsed) && parsed >= 190001 && parsed <= 299912)
+                    return parsed;
+            }
+            return null;
         }
 
         // =========================================================
@@ -158,73 +163,114 @@ namespace KpiReport.Etl
         }
 
         // =========================================================
-        // ATTENDANCE - อ่านไฟล์ CSV ลงเวลา
+        // KPI FEED — ดึงค่า KPI ที่ระบบต้นทางคำนวณไว้แล้ว
+        //
+        // คืน exit code 0 = สำเร็จ, 1 = ดึงไม่ได้/ไม่มีข้อมูล
         // =========================================================
-        private static void RunAttendance(SqlDb db, string triggeredBy)
+        private static int RunKpiFeed(SqlDb db, string triggeredBy, int? monthKey)
         {
-            Console.WriteLine("== Attendance (CSV) ==");
-
-            string folder = ConfigurationManager.AppSettings["AttendanceFolder"];
-            string fullFolder = string.IsNullOrEmpty(folder)
-                ? "(ไม่ได้ตั้งค่าใน App.config)"
-                : Path.GetFullPath(folder);
-
-            Console.WriteLine($"   มองหาโฟลเดอร์: {fullFolder}");
-
-            if (string.IsNullOrEmpty(folder) || !Directory.Exists(folder))
+            IKpiFeedSource source;
+            try
             {
-                Console.Error.WriteLine($"   [ERROR] ไม่พบโฟลเดอร์ '{fullFolder}'");
-                Console.Error.WriteLine($"   แก้ App.config key 'AttendanceFolder' ให้เป็น path เต็ม");
-                return;
+                source = KpiFeedSourceFactory.Create();
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                Console.Error.WriteLine("   [ตั้งค่าไม่ครบ] " + ex.Message);
+                return 1;
             }
 
-            var files = Directory.GetFiles(folder, "*.csv").OrderBy(f => f).ToList();
-            if (files.Count == 0)
+            Console.WriteLine("== ดึงค่า KPI จากระบบต้นทาง ==");
+            Console.WriteLine("   แหล่งข้อมูล: " + source.Description);
+            Console.WriteLine("   ขอบเขต: " + (monthKey.HasValue ? monthKey.Value.ToString() : "ทุกเดือนที่มี"));
+
+            System.Collections.Generic.IList<KpiFeedBatch> batches;
+            try
             {
-                Console.WriteLine("   ไม่พบไฟล์ CSV ในโฟลเดอร์");
-                return;
+                batches = source.Fetch(monthKey);
+            }
+            catch (NotImplementedException ex)
+            {
+                // ยังต่อ API จริงไม่ได้ — เป็นสถานะที่รู้อยู่แล้ว ไม่ใช่ระบบพัง
+                Console.Error.WriteLine("   [ยังเชื่อมต่อไม่ได้] " + ex.Message);
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine("   [ดึงข้อมูลไม่สำเร็จ] " + ex.Message);
+                return 1;
             }
 
-            long runId = db.EtlRunStart("ETL_Attendance", null, triggeredBy);
+            if (batches.Count == 0)
+            {
+                Console.WriteLine("   ต้นทางไม่มีข้อมูลตามเงื่อนไขที่ขอ");
+                return 1;
+            }
+
+            long runId = db.EtlRunStart("ETL_KpiFeed", monthKey, triggeredBy);
             int totalRead = 0, written = 0, rejected = 0;
-            int filesLoaded = 0, filesSkipped = 0;
+            int loaded = 0, skipped = 0;
 
             try
             {
-                foreach (var file in files)
+                foreach (var batch in batches)
                 {
-                    string hash = FileHashUtil.ComputeSha256(file);
-                    if (db.FileAlreadyLoaded(hash))
+                    // ชุดข้อมูลเดิมเป๊ะ ๆ ไม่ต้องโหลดซ้ำ (ลายนิ้วมือ SHA-256)
+                    if (!string.IsNullOrEmpty(batch.DedupeKey) && db.FileAlreadyLoaded(batch.DedupeKey))
                     {
-                        filesSkipped++;
+                        skipped++;
                         continue;
                     }
 
-                    var rows = AttendanceCsvReader.Read(file);
-                    db.BulkInsertAttendanceRaw(runId, rows);
-                    db.RecordFileLoad(
-                        runId, Path.GetFileName(file), hash,
-                        new FileInfo(file).Length, File.GetLastWriteTimeUtc(file), rows.Count);
+                    db.BulkInsertKpiEmployeeFeedRaw(runId, batch.Rows);
 
-                    totalRead += rows.Count;
-                    filesLoaded++;
-                    Console.WriteLine($"   [load] {Path.GetFileName(file)} -> {rows.Count} แถว");
+                    if (!string.IsNullOrEmpty(batch.DedupeKey))
+                        db.RecordFileLoad(
+                            runId, batch.SourceName, batch.DedupeKey,
+                            batch.SizeBytes ?? 0,
+                            batch.ModifiedAtUtc ?? DateTime.UtcNow,
+                            batch.Rows.Count);
+
+                    totalRead += batch.Rows.Count;
+                    loaded++;
+                    Console.WriteLine("   [load] " + batch.SourceName + " -> " + batch.Rows.Count + " รายการ KPI รายบุคคล");
                 }
 
-                Console.WriteLine($"   ไฟล์ใหม่ {filesLoaded} | ข้าม (เคยโหลดแล้ว) {filesSkipped}");
+                Console.WriteLine("   ชุดใหม่ " + loaded + " | ข้าม (เคยโหลดแล้ว) " + skipped);
 
-                db.EtlStepLog(runId, 1, "Extract_Attendance", folder, "SUCCESS", totalRead, totalRead, null);
+                db.EtlStepLog(runId, 1, "Extract_KpiFeed", source.Description,
+                    "SUCCESS", totalRead, totalRead, null);
 
-                var result = db.TransformAttendance(runId);
+                if (totalRead == 0)
+                {
+                    db.EtlRunFinish(runId, "SUCCESS", 0, 0, 0, null);
+                    Console.WriteLine("   ไม่มีข้อมูลใหม่ ไม่ต้องทำอะไรต่อ");
+                    return 0;
+                }
+
+                var result = db.TransformKpiEmployeeFeed(runId);
                 written = result.written;
                 rejected = result.rejected;
 
-                db.EtlStepLog(runId, 2, "Transform_Attendance", "stg.AttendanceRaw",
+                db.EtlStepLog(runId, 2, "Transform_KpiEmployeeFeed", "stg.KpiEmployeeFeedRaw",
                     "SUCCESS", totalRead, written, rejected);
+
+                // สรุปขึ้นเป็นระดับแผนกทันที ไม่ปล่อยให้ค้างเป็นงานที่ต้องสั่งเอง
+                // ไม่งั้นหน้า Dashboard จะยังแสดงตัวเลขเดือนก่อนอยู่ทั้งที่โหลดใหม่แล้ว
+                db.RollupKpiToDepartment(monthKey);
+
+                db.EtlStepLog(runId, 3, "Rollup_KpiEmployeeToDept", "core.FactKpiEmployeeMonthly",
+                    "SUCCESS", written, written, 0);
 
                 db.EtlRunFinish(runId, "SUCCESS", totalRead, written, rejected, null);
 
-                Console.WriteLine($"   RunId {runId} | อ่าน {totalRead} | บันทึก {written} | ตัดออก {rejected}");
+                Console.WriteLine("   RunId " + runId + " | อ่าน " + totalRead
+                    + " | บันทึก " + written + " | ตัดออก " + rejected);
+
+                if (rejected > 0)
+                    Console.WriteLine("   มีแถวที่รับไม่ได้ ดูเหตุผลที่ meta.DataRejectLog (RunId " + runId + ")");
+
+                return 0;
             }
             catch (Exception ex)
             {

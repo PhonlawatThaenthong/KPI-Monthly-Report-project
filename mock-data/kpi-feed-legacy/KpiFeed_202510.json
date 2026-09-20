@@ -1,0 +1,151 @@
+{
+  "source": "HRIS-KPI-Service (mock)",
+  "generatedAt": "2025-11-05T02:00:00+07:00",
+  "period": "2025-10",
+  "metrics": [
+    {
+      "metricCode": "ATTENDANCE_RATE",
+      "department": "LINE_A",
+      "actual": 94.23,
+      "target": 95.0,
+      "numerator": 187,
+      "denominator": 198
+    },
+    {
+      "metricCode": "OVERTIME_HRS",
+      "department": "LINE_A",
+      "actual": 164.3,
+      "target": 200.0,
+      "numerator": 164.3,
+      "denominator": null
+    },
+    {
+      "metricCode": "ABSENCE_RATE",
+      "department": "LINE_A",
+      "actual": 5.56,
+      "target": 5.0,
+      "numerator": 11,
+      "denominator": 198
+    },
+    {
+      "metricCode": "ATTENDANCE_RATE",
+      "department": "LINE_B",
+      "actual": 93.1,
+      "target": 95.0,
+      "numerator": 184,
+      "denominator": 198
+    },
+    {
+      "metricCode": "OVERTIME_HRS",
+      "department": "LINE_B",
+      "actual": 201.3,
+      "target": 200.0,
+      "numerator": 201.3,
+      "denominator": null
+    },
+    {
+      "metricCode": "ABSENCE_RATE",
+      "department": "LINE_B",
+      "actual": 7.07,
+      "target": 5.0,
+      "numerator": 14,
+      "denominator": 198
+    },
+    {
+      "metricCode": "ATTENDANCE_RATE",
+      "department": "LINE_C",
+      "actual": 96.7,
+      "target": 95.0,
+      "numerator": 170,
+      "denominator": 176
+    },
+    {
+      "metricCode": "OVERTIME_HRS",
+      "department": "LINE_C",
+      "actual": 152.7,
+      "target": 200.0,
+      "numerator": 152.7,
+      "denominator": null
+    },
+    {
+      "metricCode": "ABSENCE_RATE",
+      "department": "LINE_C",
+      "actual": 3.41,
+      "target": 5.0,
+      "numerator": 6,
+      "denominator": 176
+    },
+    {
+      "metricCode": "ATTENDANCE_RATE",
+      "department": "QC",
+      "actual": 98.62,
+      "target": 95.0,
+      "numerator": 152,
+      "denominator": 154
+    },
+    {
+      "metricCode": "OVERTIME_HRS",
+      "department": "QC",
+      "actual": 127.3,
+      "target": 200.0,
+      "numerator": 127.3,
+      "denominator": null
+    },
+    {
+      "metricCode": "ABSENCE_RATE",
+      "department": "QC",
+      "actual": 1.3,
+      "target": 5.0,
+      "numerator": 2,
+      "denominator": 154
+    },
+    {
+      "metricCode": "ATTENDANCE_RATE",
+      "department": "MAINT",
+      "actual": 93.89,
+      "target": 95.0,
+      "numerator": 145,
+      "denominator": 154
+    },
+    {
+      "metricCode": "OVERTIME_HRS",
+      "department": "MAINT",
+      "actual": 145.1,
+      "target": 200.0,
+      "numerator": 145.1,
+      "denominator": null
+    },
+    {
+      "metricCode": "ABSENCE_RATE",
+      "department": "MAINT",
+      "actual": 5.84,
+      "target": 5.0,
+      "numerator": 9,
+      "denominator": 154
+    },
+    {
+      "metricCode": "ATTENDANCE_RATE",
+      "department": "ALL",
+      "actual": 95.23,
+      "target": 95.0,
+      "numerator": 838,
+      "denominator": 880
+    },
+    {
+      "metricCode": "ABSENCE_RATE",
+      "department": "ALL",
+      "actual": 4.77,
+      "target": 5.0,
+      "numerator": 42,
+      "denominator": 880
+    },
+    {
+      "metricCode": "OVERTIME_HRS",
+      "department": "ALL",
+      "actual": 790.7,
+      "target": 200.0,
+      "numerator": 790.7,
+      "denominator": null
+    }
+  ]
+}

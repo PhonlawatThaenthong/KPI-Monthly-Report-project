@@ -1,0 +1,6040 @@
+{
+  "source": "HRIS-KPI-Service (mock)",
+  "level": "EMPLOYEE",
+  "period": "2026-06",
+  "generatedAt": "2026-07-05T02:00:00+07:00",
+  "isClosed": true,
+  "recordCount": 603,
+  "records": [
+    {
+      "employeeCode": "EMP-0089",
+      "employeeName": "ลักษมี เกษมสุข",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.77,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0031",
+      "employeeName": "พิมพ์ชนก แสงทอง",
+      "department": "PROD1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0085",
+      "employeeName": "ลักษมี ศิริพันธ์",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.83,
+      "status": "DONE",
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0049",
+      "employeeName": "อรุณี แซ่ตั้ง",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 3.1,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0003",
+      "employeeName": "ศุภชัย หอมหวล",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0044",
+      "employeeName": "ปวีณา แสงทอง",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0048",
+      "employeeName": "พิมพ์ชนก ทองสุข",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0056",
+      "employeeName": "โสภณ ศิริพันธ์",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0026",
+      "employeeName": "ณัฐพล อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0008",
+      "employeeName": "ปวีณา ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.16,
+      "status": null,
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0043",
+      "employeeName": "อดิศักดิ์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.36,
+      "status": "DONE",
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0056",
+      "employeeName": "โสภณ ศิริพันธ์",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 2.4,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0086",
+      "employeeName": "กฤษณะ พงษ์ไพบูลย์",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0058",
+      "employeeName": "ยุทธนา พงษ์ไพบูลย์",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.7,
+      "status": null,
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0043",
+      "employeeName": "อดิศักดิ์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 15.4,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0096",
+      "employeeName": "มณีรัตน์ แซ่ตั้ง",
+      "department": "sales & marketing",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0100",
+      "employeeName": "ศุภชัย สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0005",
+      "employeeName": "ธีรศักดิ์ แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.76,
+      "status": "DONE",
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0001",
+      "employeeName": "ศุภชัย ยอดเยี่ยม",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0079",
+      "employeeName": "ปวีณา หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.44,
+      "status": null,
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0084",
+      "employeeName": "กฤษณะ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0063",
+      "employeeName": "ภาณุพงศ์ อ่อนละมุน",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0012",
+      "employeeName": "ชนาธิป อ่อนละมุน",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 10.9,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0017",
+      "employeeName": "เกรียงไกร สมบูรณ์ทรัพย์",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0032",
+      "employeeName": "สิริพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.1,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0038",
+      "employeeName": "กิตติ ลิ้มเจริญ",
+      "department": "PROD1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 91.28,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0073",
+      "employeeName": "อดิศักดิ์ เกษมสุข",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0022",
+      "employeeName": "กิตติ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.1,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0075",
+      "employeeName": "ณัฐพล ศิริพันธ์",
+      "department": "warehouse & logistics",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 12.4,
+      "status": "DONE",
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0008",
+      "employeeName": "ปวีณา ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0059",
+      "employeeName": "ปวีณา ยอดเยี่ยม",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0066",
+      "employeeName": "บุญฤทธิ์ วงศ์สว่าง",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.7,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0093",
+      "employeeName": "อรุณี มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0084",
+      "employeeName": "กฤษณะ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.0,
+      "status": null,
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0041",
+      "employeeName": "แพรวพรรณ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0012",
+      "employeeName": "ชนาธิป อ่อนละมุน",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0018",
+      "employeeName": "สิริพร ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0004",
+      "employeeName": "สิริพร ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 1.8,
+      "status": "DONE",
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0041",
+      "employeeName": "แพรวพรรณ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 17.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0048",
+      "employeeName": "พิมพ์ชนก ทองสุข",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 31.8,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0011",
+      "employeeName": "อรุณี บุญเรือง",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 6.0,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0065",
+      "employeeName": "เกรียงไกร หอมหวล",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.79,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0040",
+      "employeeName": "เกรียงไกร อ่อนละมุน",
+      "department": "PROD1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 90.77,
+      "status": "IN_PROGRESS",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0009",
+      "employeeName": "ยุทธนา แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0001",
+      "employeeName": "ศุภชัย ยอดเยี่ยม",
+      "department": "HR",
+      "metricCode": "EMP_MYSTERY_KPI",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0060",
+      "employeeName": "บุญฤทธิ์ ลิ้มเจริญ",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 5.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0081",
+      "employeeName": "กฤษณะ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.7,
+      "status": "DONE",
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0053",
+      "employeeName": "จิราพร หอมหวล",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.2,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0001",
+      "employeeName": "ศุภชัย ยอดเยี่ยม",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0068",
+      "employeeName": "ณัฐพล ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0033",
+      "employeeName": "อดิศักดิ์ หอมหวล",
+      "department": "PROD1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.5,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0019",
+      "employeeName": "ธีรศักดิ์ วงศ์สว่าง",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0072",
+      "employeeName": "พิมพ์ชนก แซ่ตั้ง",
+      "department": "WH",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.14,
+      "status": "DONE",
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0093",
+      "employeeName": "อรุณี มหาวงศ์",
+      "department": "sales & marketing",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.17,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0098",
+      "employeeName": "รัตนาภรณ์ บุญเรือง",
+      "department": "SALE",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 12.6,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0055",
+      "employeeName": "บุญฤทธิ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0078",
+      "employeeName": "กฤษณะ หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.93,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0020",
+      "employeeName": "จิราพร ยอดเยี่ยม",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.4,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0088",
+      "employeeName": "ดวงใจ ทองสุข",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 10.8,
+      "status": "DONE",
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0081",
+      "employeeName": "กฤษณะ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0010",
+      "employeeName": "ปวีณา ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.08,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0041",
+      "employeeName": "แพรวพรรณ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.57,
+      "status": "DONE",
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0097",
+      "employeeName": "กฤษณะ บุญเรือง",
+      "department": "sales & marketing",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.2,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0042",
+      "employeeName": "ปวีณา ลิ้มเจริญ",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0056",
+      "employeeName": "โสภณ ศิริพันธ์",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0087",
+      "employeeName": "ปวีณา รุ่งเรือง",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0019",
+      "employeeName": "ธีรศักดิ์ วงศ์สว่าง",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.02,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0054",
+      "employeeName": "พิมพ์ชนก อ่อนละมุน",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0093",
+      "employeeName": "อรุณี มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0034",
+      "employeeName": "โสภณ สมบูรณ์ทรัพย์",
+      "department": "PROD1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 13.7,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0058",
+      "employeeName": "ยุทธนา พงษ์ไพบูลย์",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0070",
+      "employeeName": "อดิศักดิ์ ยอดเยี่ยม",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0020",
+      "employeeName": "จิราพร ยอดเยี่ยม",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0071",
+      "employeeName": "รัตนาภรณ์ ทองสุข",
+      "department": "warehouse & logistics",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 5.9,
+      "status": "DONE",
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0053",
+      "employeeName": "จิราพร หอมหวล",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0003",
+      "employeeName": "ศุภชัย หอมหวล",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0098",
+      "employeeName": "รัตนาภรณ์ บุญเรือง",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0026",
+      "employeeName": "ณัฐพล อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.63,
+      "status": "DONE",
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0046",
+      "employeeName": "ดวงใจ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0069",
+      "employeeName": "ยุทธนา ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0085",
+      "employeeName": "ลักษมี ศิริพันธ์",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0087",
+      "employeeName": "ปวีณา รุ่งเรือง",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0066",
+      "employeeName": "บุญฤทธิ์ วงศ์สว่าง",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.93,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0028",
+      "employeeName": "ธีรศักดิ์ แซ่ตั้ง",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.04,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0091",
+      "employeeName": "มณีรัตน์ แสงทอง",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0077",
+      "employeeName": "อดิศักดิ์ พงษ์ไพบูลย์",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0003",
+      "employeeName": "ศุภชัย หอมหวล",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0080",
+      "employeeName": "แพรวพรรณ รุ่งเรือง",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0077",
+      "employeeName": "อดิศักดิ์ พงษ์ไพบูลย์",
+      "department": "WH",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 9.1,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0002",
+      "employeeName": "ภาณุพงศ์ ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": "N/A",
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0057",
+      "employeeName": "ธีรศักดิ์ เกษมสุข",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0057",
+      "employeeName": "ธีรศักดิ์ เกษมสุข",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 19.5,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0031",
+      "employeeName": "พิมพ์ชนก แสงทอง",
+      "department": "PROD1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 19.7,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0031",
+      "employeeName": "พิมพ์ชนก แสงทอง",
+      "department": "prod-1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.55,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0047",
+      "employeeName": "มณีรัตน์ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 15.9,
+      "status": "DONE",
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0034",
+      "employeeName": "โสภณ สมบูรณ์ทรัพย์",
+      "department": "PROD1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0073",
+      "employeeName": "อดิศักดิ์ เกษมสุข",
+      "department": "WH",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.03,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0082",
+      "employeeName": "โสภณ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0050",
+      "employeeName": "ไพโรจน์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0049",
+      "employeeName": "อรุณี แซ่ตั้ง",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.1,
+      "status": "DONE",
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0068",
+      "employeeName": "ณัฐพล ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0060",
+      "employeeName": "บุญฤทธิ์ ลิ้มเจริญ",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.78,
+      "status": "DONE",
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0071",
+      "employeeName": "รัตนาภรณ์ ทองสุข",
+      "department": "WH",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.43,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0039",
+      "employeeName": "จิราพร เกษมสุข",
+      "department": "PROD1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0057",
+      "employeeName": "ธีรศักดิ์ เกษมสุข",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0097",
+      "employeeName": "กฤษณะ บุญเรือง",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0021",
+      "employeeName": "รัตนาภรณ์ อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 5.2,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0027",
+      "employeeName": "ธีรศักดิ์ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 16.7,
+      "status": "DONE",
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0095",
+      "employeeName": "วรรณิศา ยอดเยี่ยม",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0014",
+      "employeeName": "รัตนาภรณ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0007",
+      "employeeName": "ปวีณา วงศ์สว่าง",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 91.27,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0087",
+      "employeeName": "ปวีณา รุ่งเรือง",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 14.9,
+      "status": null,
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0066",
+      "employeeName": "บุญฤทธิ์ วงศ์สว่าง",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 9.1,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0022",
+      "employeeName": "กิตติ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.7,
+      "status": "DONE",
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0089",
+      "employeeName": "ลักษมี เกษมสุข",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0039",
+      "employeeName": "จิราพร เกษมสุข",
+      "department": "PROD1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0039",
+      "employeeName": "จิราพร เกษมสุข",
+      "department": "PROD1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 8.6,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0085",
+      "employeeName": "ลักษมี ศิริพันธ์",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 11.3,
+      "status": "DONE",
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0006",
+      "employeeName": "วรรณิศา เกษมสุข",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0046",
+      "employeeName": "ดวงใจ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 16.1,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0070",
+      "employeeName": "อดิศักดิ์ ยอดเยี่ยม",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0046",
+      "employeeName": "ดวงใจ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0033",
+      "employeeName": "อดิศักดิ์ หอมหวล",
+      "department": "PROD1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.0,
+      "status": null,
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0087",
+      "employeeName": "ปวีณา รุ่งเรือง",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0048",
+      "employeeName": "พิมพ์ชนก ทองสุข",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0038",
+      "employeeName": "กิตติ ลิ้มเจริญ",
+      "department": "PROD1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0083",
+      "employeeName": "รัตนาภรณ์ มหาวงศ์",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 14.2,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0032",
+      "employeeName": "สิริพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.03,
+      "status": "DONE",
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0016",
+      "employeeName": "ยุทธนา ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.61,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0086",
+      "employeeName": "กฤษณะ พงษ์ไพบูลย์",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0035",
+      "employeeName": "ธีรศักดิ์ สมบูรณ์ทรัพย์",
+      "department": "PROD1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.6,
+      "status": "DONE",
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0073",
+      "employeeName": "อดิศักดิ์ เกษมสุข",
+      "department": "WH",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0059",
+      "employeeName": "ปวีณา ยอดเยี่ยม",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0099",
+      "employeeName": "จิราพร มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0011",
+      "employeeName": "อรุณี บุญเรือง",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0024",
+      "employeeName": "ปวีณา บุญเรือง",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0074",
+      "employeeName": "สิริพร บุญเรือง",
+      "department": "WH",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 11.0,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0029",
+      "employeeName": "อรุณี ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 15.2,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0005",
+      "employeeName": "ธีรศักดิ์ แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0020",
+      "employeeName": "จิราพร ยอดเยี่ยม",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0028",
+      "employeeName": "ธีรศักดิ์ แซ่ตั้ง",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0075",
+      "employeeName": "ณัฐพล ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.8,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0060",
+      "employeeName": "บุญฤทธิ์ ลิ้มเจริญ",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0076",
+      "employeeName": "ไพโรจน์ ศิริพันธ์",
+      "department": "warehouse & logistics",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.21,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0025",
+      "employeeName": "เกรียงไกร ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.7,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0004",
+      "employeeName": "สิริพร ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0082",
+      "employeeName": "โสภณ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0073",
+      "employeeName": "อดิศักดิ์ เกษมสุข",
+      "department": "WH",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 4.3,
+      "status": "DONE",
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0079",
+      "employeeName": "ปวีณา หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 1.8,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0036",
+      "employeeName": "ศุภชัย แซ่ตั้ง",
+      "department": "PROD1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 2.9,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0022",
+      "employeeName": "กิตติ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0009",
+      "employeeName": "ยุทธนา แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.47,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0092",
+      "employeeName": "บุญฤทธิ์ สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0044",
+      "employeeName": "ปวีณา แสงทอง",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.5,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0052",
+      "employeeName": "ภาณุพงศ์ มหาวงศ์",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.1,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0040",
+      "employeeName": "เกรียงไกร อ่อนละมุน",
+      "department": "prod-1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0099",
+      "employeeName": "จิราพร มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0065",
+      "employeeName": "เกรียงไกร หอมหวล",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0090",
+      "employeeName": "แพรวพรรณ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.1,
+      "status": "DONE",
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0088",
+      "employeeName": "ดวงใจ ทองสุข",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.4,
+      "status": "DONE",
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0036",
+      "employeeName": "ศุภชัย แซ่ตั้ง",
+      "department": "PROD1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.71,
+      "status": "DONE",
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0054",
+      "employeeName": "พิมพ์ชนก อ่อนละมุน",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0017",
+      "employeeName": "เกรียงไกร สมบูรณ์ทรัพย์",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0058",
+      "employeeName": "ยุทธนา พงษ์ไพบูลย์",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 8.0,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0079",
+      "employeeName": "ปวีณา หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0092",
+      "employeeName": "บุญฤทธิ์ สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0063",
+      "employeeName": "ภาณุพงศ์ อ่อนละมุน",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.24,
+      "status": "DONE",
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0038",
+      "employeeName": "กิตติ ลิ้มเจริญ",
+      "department": "PROD1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 4.7,
+      "status": "DONE",
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0021",
+      "employeeName": "รัตนาภรณ์ อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0068",
+      "employeeName": "ณัฐพล ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.0,
+      "status": null,
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0026",
+      "employeeName": "ณัฐพล อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0094",
+      "employeeName": "นภัสสร หอมหวล",
+      "department": "SALE",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0050",
+      "employeeName": "ไพโรจน์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.6,
+      "status": "DONE",
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0037",
+      "employeeName": "จิราพร พงษ์ไพบูลย์",
+      "department": "prod-1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.3,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0088",
+      "employeeName": "ดวงใจ ทองสุข",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0002",
+      "employeeName": "ภาณุพงศ์ ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0042",
+      "employeeName": "ปวีณา ลิ้มเจริญ",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0090",
+      "employeeName": "แพรวพรรณ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0071",
+      "employeeName": "รัตนาภรณ์ ทองสุข",
+      "department": "WH",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": "DONE",
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0017",
+      "employeeName": "เกรียงไกร สมบูรณ์ทรัพย์",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 5.8,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0039",
+      "employeeName": "จิราพร เกษมสุข",
+      "department": "PROD1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0064",
+      "employeeName": "ชนาธิป แสงทอง",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.5,
+      "status": null,
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0074",
+      "employeeName": "สิริพร บุญเรือง",
+      "department": "WH",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.8,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0015",
+      "employeeName": "อดิศักดิ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0050",
+      "employeeName": "ไพโรจน์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 11.9,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-9999",
+      "employeeName": "Ghost Employee",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0099",
+      "employeeName": "จิราพร มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 5.4,
+      "status": "DONE",
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0048",
+      "employeeName": "พิมพ์ชนก ทองสุข",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.7,
+      "status": "DONE",
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0077",
+      "employeeName": "อดิศักดิ์ พงษ์ไพบูลย์",
+      "department": "warehouse & logistics",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.6,
+      "status": "DONE",
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0081",
+      "employeeName": "กฤษณะ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 12.8,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0078",
+      "employeeName": "กฤษณะ หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.3,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0013",
+      "employeeName": "วรรณิศา ลิ้มเจริญ",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0074",
+      "employeeName": "สิริพร บุญเรือง",
+      "department": "WH",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.28,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0046",
+      "employeeName": "ดวงใจ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0077",
+      "employeeName": "อดิศักดิ์ พงษ์ไพบูลย์",
+      "department": "warehouse & logistics",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0084",
+      "employeeName": "กฤษณะ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 8.7,
+      "status": "DONE",
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0075",
+      "employeeName": "ณัฐพล ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0016",
+      "employeeName": "ยุทธนา ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0054",
+      "employeeName": "พิมพ์ชนก อ่อนละมุน",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0047",
+      "employeeName": "มณีรัตน์ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0096",
+      "employeeName": "มณีรัตน์ แซ่ตั้ง",
+      "department": "SALE",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.12,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0021",
+      "employeeName": "รัตนาภรณ์ อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0029",
+      "employeeName": "อรุณี ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0100",
+      "employeeName": "ศุภชัย สมบูรณ์ทรัพย์",
+      "department": "sales & marketing",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 17.9,
+      "status": "DONE",
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0068",
+      "employeeName": "ณัฐพล ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.81,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0087",
+      "employeeName": "ปวีณา รุ่งเรือง",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.07,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0031",
+      "employeeName": "พิมพ์ชนก แสงทอง",
+      "department": "PROD1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0071",
+      "employeeName": "รัตนาภรณ์ ทองสุข",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0096",
+      "employeeName": "มณีรัตน์ แซ่ตั้ง",
+      "department": "SALE",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.3,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0065",
+      "employeeName": "เกรียงไกร หอมหวล",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.1,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0022",
+      "employeeName": "กิตติ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 2.1,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0062",
+      "employeeName": "จิราพร สมบูรณ์ทรัพย์",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0044",
+      "employeeName": "ปวีณา แสงทอง",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 19.6,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0005",
+      "employeeName": "ธีรศักดิ์ แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0054",
+      "employeeName": "พิมพ์ชนก อ่อนละมุน",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 0.5,
+      "status": "DONE",
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0081",
+      "employeeName": "กฤษณะ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.35,
+      "status": "DONE",
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0062",
+      "employeeName": "จิราพร สมบูรณ์ทรัพย์",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 17.4,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0052",
+      "employeeName": "ภาณุพงศ์ มหาวงศ์",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.23,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0075",
+      "employeeName": "ณัฐพล ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0013",
+      "employeeName": "วรรณิศา ลิ้มเจริญ",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.1,
+      "status": "DONE",
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0065",
+      "employeeName": "เกรียงไกร หอมหวล",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0023",
+      "employeeName": "กิตติ มหาวงศ์",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 39.1,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0048",
+      "employeeName": "พิมพ์ชนก ทองสุข",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.44,
+      "status": "DONE",
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0033",
+      "employeeName": "อดิศักดิ์ หอมหวล",
+      "department": "PROD1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 8.7,
+      "status": "DONE",
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0031",
+      "employeeName": "พิมพ์ชนก แสงทอง",
+      "department": "prod-1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0098",
+      "employeeName": "รัตนาภรณ์ บุญเรือง",
+      "department": "SALE",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.7,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0006",
+      "employeeName": "วรรณิศา เกษมสุข",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 3.4,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0082",
+      "employeeName": "โสภณ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0007",
+      "employeeName": "ปวีณา วงศ์สว่าง",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0017",
+      "employeeName": "เกรียงไกร สมบูรณ์ทรัพย์",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.06,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0093",
+      "employeeName": "อรุณี มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.0,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0076",
+      "employeeName": "ไพโรจน์ ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0029",
+      "employeeName": "อรุณี ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0008",
+      "employeeName": "ปวีณา ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 0.5,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0064",
+      "employeeName": "ชนาธิป แสงทอง",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.29,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0037",
+      "employeeName": "จิราพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0045",
+      "employeeName": "บุญฤทธิ์ รุ่งเรือง",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 9.0,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0052",
+      "employeeName": "ภาณุพงศ์ มหาวงศ์",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 1.4,
+      "status": "DONE",
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0076",
+      "employeeName": "ไพโรจน์ ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.3,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0070",
+      "employeeName": "อดิศักดิ์ ยอดเยี่ยม",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 92.45,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0060",
+      "employeeName": "บุญฤทธิ์ ลิ้มเจริญ",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.5,
+      "status": null,
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0090",
+      "employeeName": "แพรวพรรณ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0004",
+      "employeeName": "สิริพร ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0092",
+      "employeeName": "บุญฤทธิ์ สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.0,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0051",
+      "employeeName": "ภาณุพงศ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0020",
+      "employeeName": "จิราพร ยอดเยี่ยม",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.58,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0034",
+      "employeeName": "โสภณ สมบูรณ์ทรัพย์",
+      "department": "PROD1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0092",
+      "employeeName": "บุญฤทธิ์ สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0008",
+      "employeeName": "ปวีณา ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 17.7,
+      "status": "DONE",
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0073",
+      "employeeName": "อดิศักดิ์ เกษมสุข",
+      "department": "WH",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.1,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0074",
+      "employeeName": "สิริพร บุญเรือง",
+      "department": "WH",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0035",
+      "employeeName": "ธีรศักดิ์ สมบูรณ์ทรัพย์",
+      "department": "PROD1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0011",
+      "employeeName": "อรุณี บุญเรือง",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.2,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0021",
+      "employeeName": "รัตนาภรณ์ อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.09,
+      "status": "DONE",
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0003",
+      "employeeName": "ศุภชัย หอมหวล",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 37.9,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0012",
+      "employeeName": "ชนาธิป อ่อนละมุน",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0005",
+      "employeeName": "ธีรศักดิ์ แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 12.0,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0079",
+      "employeeName": "ปวีณา หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0053",
+      "employeeName": "จิราพร หอมหวล",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 13.3,
+      "status": "DONE",
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0007",
+      "employeeName": "ปวีณา วงศ์สว่าง",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.6,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0083",
+      "employeeName": "รัตนาภรณ์ มหาวงศ์",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0060",
+      "employeeName": "บุญฤทธิ์ ลิ้มเจริญ",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0041",
+      "employeeName": "แพรวพรรณ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0002",
+      "employeeName": "ภาณุพงศ์ ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0028",
+      "employeeName": "ธีรศักดิ์ แซ่ตั้ง",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 2.8,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0072",
+      "employeeName": "พิมพ์ชนก แซ่ตั้ง",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0008",
+      "employeeName": "ปวีณา ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0073",
+      "employeeName": "อดิศักดิ์ เกษมสุข",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0089",
+      "employeeName": "ลักษมี เกษมสุข",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.0,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0062",
+      "employeeName": "จิราพร สมบูรณ์ทรัพย์",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.4,
+      "status": "DONE",
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0014",
+      "employeeName": "รัตนาภรณ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 7.0,
+      "status": null,
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0036",
+      "employeeName": "ศุภชัย แซ่ตั้ง",
+      "department": "prod-1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0002",
+      "employeeName": "ภาณุพงศ์ ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 89.21,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0009",
+      "employeeName": "ยุทธนา แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0024",
+      "employeeName": "ปวีณา บุญเรือง",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0074",
+      "employeeName": "สิริพร บุญเรือง",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0090",
+      "employeeName": "แพรวพรรณ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0049",
+      "employeeName": "อรุณี แซ่ตั้ง",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0076",
+      "employeeName": "ไพโรจน์ ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0055",
+      "employeeName": "บุญฤทธิ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.02,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0032",
+      "employeeName": "สิริพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0051",
+      "employeeName": "ภาณุพงศ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.04,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0014",
+      "employeeName": "รัตนาภรณ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 86.09,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0039",
+      "employeeName": "จิราพร เกษมสุข",
+      "department": "PROD1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.2,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0059",
+      "employeeName": "ปวีณา ยอดเยี่ยม",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 13.8,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0027",
+      "employeeName": "ธีรศักดิ์ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.5,
+      "status": "DONE",
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0098",
+      "employeeName": "รัตนาภรณ์ บุญเรือง",
+      "department": "SALE",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0005",
+      "employeeName": "ธีรศักดิ์ แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0023",
+      "employeeName": "กิตติ มหาวงศ์",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0009",
+      "employeeName": "ยุทธนา แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.4,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0055",
+      "employeeName": "บุญฤทธิ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0094",
+      "employeeName": "นภัสสร หอมหวล",
+      "department": "SALE",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0099",
+      "employeeName": "จิราพร มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0019",
+      "employeeName": "ธีรศักดิ์ วงศ์สว่าง",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0012",
+      "employeeName": "ชนาธิป อ่อนละมุน",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0030",
+      "employeeName": "ยุทธนา วงศ์สว่าง",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.0,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0085",
+      "employeeName": "ลักษมี ศิริพันธ์",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0035",
+      "employeeName": "ธีรศักดิ์ สมบูรณ์ทรัพย์",
+      "department": "PROD1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0010",
+      "employeeName": "ปวีณา ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.9,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0047",
+      "employeeName": "มณีรัตน์ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0097",
+      "employeeName": "กฤษณะ บุญเรือง",
+      "department": "sales & marketing",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0011",
+      "employeeName": "อรุณี บุญเรือง",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0080",
+      "employeeName": "แพรวพรรณ รุ่งเรือง",
+      "department": "WH",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0051",
+      "employeeName": "ภาณุพงศ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0091",
+      "employeeName": "มณีรัตน์ แสงทอง",
+      "department": "SALE",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0100",
+      "employeeName": "ศุภชัย สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0030",
+      "employeeName": "ยุทธนา วงศ์สว่าง",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0067",
+      "employeeName": "ไพโรจน์ รุ่งเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0049",
+      "employeeName": "อรุณี แซ่ตั้ง",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.0,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0085",
+      "employeeName": "ลักษมี ศิริพันธ์",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0017",
+      "employeeName": "เกรียงไกร สมบูรณ์ทรัพย์",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0068",
+      "employeeName": "ณัฐพล ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 29.8,
+      "status": "IN_PROGRESS",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0027",
+      "employeeName": "ธีรศักดิ์ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0035",
+      "employeeName": "ธีรศักดิ์ สมบูรณ์ทรัพย์",
+      "department": "prod-1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 34.1,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0097",
+      "employeeName": "กฤษณะ บุญเรือง",
+      "department": "SALE",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.55,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0015",
+      "employeeName": "อดิศักดิ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 9.6,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0053",
+      "employeeName": "จิราพร หอมหวล",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0011",
+      "employeeName": "อรุณี บุญเรือง",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0001",
+      "employeeName": "ศุภชัย ยอดเยี่ยม",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 18.6,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0092",
+      "employeeName": "บุญฤทธิ์ สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.63,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0065",
+      "employeeName": "เกรียงไกร หอมหวล",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0041",
+      "employeeName": "แพรวพรรณ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.7,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0061",
+      "employeeName": "ลักษมี บุญเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0024",
+      "employeeName": "ปวีณา บุญเรือง",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0090",
+      "employeeName": "แพรวพรรณ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.79,
+      "status": "DONE",
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0063",
+      "employeeName": "ภาณุพงศ์ อ่อนละมุน",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0014",
+      "employeeName": "รัตนาภรณ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0046",
+      "employeeName": "ดวงใจ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.95,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0069",
+      "employeeName": "ยุทธนา ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.3,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0093",
+      "employeeName": "อรุณี มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 10.6,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0083",
+      "employeeName": "รัตนาภรณ์ มหาวงศ์",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.4,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0024",
+      "employeeName": "ปวีณา บุญเรือง",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.81,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0095",
+      "employeeName": "วรรณิศา ยอดเยี่ยม",
+      "department": "SALE",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.6,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0007",
+      "employeeName": "ปวีณา วงศ์สว่าง",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0089",
+      "employeeName": "ลักษมี เกษมสุข",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0049",
+      "employeeName": "อรุณี แซ่ตั้ง",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0013",
+      "employeeName": "วรรณิศา ลิ้มเจริญ",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0065",
+      "employeeName": "เกรียงไกร หอมหวล",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 4.5,
+      "status": "DONE",
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0099",
+      "employeeName": "จิราพร มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 92.74,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0040",
+      "employeeName": "เกรียงไกร อ่อนละมุน",
+      "department": "PROD1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.4,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0029",
+      "employeeName": "อรุณี ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0071",
+      "employeeName": "รัตนาภรณ์ ทองสุข",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0063",
+      "employeeName": "ภาณุพงศ์ อ่อนละมุน",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.6,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0078",
+      "employeeName": "กฤษณะ หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0067",
+      "employeeName": "ไพโรจน์ รุ่งเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.0,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0070",
+      "employeeName": "อดิศักดิ์ ยอดเยี่ยม",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0002",
+      "employeeName": "ภาณุพงศ์ ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.4,
+      "status": "DONE",
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0060",
+      "employeeName": "บุญฤทธิ์ ลิ้มเจริญ",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0015",
+      "employeeName": "อดิศักดิ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0010",
+      "employeeName": "ปวีณา ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0059",
+      "employeeName": "ปวีณา ยอดเยี่ยม",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.4,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0030",
+      "employeeName": "ยุทธนา วงศ์สว่าง",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 15.7,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0018",
+      "employeeName": "สิริพร ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0009",
+      "employeeName": "ยุทธนา แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 8.6,
+      "status": null,
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0071",
+      "employeeName": "รัตนาภรณ์ ทองสุข",
+      "department": "WH",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.4,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0094",
+      "employeeName": "นภัสสร หอมหวล",
+      "department": "SALE",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.29,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0007",
+      "employeeName": "ปวีณา วงศ์สว่าง",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 0.2,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0069",
+      "employeeName": "ยุทธนา ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0057",
+      "employeeName": "ธีรศักดิ์ เกษมสุข",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0087",
+      "employeeName": "ปวีณา รุ่งเรือง",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.3,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0066",
+      "employeeName": "บุญฤทธิ์ วงศ์สว่าง",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0061",
+      "employeeName": "ลักษมี บุญเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.68,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0037",
+      "employeeName": "จิราพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0095",
+      "employeeName": "วรรณิศา ยอดเยี่ยม",
+      "department": "SALE",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0034",
+      "employeeName": "โสภณ สมบูรณ์ทรัพย์",
+      "department": "PROD1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.2,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0079",
+      "employeeName": "ปวีณา หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.6,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0027",
+      "employeeName": "ธีรศักดิ์ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.93,
+      "status": "DONE",
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0080",
+      "employeeName": "แพรวพรรณ รุ่งเรือง",
+      "department": "WH",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 19.7,
+      "status": "DONE",
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0004",
+      "employeeName": "สิริพร ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.01,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0064",
+      "employeeName": "ชนาธิป แสงทอง",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 10.5,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0045",
+      "employeeName": "บุญฤทธิ์ รุ่งเรือง",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0083",
+      "employeeName": "รัตนาภรณ์ มหาวงศ์",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0045",
+      "employeeName": "บุญฤทธิ์ รุ่งเรือง",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0085",
+      "employeeName": "ลักษมี ศิริพันธ์",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.0,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0042",
+      "employeeName": "ปวีณา ลิ้มเจริญ",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.76,
+      "status": "DONE",
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0050",
+      "employeeName": "ไพโรจน์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.98,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0061",
+      "employeeName": "ลักษมี บุญเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0056",
+      "employeeName": "โสภณ ศิริพันธ์",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.8,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0062",
+      "employeeName": "จิราพร สมบูรณ์ทรัพย์",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0019",
+      "employeeName": "ธีรศักดิ์ วงศ์สว่าง",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0010",
+      "employeeName": "ปวีณา ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 15.3,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0040",
+      "employeeName": "เกรียงไกร อ่อนละมุน",
+      "department": "PROD1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0043",
+      "employeeName": "อดิศักดิ์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 1.1,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0020",
+      "employeeName": "จิราพร ยอดเยี่ยม",
+      "department": "FIN",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0061",
+      "employeeName": "ลักษมี บุญเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 22.2,
+      "status": "IN_PROGRESS",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0078",
+      "employeeName": "กฤษณะ หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0095",
+      "employeeName": "วรรณิศา ยอดเยี่ยม",
+      "department": "sales & marketing",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0072",
+      "employeeName": "พิมพ์ชนก แซ่ตั้ง",
+      "department": "WH",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 28.5,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0093",
+      "employeeName": "อรุณี มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0097",
+      "employeeName": "กฤษณะ บุญเรือง",
+      "department": "SALE",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 16.6,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0061",
+      "employeeName": "ลักษมี บุญเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0033",
+      "employeeName": "อดิศักดิ์ หอมหวล",
+      "department": "prod-1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0092",
+      "employeeName": "บุญฤทธิ์ สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 1.9,
+      "status": "DONE",
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0002",
+      "employeeName": "ภาณุพงศ์ ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 19.1,
+      "status": "DONE",
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0025",
+      "employeeName": "เกรียงไกร ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0004",
+      "employeeName": "สิริพร ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.9,
+      "status": "DONE",
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0062",
+      "employeeName": "จิราพร สมบูรณ์ทรัพย์",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.6,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0023",
+      "employeeName": "กิตติ มหาวงศ์",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0096",
+      "employeeName": "มณีรัตน์ แซ่ตั้ง",
+      "department": "sales & marketing",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 43.6,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0023",
+      "employeeName": "กิตติ มหาวงศ์",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.24,
+      "status": "DONE",
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0088",
+      "employeeName": "ดวงใจ ทองสุข",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.14,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0054",
+      "employeeName": "พิมพ์ชนก อ่อนละมุน",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.96,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0047",
+      "employeeName": "มณีรัตน์ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.7,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0095",
+      "employeeName": "วรรณิศา ยอดเยี่ยม",
+      "department": "SALE",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 16.2,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0044",
+      "employeeName": "ปวีณา แสงทอง",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0030",
+      "employeeName": "ยุทธนา วงศ์สว่าง",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0089",
+      "employeeName": "ลักษมี เกษมสุข",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 10.3,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0051",
+      "employeeName": "ภาณุพงศ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.6,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0052",
+      "employeeName": "ภาณุพงศ์ มหาวงศ์",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0038",
+      "employeeName": "กิตติ ลิ้มเจริญ",
+      "department": "prod-1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0035",
+      "employeeName": "ธีรศักดิ์ สมบูรณ์ทรัพย์",
+      "department": "PROD1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0036",
+      "employeeName": "ศุภชัย แซ่ตั้ง",
+      "department": "PROD1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0013",
+      "employeeName": "วรรณิศา ลิ้มเจริญ",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0026",
+      "employeeName": "ณัฐพล อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0086",
+      "employeeName": "กฤษณะ พงษ์ไพบูลย์",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.0,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0079",
+      "employeeName": "ปวีณา หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0014",
+      "employeeName": "รัตนาภรณ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0017",
+      "employeeName": "เกรียงไกร สมบูรณ์ทรัพย์",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.9,
+      "status": "DONE",
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0066",
+      "employeeName": "บุญฤทธิ์ วงศ์สว่าง",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": "DONE",
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0037",
+      "employeeName": "จิราพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.04,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0091",
+      "employeeName": "มณีรัตน์ แสงทอง",
+      "department": "SALE",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0083",
+      "employeeName": "รัตนาภรณ์ มหาวงศ์",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0072",
+      "employeeName": "พิมพ์ชนก แซ่ตั้ง",
+      "department": "warehouse & logistics",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0015",
+      "employeeName": "อดิศักดิ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0038",
+      "employeeName": "กิตติ ลิ้มเจริญ",
+      "department": "PROD1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0030",
+      "employeeName": "ยุทธนา วงศ์สว่าง",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0032",
+      "employeeName": "สิริพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0029",
+      "employeeName": "อรุณี ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.38,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0051",
+      "employeeName": "ภาณุพงศ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0094",
+      "employeeName": "นภัสสร หอมหวล",
+      "department": "SALE",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0002",
+      "employeeName": "ภาณุพงศ์ ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0025",
+      "employeeName": "เกรียงไกร ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0037",
+      "employeeName": "จิราพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0034",
+      "employeeName": "โสภณ สมบูรณ์ทรัพย์",
+      "department": "prod-1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.3,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0063",
+      "employeeName": "ภาณุพงศ์ อ่อนละมุน",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 18.3,
+      "status": "DONE",
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0033",
+      "employeeName": "อดิศักดิ์ หอมหวล",
+      "department": "PROD1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0020",
+      "employeeName": "จิราพร ยอดเยี่ยม",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 33.4,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0050",
+      "employeeName": "ไพโรจน์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0086",
+      "employeeName": "กฤษณะ พงษ์ไพบูลย์",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.84,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0077",
+      "employeeName": "อดิศักดิ์ พงษ์ไพบูลย์",
+      "department": "WH",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.26,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0064",
+      "employeeName": "ชนาธิป แสงทอง",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0015",
+      "employeeName": "อดิศักดิ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.49,
+      "status": "DONE",
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0026",
+      "employeeName": "ณัฐพล อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.6,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0067",
+      "employeeName": "ไพโรจน์ รุ่งเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0029",
+      "employeeName": "อรุณี ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.7,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0045",
+      "employeeName": "บุญฤทธิ์ รุ่งเรือง",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.4,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0077",
+      "employeeName": "อดิศักดิ์ พงษ์ไพบูลย์",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0069",
+      "employeeName": "ยุทธนา ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0028",
+      "employeeName": "ธีรศักดิ์ แซ่ตั้ง",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0036",
+      "employeeName": "ศุภชัย แซ่ตั้ง",
+      "department": "PROD1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.6,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0082",
+      "employeeName": "โสภณ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 37.4,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0040",
+      "employeeName": "เกรียงไกร อ่อนละมุน",
+      "department": "PROD1",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0043",
+      "employeeName": "อดิศักดิ์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0032",
+      "employeeName": "สิริพร พงษ์ไพบูลย์",
+      "department": "prod-1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0076",
+      "employeeName": "ไพโรจน์ ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 11.4,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0055",
+      "employeeName": "บุญฤทธิ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0089",
+      "employeeName": "ลักษมี เกษมสุข",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0007",
+      "employeeName": "ปวีณา วงศ์สว่าง",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0044",
+      "employeeName": "ปวีณา แสงทอง",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.82,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0036",
+      "employeeName": "ศุภชัย แซ่ตั้ง",
+      "department": "prod-1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0072",
+      "employeeName": "พิมพ์ชนก แซ่ตั้ง",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0064",
+      "employeeName": "ชนาธิป แสงทอง",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0095",
+      "employeeName": "วรรณิศา ยอดเยี่ยม",
+      "department": "SALE",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.64,
+      "status": "DONE",
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0080",
+      "employeeName": "แพรวพรรณ รุ่งเรือง",
+      "department": "WH",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.1,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0054",
+      "employeeName": "พิมพ์ชนก อ่อนละมุน",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.5,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0084",
+      "employeeName": "กฤษณะ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.89,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0058",
+      "employeeName": "ยุทธนา พงษ์ไพบูลย์",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0062",
+      "employeeName": "จิราพร สมบูรณ์ทรัพย์",
+      "department": "ENG",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0018",
+      "employeeName": "สิริพร ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0058",
+      "employeeName": "ยุทธนา พงษ์ไพบูลย์",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.49,
+      "status": null,
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0031",
+      "employeeName": "พิมพ์ชนก แสงทอง",
+      "department": "PROD1",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.0,
+      "status": "DONE",
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0021",
+      "employeeName": "รัตนาภรณ์ อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.4,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0068",
+      "employeeName": "ณัฐพล ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0038",
+      "employeeName": "กิตติ ลิ้มเจริญ",
+      "department": "prod-1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0028",
+      "employeeName": "ธีรศักดิ์ แซ่ตั้ง",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.1,
+      "status": "DONE",
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0015",
+      "employeeName": "อดิศักดิ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.2,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0024",
+      "employeeName": "ปวีณา บุญเรือง",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 24.5,
+      "status": "IN_PROGRESS",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0078",
+      "employeeName": "กฤษณะ หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 9.2,
+      "status": "DONE",
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0063",
+      "employeeName": "ภาณุพงศ์ อ่อนละมุน",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0003",
+      "employeeName": "ศุภชัย หอมหวล",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0010",
+      "employeeName": "ปวีณา ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0026",
+      "employeeName": "ณัฐพล อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 13.5,
+      "status": "DONE",
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0022",
+      "employeeName": "กิตติ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0076",
+      "employeeName": "ไพโรจน์ ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0066",
+      "employeeName": "บุญฤทธิ์ วงศ์สว่าง",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0028",
+      "employeeName": "ธีรศักดิ์ แซ่ตั้ง",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0025",
+      "employeeName": "เกรียงไกร ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0027",
+      "employeeName": "ธีรศักดิ์ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0067",
+      "employeeName": "ไพโรจน์ รุ่งเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.03,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0018",
+      "employeeName": "สิริพร ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 94.14,
+      "status": "IN_PROGRESS",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0097",
+      "employeeName": "กฤษณะ บุญเรือง",
+      "department": "sales & marketing",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0023",
+      "employeeName": "กิตติ มหาวงศ์",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0086",
+      "employeeName": "กฤษณะ พงษ์ไพบูลย์",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0096",
+      "employeeName": "มณีรัตน์ แซ่ตั้ง",
+      "department": "SALE",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0012",
+      "employeeName": "ชนาธิป อ่อนละมุน",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.3,
+      "status": "DONE",
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0006",
+      "employeeName": "วรรณิศา เกษมสุข",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 12.0,
+      "status": null,
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0048",
+      "employeeName": "พิมพ์ชนก ทองสุข",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0091",
+      "employeeName": "มณีรัตน์ แสงทอง",
+      "department": "SALE",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 10.8,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0024",
+      "employeeName": "ปวีณา บุญเรือง",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0049",
+      "employeeName": "อรุณี แซ่ตั้ง",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0001",
+      "employeeName": "ศุภชัย ยอดเยี่ยม",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0053",
+      "employeeName": "จิราพร หอมหวล",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.31,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0041",
+      "employeeName": "แพรวพรรณ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0006",
+      "employeeName": "วรรณิศา เกษมสุข",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0034",
+      "employeeName": "โสภณ สมบูรณ์ทรัพย์",
+      "department": "PROD1",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0001",
+      "employeeName": "ศุภชัย ยอดเยี่ยม",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 8.4,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0025",
+      "employeeName": "เกรียงไกร ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.5,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0016",
+      "employeeName": "ยุทธนา ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 17.3,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0051",
+      "employeeName": "ภาณุพงศ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 8.7,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0021",
+      "employeeName": "รัตนาภรณ์ อ่อนละมุน",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0075",
+      "employeeName": "ณัฐพล ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0078",
+      "employeeName": "กฤษณะ หอมหวล",
+      "department": "WH",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0080",
+      "employeeName": "แพรวพรรณ รุ่งเรือง",
+      "department": "warehouse & logistics",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.41,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0042",
+      "employeeName": "ปวีณา ลิ้มเจริญ",
+      "department": "PROD2",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 14.3,
+      "status": null,
+      "completedDate": "2026-06-23"
+    },
+    {
+      "employeeCode": "EMP-0018",
+      "employeeName": "สิริพร ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 13.5,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0019",
+      "employeeName": "ธีรศักดิ์ วงศ์สว่าง",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.4,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0003",
+      "employeeName": "ศุภชัย หอมหวล",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 91.38,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0094",
+      "employeeName": "นภัสสร หอมหวล",
+      "department": "SALE",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 23.8,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0042",
+      "employeeName": "ปวีณา ลิ้มเจริญ",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.1,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0057",
+      "employeeName": "ธีรศักดิ์ เกษมสุข",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.31,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0070",
+      "employeeName": "อดิศักดิ์ ยอดเยี่ยม",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.6,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0039",
+      "employeeName": "จิราพร เกษมสุข",
+      "department": "PROD1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.33,
+      "status": null,
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0091",
+      "employeeName": "มณีรัตน์ แสงทอง",
+      "department": "SALE",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 11.4,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0047",
+      "employeeName": "มณีรัตน์ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0045",
+      "employeeName": "บุญฤทธิ์ รุ่งเรือง",
+      "department": "PROD2",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.84,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0033",
+      "employeeName": "อดิศักดิ์ หอมหวล",
+      "department": "prod-1",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0082",
+      "employeeName": "โสภณ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.35,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0069",
+      "employeeName": "ยุทธนา ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 17.0,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0081",
+      "employeeName": "กฤษณะ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-02"
+    },
+    {
+      "employeeCode": "EMP-0080",
+      "employeeName": "แพรวพรรณ รุ่งเรือง",
+      "department": "WH",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0006",
+      "employeeName": "วรรณิศา เกษมสุข",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 96.45,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0052",
+      "employeeName": "ภาณุพงศ์ มหาวงศ์",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0059",
+      "employeeName": "ปวีณา ยอดเยี่ยม",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0013",
+      "employeeName": "วรรณิศา ลิ้มเจริญ",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 5.9,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0045",
+      "employeeName": "บุญฤทธิ์ รุ่งเรือง",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0016",
+      "employeeName": "ยุทธนา ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.9,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0018",
+      "employeeName": "สิริพร ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0044",
+      "employeeName": "ปวีณา แสงทอง",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0094",
+      "employeeName": "นภัสสร หอมหวล",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0075",
+      "employeeName": "ณัฐพล ศิริพันธ์",
+      "department": "WH",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.4,
+      "status": "DONE",
+      "completedDate": "2026-06-12"
+    },
+    {
+      "employeeCode": "EMP-0059",
+      "employeeName": "ปวีณา ยอดเยี่ยม",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.37,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0074",
+      "employeeName": "สิริพร บุญเรือง",
+      "department": "WH",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0016",
+      "employeeName": "ยุทธนา ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0096",
+      "employeeName": "มณีรัตน์ แซ่ตั้ง",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0100",
+      "employeeName": "ศุภชัย สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 95.2,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0040",
+      "employeeName": "เกรียงไกร อ่อนละมุน",
+      "department": "PROD1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 10.3,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0009",
+      "employeeName": "ยุทธนา แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0043",
+      "employeeName": "อดิศักดิ์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0100",
+      "employeeName": "ศุภชัย สมบูรณ์ทรัพย์",
+      "department": "sales & marketing",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.7,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0013",
+      "employeeName": "วรรณิศา ลิ้มเจริญ",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.31,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0011",
+      "employeeName": "อรุณี บุญเรือง",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.32,
+      "status": null,
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0091",
+      "employeeName": "มณีรัตน์ แสงทอง",
+      "department": "SALE",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.59,
+      "status": "DONE",
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0082",
+      "employeeName": "โสภณ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.6,
+      "status": null,
+      "completedDate": "2026-06-19"
+    },
+    {
+      "employeeCode": "EMP-0042",
+      "employeeName": "ปวีณา ลิ้มเจริญ",
+      "department": "PROD2",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0001",
+      "employeeName": "ศุภชัย ยอดเยี่ยม",
+      "department": "HR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.46,
+      "status": "DONE",
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0037",
+      "employeeName": "จิราพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 30.7,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0055",
+      "employeeName": "บุญฤทธิ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0067",
+      "employeeName": "ไพโรจน์ รุ่งเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-05"
+    },
+    {
+      "employeeCode": "EMP-0100",
+      "employeeName": "ศุภชัย สมบูรณ์ทรัพย์",
+      "department": "SALE",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": "DONE",
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0099",
+      "employeeName": "จิราพร มหาวงศ์",
+      "department": "SALE",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0014",
+      "employeeName": "รัตนาภรณ์ ศิริพันธ์",
+      "department": "FIN",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0090",
+      "employeeName": "แพรวพรรณ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 4.5,
+      "status": "DONE",
+      "completedDate": "2026-06-13"
+    },
+    {
+      "employeeCode": "EMP-0056",
+      "employeeName": "โสภณ ศิริพันธ์",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0046",
+      "employeeName": "ดวงใจ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 9.6,
+      "status": "DONE",
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0022",
+      "employeeName": "กิตติ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-22"
+    },
+    {
+      "employeeCode": "EMP-0016",
+      "employeeName": "ยุทธนา ทองสุข",
+      "department": "FIN",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-09"
+    },
+    {
+      "employeeCode": "EMP-0035",
+      "employeeName": "ธีรศักดิ์ สมบูรณ์ทรัพย์",
+      "department": "prod-1",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 93.45,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0012",
+      "employeeName": "ชนาธิป อ่อนละมุน",
+      "department": "FIN",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.03,
+      "status": null,
+      "completedDate": "2026-06-07"
+    },
+    {
+      "employeeCode": "EMP-0052",
+      "employeeName": "ภาณุพงศ์ มหาวงศ์",
+      "department": "QA",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0098",
+      "employeeName": "รัตนาภรณ์ บุญเรือง",
+      "department": "sales & marketing",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0098",
+      "employeeName": "รัตนาภรณ์ บุญเรือง",
+      "department": "SALE",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.89,
+      "status": null,
+      "completedDate": "2026-06-06"
+    },
+    {
+      "employeeCode": "EMP-0027",
+      "employeeName": "ธีรศักดิ์ พงษ์ไพบูลย์",
+      "department": "IT",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-14"
+    },
+    {
+      "employeeCode": "EMP-0050",
+      "employeeName": "ไพโรจน์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-03"
+    },
+    {
+      "employeeCode": "EMP-0005",
+      "employeeName": "ธีรศักดิ์ แสงทอง",
+      "department": "HR",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.6,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0061",
+      "employeeName": "ลักษมี บุญเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 10.5,
+      "status": "DONE",
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0070",
+      "employeeName": "อดิศักดิ์ ยอดเยี่ยม",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 9.4,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0006",
+      "employeeName": "วรรณิศา เกษมสุข",
+      "department": "HR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-11"
+    },
+    {
+      "employeeCode": "EMP-0072",
+      "employeeName": "พิมพ์ชนก แซ่ตั้ง",
+      "department": "WH",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 5.1,
+      "status": "IN_PROGRESS",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0084",
+      "employeeName": "กฤษณะ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-21"
+    },
+    {
+      "employeeCode": "EMP-0088",
+      "employeeName": "ดวงใจ ทองสุข",
+      "department": "PUR",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 3.0,
+      "status": null,
+      "completedDate": "2026-06-20"
+    },
+    {
+      "employeeCode": "EMP-0081",
+      "employeeName": "กฤษณะ ลิ้มเจริญ",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0043",
+      "employeeName": "อดิศักดิ์ วงศ์สว่าง",
+      "department": "PROD2",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0047",
+      "employeeName": "มณีรัตน์ หอมหวล",
+      "department": "PROD2",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 6.0,
+      "status": null,
+      "completedDate": "2026-06-27"
+    },
+    {
+      "employeeCode": "EMP-0088",
+      "employeeName": "ดวงใจ ทองสุข",
+      "department": "PUR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-10"
+    },
+    {
+      "employeeCode": "EMP-0067",
+      "employeeName": "ไพโรจน์ รุ่งเรือง",
+      "department": "ENG",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 7.0,
+      "status": "DONE",
+      "completedDate": "2026-06-15"
+    },
+    {
+      "employeeCode": "EMP-0083",
+      "employeeName": "รัตนาภรณ์ มหาวงศ์",
+      "department": "PUR",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.21,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0019",
+      "employeeName": "ธีรศักดิ์ วงศ์สว่าง",
+      "department": "FIN",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 14.8,
+      "status": null,
+      "completedDate": "2026-06-29"
+    },
+    {
+      "employeeCode": "EMP-0086",
+      "employeeName": "กฤษณะ พงษ์ไพบูลย์",
+      "department": "PUR",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 11.8,
+      "status": "DONE",
+      "completedDate": "2026-06-17"
+    },
+    {
+      "employeeCode": "EMP-0025",
+      "employeeName": "เกรียงไกร ศิริพันธ์",
+      "department": "IT",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 5.6,
+      "status": "DONE",
+      "completedDate": "2026-06-24"
+    },
+    {
+      "employeeCode": "EMP-0023",
+      "employeeName": "กิตติ มหาวงศ์",
+      "department": "IT",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0032",
+      "employeeName": "สิริพร พงษ์ไพบูลย์",
+      "department": "PROD1",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 4.2,
+      "status": null,
+      "completedDate": "2026-06-04"
+    },
+    {
+      "employeeCode": "EMP-0057",
+      "employeeName": "ธีรศักดิ์ เกษมสุข",
+      "department": "QA",
+      "metricCode": "EMP_TRAINING",
+      "target": 6.0,
+      "actual": 7.0,
+      "status": "DONE",
+      "completedDate": "2026-06-01"
+    },
+    {
+      "employeeCode": "EMP-0008",
+      "employeeName": "ปวีณา ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_SAFETY",
+      "target": 1.0,
+      "actual": 0.0,
+      "status": "NOT_STARTED",
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0053",
+      "employeeName": "จิราพร หอมหวล",
+      "department": "QA",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": "DONE",
+      "completedDate": "2026-06-28"
+    },
+    {
+      "employeeCode": "EMP-0058",
+      "employeeName": "ยุทธนา พงษ์ไพบูลย์",
+      "department": "QA",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-08"
+    },
+    {
+      "employeeCode": "EMP-0064",
+      "employeeName": "ชนาธิป แสงทอง",
+      "department": "ENG",
+      "metricCode": "EMP_KAIZEN",
+      "target": 1.0,
+      "actual": 2.0,
+      "status": null,
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0056",
+      "employeeName": "โสภณ ศิริพันธ์",
+      "department": "QA",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 98.35,
+      "status": "DONE",
+      "completedDate": "2026-06-25"
+    },
+    {
+      "employeeCode": "EMP-0069",
+      "employeeName": "ยุทธนา ลิ้มเจริญ",
+      "department": "ENG",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 99.26,
+      "status": null,
+      "completedDate": "2026-06-18"
+    },
+    {
+      "employeeCode": "EMP-0030",
+      "employeeName": "ยุทธนา วงศ์สว่าง",
+      "department": "IT",
+      "metricCode": "EMP_ATTENDANCE",
+      "target": 95.0,
+      "actual": 97.14,
+      "status": null,
+      "completedDate": "2026-06-16"
+    },
+    {
+      "employeeCode": "EMP-0084",
+      "employeeName": "กฤษณะ แซ่ตั้ง",
+      "department": "PUR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-26"
+    },
+    {
+      "employeeCode": "EMP-0055",
+      "employeeName": "บุญฤทธิ์ บุญเรือง",
+      "department": "QA",
+      "metricCode": "EMP_OVERTIME",
+      "target": 20.0,
+      "actual": 27.4,
+      "status": null,
+      "completedDate": null
+    },
+    {
+      "employeeCode": "EMP-0004",
+      "employeeName": "สิริพร ศิริพันธ์",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": null,
+      "completedDate": "2026-06-30"
+    },
+    {
+      "employeeCode": "EMP-0010",
+      "employeeName": "ปวีณา ทองสุข",
+      "department": "HR",
+      "metricCode": "EMP_SELF_EVAL",
+      "target": 1.0,
+      "actual": 1.0,
+      "status": "DONE",
+      "completedDate": "2026-06-19"
+    }
+  ]
+}
