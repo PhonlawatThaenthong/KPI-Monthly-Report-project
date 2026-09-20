@@ -10,11 +10,14 @@ namespace KpiReport.Web.Models
         public string UserId { get; set; }
         public string Email { get; set; }
 
-        /// <summary>Admin / Manager / Viewer หรือว่างถ้ายังไม่ได้กำหนด</summary>
+        /// <summary>Admin / Manager หรือว่างถ้ายังไม่ได้กำหนด</summary>
         public string Role { get; set; }
 
-        public int? DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+        /// <summary>แผนกที่ผูกไว้ — Manager หนึ่งคนดูแลได้หลายแผนก</summary>
+        public List<int> DepartmentIds { get; set; } = new List<int>();
+
+        /// <summary>ชื่อแผนกที่ผูกไว้ คั่นด้วย comma (แสดงผลอย่างเดียว)</summary>
+        public string DepartmentNames { get; set; }
 
         /// <summary>true = ถูกปิดใช้งาน (login ไม่ได้)</summary>
         public bool IsDisabled { get; set; }
@@ -29,7 +32,7 @@ namespace KpiReport.Web.Models
         public bool MustChangePassword { get; set; }
 
         /// <summary>
-        /// Viewer ที่ยังไม่ผูกแผนก จะ login ได้แต่ไม่เห็นข้อมูลอะไรเลย
+        /// Manager ที่ยังไม่ผูกแผนก จะ login ได้แต่ไม่เห็นข้อมูลอะไรเลย
         /// (UserContext คืน -999 เมื่อหาแผนกไม่เจอ) ต้องเตือนให้เห็นในตาราง
         /// </summary>
         public bool NeedsAttention
@@ -38,7 +41,7 @@ namespace KpiReport.Web.Models
             {
                 if (IsDisabled) return false;
                 if (string.IsNullOrEmpty(Role)) return true;
-                return Role == "Viewer" && !DepartmentId.HasValue;
+                return Role == "Manager" && DepartmentIds.Count == 0;
             }
         }
     }
@@ -118,9 +121,9 @@ namespace KpiReport.Web.Models
         [Display(Name = "Role")]
         public string Role { get; set; }
 
-        /// <summary>จำเป็นเฉพาะเมื่อ Role = Viewer</summary>
-        [Display(Name = "Department")]
-        public int? DepartmentId { get; set; }
+        /// <summary>จำเป็นเฉพาะเมื่อ Role = Manager (เลือกได้หลายแผนก)</summary>
+        [Display(Name = "Departments")]
+        public int[] DepartmentIds { get; set; }
 
         public List<DepartmentOption> Departments { get; set; } = new List<DepartmentOption>();
     }
@@ -136,8 +139,8 @@ namespace KpiReport.Web.Models
         [Display(Name = "Role")]
         public string Role { get; set; }
 
-        [Display(Name = "Department")]
-        public int? DepartmentId { get; set; }
+        [Display(Name = "Departments")]
+        public int[] DepartmentIds { get; set; }
 
         public List<DepartmentOption> Departments { get; set; } = new List<DepartmentOption>();
     }

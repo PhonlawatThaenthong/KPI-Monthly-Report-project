@@ -56,7 +56,7 @@ namespace KpiReport.Web.Infrastructure
         }
 
         /// <summary>
-        /// สร้างบัญชีตัวอย่าง (Admin/Manager/Viewer) ตอนแอปเริ่มทำงานหรือไม่
+        /// สร้างบัญชีตัวอย่าง (Admin/Manager) ตอนแอปเริ่มทำงานหรือไม่
         /// ใช้ตอนพัฒนาและตอนเดโมเท่านั้น ห้ามเปิดบนเซิร์ฟเวอร์จริง
         /// </summary>
         public static bool SeedDemoUsers

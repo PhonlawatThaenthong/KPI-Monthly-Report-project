@@ -23,8 +23,8 @@ namespace KpiReport.Web.Controllers
         /// GET /Dashboard?monthKey=202606&amp;departmentId=2
         ///
         /// monthKey ไม่ระบุ    -> ใช้เดือนล่าสุดที่มีข้อมูล
-        /// departmentId ไม่ระบุ -> Viewer เห็นแผนกตัวเอง / Admin,Manager เห็นภาพรวมทั้งบริษัท
-        /// departmentId ที่ Viewer ไม่มีสิทธิ์ -> ถูกบังคับกลับไปที่แผนกตัวเอง (ดู BaseController)
+        /// departmentId ไม่ระบุ -> Admin เห็นภาพรวมทั้งบริษัท / Manager เห็นแผนกหลักของตัวเอง
+        /// departmentId ที่ Manager ไม่มีสิทธิ์ -> ถูกบังคับกลับไปที่แผนกตัวเอง (ดู BaseController)
         /// </summary>
         public ActionResult Index(int? monthKey, int? departmentId)
         {
@@ -45,19 +45,23 @@ namespace KpiReport.Web.Controllers
 
             // ค่าที่คืนจาก ResolveDepartmentFilter:
             //   null  = ไม่ถูกจำกัด (Admin/Manager ที่ยังไม่ได้เลือกแผนก) -> แสดงภาพรวม (-99)
-            //   ตัวเลข = ต้องใช้ค่านี้เท่านั้น (ของ Viewer หรือค่าที่ Admin/Manager เลือกเอง)
+            //   ตัวเลข = ต้องใช้ค่านี้เท่านั้น (แผนกของ Manager หรือค่าที่ผู้ใช้เลือกเอง)
             int? deptFilter = ResolveDepartmentFilter(departmentId);
             int effectiveDepartmentId = deptFilter ?? -99;
 
             var rows = _repo.GetDashboard(resolvedMonthKey, effectiveDepartmentId);
+            var selectable = SelectableDepartments();
 
             var vm = new DashboardViewModel
             {
                 MonthKey = resolvedMonthKey,
                 MonthLabel = rows.Any() ? rows.First().MonthLabel : resolvedMonthKey.ToString(),
                 SelectedDepartmentId = effectiveDepartmentId,
-                CanSwitchDepartment = CanViewAllDepartments,
-                Departments = CanViewAllDepartments ? _repo.GetDepartmentOptions() : null
+
+                // Manager ที่ดูแลหลายแผนกต้องสลับดูได้เหมือนกัน แค่จำกัดไว้
+                // เฉพาะแผนกของตัวเอง — รายการนี้กรองด้วยสิทธิ์จริงจากฝั่ง server
+                Departments = selectable,
+                CanSwitchDepartment = selectable.Count > 1
             };
 
             foreach (var row in rows.OrderBy(r => r.SortOrder))
@@ -139,7 +143,7 @@ namespace KpiReport.Web.Controllers
         /// เตรียมข้อมูลชุดเดียวให้ทั้ง Excel และ PDF ใช้ร่วมกัน
         ///
         /// สำคัญ: ใช้ ResolveDepartmentFilter ตัวเดียวกับหน้า Dashboard
-        /// ดังนั้น Viewer ของแผนก A จะ export ได้เฉพาะข้อมูลแผนก A
+        /// ดังนั้น Manager ของแผนก A จะ export ได้เฉพาะข้อมูลแผนก A
         /// และจะไม่ได้ส่วน "By Department" เพราะ CanViewAllDepartments เป็น false
         ///
         /// คืน null เมื่อยังไม่มีข้อมูล KPI ในระบบ
@@ -184,6 +188,21 @@ namespace KpiReport.Web.Controllers
             return data;
         }
 
+        /// <summary>
+        /// แผนกที่ผู้ใช้คนนี้สลับดูได้
+        /// Admin ได้ทุกแผนก + แถวภาพรวม (-99) / Manager ได้เฉพาะแผนกที่ผูกไว้
+        /// </summary>
+        private List<DepartmentOption> SelectableDepartments()
+        {
+            var all = _repo.GetDepartmentOptions();
+
+            int[] allowed = AllowedDepartmentIds;
+            if (allowed == null)
+                return all;                       // Admin — รวมแถว -99 ภาพรวมไว้ด้วย
+
+            return all.Where(d => allowed.Contains(d.DepartmentId)).ToList();
+        }
+
         /// <summary>ชื่อขอบเขตที่จะพิมพ์บนหัวรายงาน</summary>
         private string ResolveScopeLabel(int effectiveDepartmentId, List<KpiDashboardRow> rows)
         {
@@ -194,9 +213,9 @@ namespace KpiReport.Web.Controllers
             if (named != null)
                 return named.DepartmentName;
 
-            if (CanViewAllDepartments && _repo != null)
+            if (_repo != null)
             {
-                var option = _repo.GetDepartmentOptions()
+                var option = SelectableDepartments()
                                   .FirstOrDefault(d => d.DepartmentId == effectiveDepartmentId);
                 if (option != null)
                     return option.DepartmentName;

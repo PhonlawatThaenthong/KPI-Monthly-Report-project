@@ -43,18 +43,20 @@
                 <div class="mb-3">
                     @Html.LabelFor(m => m.Role)
                     @Html.DropDownListFor(m => m.Role,
-                        new SelectList(new[] { "Admin", "Manager", "Viewer" }, Model.Role),
+                        new SelectList(new[] { "Admin", "Manager" }, Model.Role),
                         new { @class = "form-control", id = "roleSelect" })
                     @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="mb-3" id="departmentRow">
-                    @Html.LabelFor(m => m.DepartmentId)
-                    @Html.DropDownListFor(m => m.DepartmentId,
-                        new SelectList(Model.Departments, "DepartmentId", "DepartmentName", Model.DepartmentId),
-                        "— เลือกแผนก —",
-                        new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.DepartmentId, "", new { @class = "text-danger" })
+                    @Html.LabelFor(m => m.DepartmentIds)
+                    @Html.ListBoxFor(m => m.DepartmentIds,
+                        new MultiSelectList(Model.Departments, "DepartmentId", "DepartmentName", Model.DepartmentIds),
+                        new { @class = "form-select", size = 8 })
+                    <small class="kpi-muted-cell">
+                        เลือกได้หลายแผนก (กด Ctrl หรือ Cmd ค้าง) &mdash; Manager เห็นเฉพาะแผนกที่เลือกไว้
+                    </small>
+                    @Html.ValidationMessageFor(m => m.DepartmentIds, "", new { @class = "text-danger" })
                 </div>
 
                 <button type="submit" class="btn-kpi">Create user</button>
@@ -67,8 +69,9 @@
             <h3>Roles</h3>
             <p class="kpi-subtitle" style="margin-bottom:12px;">
                 <strong>Admin</strong> — sees every department and manages users.<br />
-                <strong>Manager</strong> — sees every department, no user management.<br />
-                <strong>Viewer</strong> — sees one department only, and must be bound to it.
+                <strong>Manager</strong> — sees only the departments bound below, and must have
+                at least one. Everything a manager opens — dashboard, monitoring, monthly report
+                scope — is limited to those departments.
             </p>
             <h3>Password</h3>
             <p class="kpi-subtitle">
@@ -84,14 +87,14 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        // ช่องแผนกมีความหมายเฉพาะกับ Viewer — Admin/Manager เห็นทุกแผนกอยู่แล้ว
+        // ช่องแผนกมีความหมายเฉพาะกับ Manager — Admin เห็นทุกแผนกอยู่แล้ว
         // ซ่อนไว้เฉย ๆ ฝั่งหน้าจอ ส่วนการตรวจจริงอยู่ที่ ValidateRoleAndDepartment ฝั่ง server
         (function () {
             var role = document.getElementById('roleSelect');
             var row = document.getElementById('departmentRow');
             if (!role || !row) { return; }
 
-            function sync() { row.style.display = role.value === 'Viewer' ? '' : 'none'; }
+            function sync() { row.style.display = role.value === 'Manager' ? '' : 'none'; }
             role.addEventListener('change', sync);
             sync();
         })();

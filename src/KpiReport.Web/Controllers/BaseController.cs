@@ -17,11 +17,38 @@ namespace KpiReport.Web.Controllers
     public abstract class BaseController : Controller
     {
         /// <summary>
-        /// null = ดูได้ทุกแผนก | มีค่า = ดูได้เฉพาะแผนกนั้น
+        /// null = ดูได้ทุกแผนก | มีค่า = ดูได้เฉพาะแผนกนั้น (แผนกหลัก)
         /// </summary>
         protected int? AllowedDepartmentId
         {
             get { return UserContext.GetAllowedDepartmentId(User); }
+        }
+
+        /// <summary>
+        /// แผนกทั้งหมดที่ดูได้ — null = ทุกแผนก, ว่าง = ไม่ได้ผูกแผนกไว้เลย
+        /// Manager หนึ่งคนดูแลได้หลายแผนก จึงต้องใช้ตัวนี้แทนตัวข้างบนในหน้าที่
+        /// แสดงหลายแผนกพร้อมกัน (Monitoring, รายงานรายเดือน)
+        /// </summary>
+        protected int[] AllowedDepartmentIds
+        {
+            get { return UserContext.GetAllowedDepartmentIds(User); }
+        }
+
+        /// <summary>
+        /// รายการแผนกที่จะส่งให้ proc ฝั่ง SQL — null = ทุกแผนก
+        /// กรองด้วยสิทธิ์จริงเสมอ ค่าที่ client ส่งมาไม่เคยถูกเชื่อตรง ๆ
+        /// </summary>
+        protected string ResolveDepartmentScope(int[] requestedDepartmentIds)
+        {
+            int[] allowed = UserContext.FilterAllowedDepartments(User, requestedDepartmentIds);
+
+            if (allowed == null)
+                return null;                       // ทุกแผนก
+
+            if (allowed.Length == 0)
+                return UserContext.NoDepartment.ToString();   // fail closed
+
+            return string.Join(",", allowed);
         }
 
         protected bool CanViewAllDepartments

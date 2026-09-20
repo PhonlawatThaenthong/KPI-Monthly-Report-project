@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Data.SqlClient;
 using Dapper;
 using KpiReport.Web.Models;
@@ -33,8 +34,8 @@ namespace KpiReport.Web.Repositories
 
         /// <summary>
         /// รายชื่อแผนกจริงสำหรับ dropdown — ตัดแถว -99 ("ทุกแผนก") ออก
-        /// เพราะการผูก Viewer เข้ากับ "ทุกแผนก" ไม่มีความหมาย
-        /// ถ้าอยากให้ใครเห็นทุกแผนกให้ตั้ง role เป็น Manager แทน
+        /// เพราะการผูก Manager เข้ากับแถว "ทุกแผนก" ไม่มีความหมาย
+        /// ถ้าอยากให้ใครเห็นทุกแผนกให้ตั้ง role เป็น Admin แทน
         /// </summary>
         public List<DepartmentOption> GetRealDepartments()
         {
@@ -97,12 +98,16 @@ namespace KpiReport.Web.Repositories
         }
 
         /// <summary>
-        /// ตั้งแผนกของ user ให้เป็นค่าที่ส่งมา (null = ไม่ผูกแผนกเลย)
+        /// ตั้งแผนกของ user ให้เป็นชุดที่ส่งมา (ว่าง/null = ไม่ผูกแผนกเลย)
         ///
+        /// Manager หนึ่งคนดูแลได้หลายแผนก จึงรับเป็นรายการ
         /// ลบของเดิมทิ้งก่อนเสมอ เพื่อกันไม่ให้เหลือ mapping เก่าค้าง
-        /// เช่นย้าย Viewer จาก LINE_A ไป LINE_B แล้วยังเห็น LINE_A ได้อยู่
+        /// เช่นย้าย Manager จาก PROD1 ไป PROD2 แล้วยังเห็น PROD1 ได้อยู่
+        ///
+        /// แผนกแรกในรายการถูกตั้งเป็น IsPrimary = 1 ใช้เป็นค่าเริ่มต้นของ
+        /// หน้าจอที่ยังเลือกได้ทีละแผนก
         /// </summary>
-        public void SetDepartment(string userId, int? departmentId)
+        public void SetDepartments(string userId, int[] departmentIds)
         {
             using (var conn = Open())
             using (var tx = conn.BeginTransaction())
@@ -111,16 +116,71 @@ namespace KpiReport.Web.Repositories
                     "DELETE FROM meta.UserDepartment WHERE UserId = @UserId",
                     new { UserId = userId }, tx);
 
-                if (departmentId.HasValue)
+                if (departmentIds != null)
                 {
-                    conn.Execute(@"
-                        INSERT INTO meta.UserDepartment (UserId, DepartmentId, IsPrimary)
-                        VALUES (@UserId, @DeptId, 1)",
-                        new { UserId = userId, DeptId = departmentId.Value }, tx);
+                    bool first = true;
+                    foreach (int deptId in departmentIds.Distinct())
+                    {
+                        conn.Execute(@"
+                            INSERT INTO meta.UserDepartment (UserId, DepartmentId, IsPrimary)
+                            VALUES (@UserId, @DeptId, @IsPrimary)",
+                            new { UserId = userId, DeptId = deptId, IsPrimary = first }, tx);
+                        first = false;
+                    }
                 }
 
                 tx.Commit();
             }
+        }
+
+        /// <summary>แผนกทั้งหมดของ user หนึ่งคน (ว่าง = ไม่ผูกแผนกเลย)</summary>
+        public List<int> GetDepartmentIds(string userId)
+        {
+            using (var conn = Open())
+            {
+                return new List<int>(conn.Query<int>(@"
+                    SELECT DepartmentId FROM meta.UserDepartment
+                    WHERE UserId = @UserId
+                    ORDER BY IsPrimary DESC, DepartmentId",
+                    new { UserId = userId }));
+            }
+        }
+
+        /// <summary>
+        /// แผนกทั้งหมดของทุก user ในครั้งเดียว (UserId -> รายการแผนก)
+        /// ดึงทีเดียวแล้ว join ในหน่วยความจำ ดีกว่ายิง query ต่อ 1 แถวในตาราง
+        /// </summary>
+        public Dictionary<string, List<DepartmentOption>> GetDepartmentsByUser()
+        {
+            const string sql = @"
+                SELECT ud.UserId, d.DepartmentId, d.DepartmentName
+                FROM meta.UserDepartment ud
+                JOIN rpt.vw_Department d ON d.DepartmentId = ud.DepartmentId
+                ORDER BY ud.UserId, ud.IsPrimary DESC, d.DepartmentName";
+
+            var map = new Dictionary<string, List<DepartmentOption>>();
+
+            using (var conn = Open())
+            {
+                foreach (var row in conn.Query(sql))
+                {
+                    string userId = (string)row.UserId;
+                    List<DepartmentOption> list;
+                    if (!map.TryGetValue(userId, out list))
+                    {
+                        list = new List<DepartmentOption>();
+                        map[userId] = list;
+                    }
+
+                    list.Add(new DepartmentOption
+                    {
+                        DepartmentId = (int)row.DepartmentId,
+                        DepartmentName = (string)row.DepartmentName
+                    });
+                }
+            }
+
+            return map;
         }
 
         // ---------------------------------------------------------------

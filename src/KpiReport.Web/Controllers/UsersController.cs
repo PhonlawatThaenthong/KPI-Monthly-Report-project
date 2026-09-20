@@ -31,7 +31,7 @@ namespace KpiReport.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
-        private static readonly string[] AllRoles = { "Admin", "Manager", "Viewer" };
+        private static readonly string[] AllRoles = { "Admin", "Manager" };
 
         /// <summary>ค่าที่ใส่ใน LockoutEndDateUtc เพื่อ "ปิดใช้งานถาวร"</summary>
         private static readonly DateTimeOffset DisabledUntil =
@@ -93,7 +93,7 @@ namespace KpiReport.Web.Controllers
                 .OrderBy(u => u.UserName)
                 .ToList();
 
-            var deptByUser = _repo.GetDepartmentByUser();
+            var deptByUser = _repo.GetDepartmentsByUser();
             var pendingPasswordChange = _repo.GetMustChangePasswordUserIds();
             string currentUserId = User.Identity.GetUserId();
 
@@ -105,16 +105,17 @@ namespace KpiReport.Web.Controllers
                 string roleName = null;
                 if (roleId != null) roleNameById.TryGetValue(roleId, out roleName);
 
-                DepartmentOption dept;
-                deptByUser.TryGetValue(u.Id, out dept);
+                List<DepartmentOption> depts;
+                if (!deptByUser.TryGetValue(u.Id, out depts))
+                    depts = new List<DepartmentOption>();
 
                 allRows.Add(new UserRowViewModel
                 {
                     UserId = u.Id,
                     Email = u.UserName,
                     Role = roleName,
-                    DepartmentId = dept != null ? dept.DepartmentId : (int?)null,
-                    DepartmentName = dept != null ? dept.DepartmentName : null,
+                    DepartmentIds = depts.Select(d => d.DepartmentId).ToList(),
+                    DepartmentNames = string.Join(", ", depts.Select(d => d.DepartmentName)),
                     IsDisabled = IsDisabled(u.LockoutEndDateUtc),
                     IsCurrentUser = u.Id == currentUserId,
                     MustChangePassword = pendingPasswordChange.Contains(u.Id)
@@ -169,7 +170,7 @@ namespace KpiReport.Web.Controllers
         {
             return View(new UserCreateViewModel
             {
-                Role = "Viewer",
+                Role = "Manager",
                 Departments = _repo.GetRealDepartments()
             });
         }
@@ -179,7 +180,7 @@ namespace KpiReport.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(UserCreateViewModel model)
         {
-            ValidateRoleAndDepartment(model.Role, model.DepartmentId);
+            ValidateRoleAndDepartment(model.Role, model.DepartmentIds);
 
             if (!ModelState.IsValid)
             {
@@ -198,13 +199,13 @@ namespace KpiReport.Web.Controllers
             }
 
             UserManager.AddToRole(user.Id, model.Role);
-            _repo.SetDepartment(user.Id, model.Role == "Viewer" ? model.DepartmentId : null);
+            _repo.SetDepartments(user.Id, model.Role == "Manager" ? model.DepartmentIds : null);
 
             // รหัสนี้คุณเป็นคนตั้ง ไม่ใช่เจ้าของบัญชี — บังคับให้เขาเปลี่ยนเองตอนเข้าครั้งแรก
             _repo.SetMustChangePassword(user.Id, true, User.Identity.Name);
 
             Audit("USER_CREATED", user.Id,
-                  model.Email + " · role=" + model.Role + " · dept=" + DescribeDept(model.DepartmentId));
+                  model.Email + " · role=" + model.Role + " · dept=" + DescribeDept(model.DepartmentIds));
 
             TempData["UserMessage"] = "สร้างบัญชี " + model.Email + " เรียบร้อยแล้ว";
             return RedirectToAction("Index");
@@ -225,7 +226,7 @@ namespace KpiReport.Web.Controllers
                 UserId = user.Id,
                 Email = user.UserName,
                 Role = UserManager.GetRoles(user.Id).FirstOrDefault(),
-                DepartmentId = _repo.GetDepartmentId(user.Id),
+                DepartmentIds = _repo.GetDepartmentIds(user.Id).ToArray(),
                 IsDisabled = IsDisabled(user.LockoutEndDateUtc),
                 IsCurrentUser = user.Id == User.Identity.GetUserId(),
                 Departments = _repo.GetRealDepartments()
@@ -253,7 +254,7 @@ namespace KpiReport.Web.Controllers
                 ModelState.AddModelError("", "ถอดสิทธิ์ Admin คนสุดท้ายไม่ได้ ต้องมี Admin อย่างน้อย 1 คนเสมอ");
             }
 
-            ValidateRoleAndDepartment(model.Role, model.DepartmentId);
+            ValidateRoleAndDepartment(model.Role, model.DepartmentIds);
 
             if (!ModelState.IsValid)
             {
@@ -275,14 +276,15 @@ namespace KpiReport.Web.Controllers
                       user.UserName + " · " + (currentRole ?? "(ไม่มี)") + " -> " + model.Role);
             }
 
-            int? newDept = model.Role == "Viewer" ? model.DepartmentId : null;
-            int? oldDept = _repo.GetDepartmentId(user.Id);
+            // Admin เห็นทุกแผนกอยู่แล้ว การผูกแผนกจึงมีความหมายเฉพาะกับ Manager
+            int[] newDepts = model.Role == "Manager" ? (model.DepartmentIds ?? new int[0]) : new int[0];
+            int[] oldDepts = _repo.GetDepartmentIds(user.Id).ToArray();
 
-            if (newDept != oldDept)
+            if (!newDepts.OrderBy(x => x).SequenceEqual(oldDepts.OrderBy(x => x)))
             {
-                _repo.SetDepartment(user.Id, newDept);
+                _repo.SetDepartments(user.Id, newDepts);
                 Audit("USER_DEPT_CHANGED", user.Id,
-                      user.UserName + " · " + DescribeDept(oldDept) + " -> " + DescribeDept(newDept));
+                      user.UserName + " · " + DescribeDept(oldDepts) + " -> " + DescribeDept(newDepts));
             }
 
             // สิทธิ์เปลี่ยนแล้วต้องบังคับให้ cookie เดิมใช้ไม่ได้
@@ -426,7 +428,7 @@ namespace KpiReport.Web.Controllers
             return adminRole == null ? 0 : adminRole.Users.Count;
         }
 
-        private void ValidateRoleAndDepartment(string role, int? departmentId)
+        private void ValidateRoleAndDepartment(string role, int[] departmentIds)
         {
             if (!AllRoles.Contains(role))
             {
@@ -434,22 +436,26 @@ namespace KpiReport.Web.Controllers
                 return;
             }
 
-            // Viewer ที่ไม่ผูกแผนกจะ login ได้แต่เห็นข้อมูลเป็นศูนย์
-            // บังคับตั้งแต่ตอนกรอกฟอร์ม ดีกว่าปล่อยให้ไปงงทีหลังว่าทำไม dashboard ว่าง
-            if (role == "Viewer" && !departmentId.HasValue)
+            // Manager ที่ไม่ผูกแผนกจะ login ได้แต่เห็นข้อมูลเป็นศูนย์
+            // บังคับตั้งแต่ตอนกรอกฟอร์ม ดีกว่าปล่อยให้ไปงงทีหลังว่าทำไมหน้าจอว่าง
+            if (role == "Manager" && (departmentIds == null || departmentIds.Length == 0))
             {
-                ModelState.AddModelError("DepartmentId", "Viewer ต้องผูกกับแผนก");
+                ModelState.AddModelError("DepartmentIds", "Manager ต้องผูกกับแผนกอย่างน้อยหนึ่งแผนก");
             }
         }
 
-        private string DescribeDept(int? departmentId)
+        private string DescribeDept(int[] departmentIds)
         {
-            if (!departmentId.HasValue) return "(ทุกแผนก / ไม่ผูก)";
+            if (departmentIds == null || departmentIds.Length == 0) return "(ทุกแผนก / ไม่ผูก)";
 
-            var dept = _repo.GetRealDepartments()
-                            .FirstOrDefault(d => d.DepartmentId == departmentId.Value);
+            var all = _repo.GetRealDepartments();
+            var names = departmentIds.Select(id =>
+            {
+                var dept = all.FirstOrDefault(d => d.DepartmentId == id);
+                return dept != null ? dept.DepartmentName : "#" + id;
+            });
 
-            return dept != null ? dept.DepartmentName : "#" + departmentId.Value;
+            return string.Join(", ", names);
         }
 
         private void Audit(string actionType, string targetUserId, string detail)

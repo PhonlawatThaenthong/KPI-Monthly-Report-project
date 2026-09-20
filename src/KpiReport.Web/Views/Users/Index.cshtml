@@ -53,7 +53,7 @@
 @if (Model.CountNeedsAttention > 0)
 {
     <div class="alert alert-warning">
-        บางบัญชียังไม่มีสิทธิ์ หรือเป็น Viewer ที่ยังไม่ผูกแผนก — บัญชีเหล่านี้ login ได้แต่จะไม่เห็นข้อมูลใด ๆ
+        บางบัญชียังไม่มีสิทธิ์ หรือเป็น Manager ที่ยังไม่ผูกแผนก — บัญชีเหล่านี้ login ได้แต่จะไม่เห็นข้อมูลใด ๆ
     </div>
 }
 
@@ -94,11 +94,11 @@
                         }
                     </td>
                     <td>
-                        @if (user.DepartmentId.HasValue)
+                        @if (user.DepartmentIds.Count > 0)
                         {
-                            @user.DepartmentName
+                            @user.DepartmentNames
                         }
-                        else if (user.Role == "Viewer")
+                        else if (user.Role == "Manager")
                         {
                             <span class="kpi-badge kpi-badge-red">NOT SET</span>
                         }

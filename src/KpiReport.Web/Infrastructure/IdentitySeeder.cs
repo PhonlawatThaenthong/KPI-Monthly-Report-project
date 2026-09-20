@@ -11,7 +11,7 @@ using KpiReport.Web.Models;   // ApplicationDbContext, ApplicationUser (สร�
 namespace KpiReport.Web.Infrastructure
 {
     /// <summary>
-    /// สร้าง Role, Admin คนแรกของระบบจริง, และบัญชีตัวอย่างตอนแอปเริ่มทำงาน
+    /// สร้าง Role (Admin, Manager), Admin คนแรกของระบบจริง, และบัญชีตัวอย่างตอนแอปเริ่มทำงาน
     ///
     /// แบ่งเป็น 2 ส่วนที่เป็นอิสระต่อกัน:
     ///
@@ -53,7 +53,7 @@ namespace KpiReport.Web.Infrastructure
                 };
 
                 // ---------- 1) Roles ----------
-                foreach (var roleName in new[] { "Admin", "Manager", "Viewer" })
+                foreach (var roleName in new[] { "Admin", "Manager" })
                 {
                     if (!roleManager.RoleExists(roleName))
                         roleManager.Create(new IdentityRole(roleName));
@@ -81,10 +81,11 @@ namespace KpiReport.Web.Infrastructure
                     return;
                 }
 
-                CreateUserIfMissing(userManager, demoPassword, "admin@kpi.local",   "Admin",   null);
-                CreateUserIfMissing(userManager, demoPassword, "manager@kpi.local", "Manager", null);
-                CreateUserIfMissing(userManager, demoPassword, "linea@kpi.local",   "Viewer",  "LINE_A");
-                CreateUserIfMissing(userManager, demoPassword, "lineb@kpi.local",   "Viewer",  "LINE_B");
+                // ระบบมีสอง role: Admin เห็นทุกแผนก / Manager เห็นเฉพาะแผนกที่ผูกไว้
+                CreateUserIfMissing(userManager, demoPassword, "admin@kpi.local",    "Admin",   null);
+                CreateUserIfMissing(userManager, demoPassword, "hr@kpi.local",       "Manager", "HR");
+                CreateUserIfMissing(userManager, demoPassword, "prod1@kpi.local",    "Manager", "PROD1");
+                CreateUserIfMissing(userManager, demoPassword, "prod2@kpi.local",    "Manager", "PROD2");
             }
         }
 
