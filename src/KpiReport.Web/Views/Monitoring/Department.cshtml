@@ -1,0 +1,124 @@
+@model KpiReport.Web.Models.DepartmentMonitoringViewModel
+@using System.Linq
+@{
+    ViewBag.Title = "Monitoring — " + Model.DepartmentName;
+}
+
+<div class="kpi-page-head">
+    <div>
+        <h2>@Model.DepartmentName</h2>
+        <p class="kpi-subtitle">
+            @Model.MonthLabel &middot; ความคืบหน้า KPI รายคน
+        </p>
+    </div>
+
+    <div class="kpi-toolbar">
+        <a class="btn-kpi-outline"
+           href="@Url.Action("Index", "Monitoring", new { monthKey = Model.MonthKey })">
+            &larr; กลับภาพรวม
+        </a>
+        <a class="btn-kpi-sm"
+           href="@Url.Action("Department", "Monitoring", new { id = Model.DepartmentId, monthKey = Model.MonthKey, onlyIncomplete = !Model.OnlyIncomplete })">
+            @(Model.OnlyIncomplete ? "แสดงทุกคน" : "เฉพาะคนที่ยังไม่ครบ")
+        </a>
+    </div>
+</div>
+
+@if (Model.Summary != null)
+{
+    <div class="kpi-stat-row">
+        <div class="kpi-stat">
+            <span class="kpi-stat-label">พนักงาน</span>
+            <span class="kpi-stat-value">@Model.Summary.EmployeeCount</span>
+        </div>
+        <div class="kpi-stat status-green">
+            <span class="kpi-stat-label">ทำ KPI ครบ</span>
+            <span class="kpi-stat-value">@Model.Summary.EmployeeCompleteCount</span>
+        </div>
+        <div class="kpi-stat status-red">
+            <span class="kpi-stat-label">ยังไม่ครบ</span>
+            <span class="kpi-stat-value">@Model.Summary.EmployeeIncompleteCount</span>
+        </div>
+        <div class="kpi-stat">
+            <span class="kpi-stat-label">KPI สำเร็จ</span>
+            <span class="kpi-stat-value">
+                @((Model.Summary.KpiCompletionPct ?? 0m).ToString("0.0"))%
+            </span>
+        </div>
+    </div>
+}
+
+<div class="kpi-legend">
+    <span><i class="kpi-cell-done"></i> เสร็จแล้ว</span>
+    <span><i class="kpi-cell-progress"></i> กำลังทำ</span>
+    <span><i class="kpi-cell-none"></i> ยังไม่เริ่ม</span>
+</div>
+
+@if (!Model.Employees.Any())
+{
+    <div class="kpi-empty">
+        <p>@(Model.OnlyIncomplete ? "ทุกคนในแผนกนี้ทำ KPI ครบแล้ว" : "ยังไม่มีข้อมูลของเดือนนี้")</p>
+    </div>
+}
+else
+{
+    <div class="kpi-table-wrap">
+        <table class="kpi-matrix">
+            <thead>
+                <tr>
+                    <th class="kpi-matrix-person">พนักงาน</th>
+                    @foreach (var col in Model.KpiColumns)
+                    {
+                        <th title="@col.KpiName">@col.DisplayName</th>
+                    }
+                    <th>ความคืบหน้า</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var emp in Model.Employees)
+                {
+                    List<KpiReport.Web.Models.EmployeeKpiRow> kpis;
+                    if (!Model.KpiByEmployee.TryGetValue(emp.EmployeeId, out kpis))
+                    {
+                        kpis = new List<KpiReport.Web.Models.EmployeeKpiRow>();
+                    }
+
+                    <tr class="@(emp.IsFullyComplete ? "kpi-row-complete" : "kpi-row-incomplete")">
+                        <td class="kpi-matrix-person">
+                            <strong>@emp.EmployeeName</strong>
+                            <span class="kpi-emp-code">@emp.EmployeeCode &middot; @emp.Position</span>
+                        </td>
+
+                        @foreach (var col in Model.KpiColumns)
+                        {
+                            var cell = kpis.FirstOrDefault(k => k.KpiId == col.KpiId);
+                            if (cell == null)
+                            {
+                                <td class="kpi-muted-cell">—</td>
+                            }
+                            else
+                            {
+                                <td class="@cell.StatusCssClass"
+                                    title="@cell.DisplayName — @cell.StatusTextTh@(cell.TargetValue.HasValue ? " (เป้า " + cell.TargetValue.Value.ToString("N" + cell.DecimalPlaces) + ")" : "")">
+                                    @cell.ValueText
+                                </td>
+                            }
+                        }
+
+                        <td>
+                            <div class="kpi-progress">
+                                <span style="width:@((emp.CompletionPct ?? 0m).ToString("0.0"))%;"></span>
+                            </div>
+                            <small>@emp.DoneCount / @emp.TotalKpi</small>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <p class="kpi-muted-cell">
+        ช่องที่แสดง &ldquo;—&rdquo; คือระบบต้นทางยังไม่ได้ส่งค่าของ KPI ตัวนั้นมาสำหรับคนนี้
+        ซึ่งต่างจาก &ldquo;ยังไม่เริ่ม&rdquo; ที่ส่งมาแล้วแต่ค่ายังเป็นศูนย์
+    </p>
+}

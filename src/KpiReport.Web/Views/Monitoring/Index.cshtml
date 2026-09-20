@@ -1,0 +1,126 @@
+@model KpiReport.Web.Models.MonitoringIndexViewModel
+@using System.Linq
+@{
+    ViewBag.Title = "Monitoring";
+}
+
+<div class="kpi-page-head">
+    <div>
+        <h2>ความคืบหน้า KPI รายบุคคล</h2>
+        <p class="kpi-subtitle">@Model.MonthLabel &middot; @Model.Departments.Count แผนก</p>
+    </div>
+
+    <div class="kpi-toolbar">
+        @if (Model.AvailableMonths.Any())
+        {
+            using (Html.BeginForm("Index", "Monitoring", FormMethod.Get, new { @class = "kpi-toolbar", style = "margin:0;" }))
+            {
+                <label for="monthKey">เดือน</label>
+                <select name="monthKey" id="monthKey" class="form-select" onchange="this.form.submit()">
+                    @foreach (int m in Model.AvailableMonths)
+                    {
+                        <option value="@m" selected="@(m == Model.MonthKey)">
+                            @KpiReport.Web.Controllers.MonitoringController.FormatMonth(m)
+                        </option>
+                    }
+                </select>
+
+                @if (Model.DepartmentOptions.Count > 1)
+                {
+                    <label for="departmentIds">แผนก</label>
+                    <select name="departmentIds" id="departmentIds" class="form-select" multiple size="4">
+                        @foreach (var d in Model.DepartmentOptions)
+                        {
+                            <option value="@d.DepartmentId"
+                                    selected="@(Model.SelectedDepartmentIds.Contains(d.DepartmentId))">
+                                @d.DepartmentName
+                            </option>
+                        }
+                    </select>
+                    <button type="submit" class="btn-kpi-sm">กรอง</button>
+                }
+            }
+        }
+    </div>
+</div>
+
+@if (!Model.Departments.Any())
+{
+    <div class="kpi-empty">
+        <p>ยังไม่มีข้อมูล KPI ของเดือนนี้</p>
+        <p class="kpi-muted-cell">
+            ถ้าเพิ่งนำเข้าข้อมูลใหม่ ให้รัน <code>KpiReport.Etl.exe rollup</code>
+            เพื่อสรุปค่าขึ้นระดับแผนกก่อน
+        </p>
+    </div>
+}
+else
+{
+    <div class="kpi-stat-row">
+        <div class="kpi-stat">
+            <span class="kpi-stat-label">พนักงานทั้งหมด</span>
+            <span class="kpi-stat-value">@Model.TotalEmployees</span>
+        </div>
+        <div class="kpi-stat status-green">
+            <span class="kpi-stat-label">ทำ KPI ครบ</span>
+            <span class="kpi-stat-value">@Model.TotalComplete</span>
+        </div>
+        <div class="kpi-stat status-red">
+            <span class="kpi-stat-label">ยังไม่ครบ</span>
+            <span class="kpi-stat-value">@Model.TotalIncomplete</span>
+        </div>
+        <div class="kpi-stat">
+            <span class="kpi-stat-label">KPI ที่ทำสำเร็จ</span>
+            <span class="kpi-stat-value">@Model.OverallCompletionPct.ToString("0.0")%</span>
+        </div>
+    </div>
+
+    <div class="kpi-table-wrap">
+        <table class="kpi-table">
+            <thead>
+                <tr>
+                    <th>แผนก</th>
+                    <th>พนักงาน</th>
+                    <th>ทำครบ</th>
+                    <th>ยังไม่ครบ</th>
+                    <th>KPI สำเร็จ</th>
+                    <th>กำลังทำ</th>
+                    <th>ยังไม่เริ่ม</th>
+                    <th style="min-width:160px;">ความคืบหน้า</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var d in Model.Departments)
+                {
+                    <tr class="status-@d.StatusFlag.ToLower()">
+                        <td><strong>@d.DepartmentName</strong>
+                            <span class="kpi-emp-code">@d.DepartmentCode</span></td>
+                        <td>@d.EmployeeCount</td>
+                        <td>@d.EmployeeCompleteCount</td>
+                        <td>@d.EmployeeIncompleteCount</td>
+                        <td>@d.DoneKpi / @d.TotalKpi</td>
+                        <td>@d.InProgressKpi</td>
+                        <td>@d.NotStartedKpi</td>
+                        <td>
+                            <div class="kpi-progress">
+                                <span style="width:@((d.KpiCompletionPct ?? 0m).ToString("0.0"))%;"></span>
+                            </div>
+                            <small>@((d.KpiCompletionPct ?? 0m).ToString("0.0"))%</small>
+                        </td>
+                        <td>
+                            <a class="btn-kpi-sm"
+                               href="@Url.Action("Department", "Monitoring", new { id = d.DepartmentId, monthKey = Model.MonthKey })">
+                                ดูรายคน
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <p class="kpi-muted-cell">
+        แผนกที่ทำได้น้อยที่สุดถูกจัดไว้บนสุด เพื่อให้เห็นจุดที่ต้องตามก่อน
+    </p>
+}

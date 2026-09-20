@@ -967,3 +967,61 @@ input[type="radio"] {
     body { background: #fff; }
     .kpi-card, .kpi-panel, .kpi-table-wrap, .kpi-intro { box-shadow: none; break-inside: avoid; }
 }
+
+/* ---------- หน้า Monitoring: ความคืบหน้า KPI รายบุคคล ----------
+   ตาราง คน × KPI ต้องอ่านออกตั้งแต่เหลือบตาแรกว่าใครยังไม่ครบ
+   จึงใช้สีพื้นช่อง ไม่ใช่ข้อความอย่างเดียว และมีสัญลักษณ์กำกับด้วย
+   เผื่อผู้ใช้ที่แยกสีเขียว/แดงไม่ออก                                   */
+
+.kpi-matrix { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+
+.kpi-matrix th,
+.kpi-matrix td {
+    border: 1px solid var(--color-rule);
+    padding: var(--space-2xs) var(--space-xs);
+    text-align: center;
+    vertical-align: middle;
+}
+
+.kpi-matrix th {
+    background: var(--color-paper-2);
+    font-weight: 600;
+    font-size: 0.8rem;
+    line-height: 1.25;
+}
+
+.kpi-matrix th.kpi-matrix-person,
+.kpi-matrix td.kpi-matrix-person {
+    text-align: left;
+    white-space: nowrap;
+    position: sticky;
+    left: 0;
+    background: var(--color-surface);
+    z-index: 1;
+}
+
+.kpi-matrix th.kpi-matrix-person { background: var(--color-paper-2); }
+
+.kpi-cell-done     { background: var(--color-success-soft); color: var(--color-success); font-weight: 600; }
+.kpi-cell-progress { background: var(--color-warning-soft); color: var(--color-warning); }
+.kpi-cell-none     { background: var(--color-danger-soft);  color: var(--color-danger); }
+
+.kpi-matrix tr.kpi-row-complete td.kpi-matrix-person { border-left: 3px solid var(--color-success); }
+.kpi-matrix tr.kpi-row-incomplete td.kpi-matrix-person { border-left: 3px solid var(--color-danger); }
+
+.kpi-emp-code { display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-ink-3); }
+
+.kpi-legend { display: flex; gap: var(--space-md); flex-wrap: wrap; margin: var(--space-sm) 0; font-size: 0.85rem; }
+.kpi-legend span { display: inline-flex; align-items: center; gap: var(--space-2xs); }
+.kpi-legend i { width: 14px; height: 14px; border-radius: 3px; display: inline-block; border: 1px solid var(--color-rule); }
+
+.kpi-dept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md);
+}
+
+@media (max-width: 720px) {
+    .kpi-dept-grid { grid-template-columns: 1fr; }
+    .kpi-matrix { font-size: 0.8rem; }
+}
