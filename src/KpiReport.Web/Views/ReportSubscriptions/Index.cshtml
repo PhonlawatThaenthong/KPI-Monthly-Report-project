@@ -67,14 +67,15 @@
 
             <div class="col-md-3 mb-3">
                 <label for="DepartmentIds">ขอบเขตข้อมูล</label>
-                <select name="DepartmentIds" id="DepartmentIds" class="form-select" multiple size="6">
+                <select name="DepartmentIds" id="DepartmentIds" class="form-select" multiple size="6"
+                        data-kpi-ms-placeholder="ทุกแผนก">
                     @foreach (var dept in Model.Departments)
                     {
                         <option value="@dept.DepartmentId">@dept.DepartmentName</option>
                     }
                 </select>
                 <small class="kpi-muted-cell">
-                    เลือกได้หลายแผนก (กด Ctrl หรือ Cmd ค้าง) &mdash; ไม่เลือกเลย = ทุกแผนก
+                    กดที่ช่องแล้วติ๊กเลือกได้หลายแผนก &mdash; ไม่เลือกเลย = ทุกแผนก
                     ผู้รับได้อีเมลฉบับเดียวที่รวมทุกแผนกที่เลือกไว้
                 </small>
             </div>
@@ -160,7 +161,8 @@ else
                                 @Html.Hidden("id", row.SubscriptionId)
 
                                 <select name="departmentIds" class="form-select" multiple size="4"
-                                        aria-label="แผนกที่รวมในรายงาน">
+                                        aria-label="แผนกที่รวมในรายงาน"
+                                        data-kpi-ms-placeholder="ทุกแผนก">
                                     @foreach (var dept in Model.Departments)
                                     {
                                         <option value="@dept.DepartmentId"

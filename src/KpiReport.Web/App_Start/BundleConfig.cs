@@ -27,7 +27,11 @@ namespace KpiReport.Web
                       "~/Content/site.css",
                       "~/Content/dashboard.css",
                       "~/Content/tokens.css",
-                      "~/Content/kpi-theme.css"));
+                      "~/Content/kpi-theme.css",
+                      "~/Content/kpi-multiselect.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/kpi").Include(
+                      "~/Scripts/kpi-multiselect.js"));
         }
     }
 }

@@ -70,9 +70,9 @@
                     @Html.LabelFor(m => m.DepartmentIds)
                     @Html.ListBoxFor(m => m.DepartmentIds,
                         new MultiSelectList(Model.Departments, "DepartmentId", "DepartmentName", Model.DepartmentIds),
-                        new { @class = "form-select", size = 8 })
+                        new { @class = "form-select", size = 8, data_kpi_ms_placeholder = "— เลือกแผนก —" })
                     <small class="kpi-muted-cell">
-                        เลือกได้หลายแผนก (กด Ctrl หรือ Cmd ค้าง) &mdash; Manager เห็นเฉพาะแผนกที่เลือกไว้
+                        กดที่ช่องแล้วติ๊กเลือกได้หลายแผนก &mdash; Manager เห็นเฉพาะแผนกที่เลือกไว้
                     </small>
                     @Html.ValidationMessageFor(m => m.DepartmentIds, "", new { @class = "text-danger" })
                 </div>

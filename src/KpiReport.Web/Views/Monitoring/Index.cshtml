@@ -1,4 +1,4 @@
-@model KpiReport.Web.Models.MonitoringIndexViewModel
+﻿@model KpiReport.Web.Models.MonitoringIndexViewModel
 @using System.Linq
 @{
     ViewBag.Title = "Monitoring";
@@ -28,7 +28,8 @@
                 @if (Model.DepartmentOptions.Count > 1)
                 {
                     <label for="departmentIds">แผนก</label>
-                    <select name="departmentIds" id="departmentIds" class="form-select" multiple size="4">
+                    <select name="departmentIds" id="departmentIds" class="form-select" multiple size="4"
+                            data-kpi-ms-placeholder="ทุกแผนก">
                         @foreach (var d in Model.DepartmentOptions)
                         {
                             <option value="@d.DepartmentId"
