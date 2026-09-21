@@ -142,6 +142,9 @@
     <Compile Include="..\..\KpiReport.Web\Reporting\ReportMailer.cs">
       <Link>Shared\ReportMailer.cs</Link>
     </Compile>
+    <Compile Include="..\..\KpiReport.Web\Models\ReportDeliveryLogRow.cs">
+      <Link>Shared\ReportDeliveryLogRow.cs</Link>
+    </Compile>
     <Compile Include="..\..\KpiReport.Web\Repositories\ReportDeliveryRepository.cs">
       <Link>Shared\ReportDeliveryRepository.cs</Link>
     </Compile>

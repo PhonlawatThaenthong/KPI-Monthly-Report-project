@@ -25,7 +25,7 @@
                     }
                 </select>
 
-                @if (Model.DepartmentOptions.Count > 1)
+                if (Model.DepartmentOptions.Count > 1)
                 {
                     <label for="departmentIds">แผนก</label>
                     <select name="departmentIds" id="departmentIds" class="form-select" multiple size="4"

@@ -1,4 +1,4 @@
-namespace KpiReport.Etl.Models
+﻿namespace KpiReport.Etl.Models
 {
     /// <summary>
     /// KPI ของพนักงานหนึ่งคน หนึ่งตัวชี้วัด หนึ่งเดือน ที่ดึงมาจากระบบต้นทาง

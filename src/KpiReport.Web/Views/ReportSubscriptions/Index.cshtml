@@ -9,6 +9,7 @@
         <p class="kpi-subtitle">รายงาน KPI รายเดือนจะถูกส่งเป็นไฟล์ PDF ให้รายชื่อด้านล่างนี้</p>
     </div>
     <div class="kpi-toolbar">
+        <a class="btn-kpi-outline" href="@Url.Action("Deliveries")">log การส่งทั้งหมด</a>
         <a class="btn-kpi-outline" href="@Url.Action("Index", "Users")">Back to users</a>
     </div>
 </div>
@@ -237,6 +238,11 @@ else
                                     @(row.IsActive ? "หยุดส่ง" : "ส่งต่อ")
                                 </button>
                             }
+
+                            <a class="btn-kpi-sm" href="@Url.Action("Log", new { id = row.SubscriptionId })"
+                               title="ดูว่ารายนี้ได้รับรายงานไปแล้วกี่ฉบับ ทั้งตามรอบและที่กดส่งเอง">
+                                ดู log
+                            </a>
 
                             @using (Html.BeginForm("Delete", "ReportSubscriptions", FormMethod.Post))
                             {

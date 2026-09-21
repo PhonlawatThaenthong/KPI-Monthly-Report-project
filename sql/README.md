@@ -48,10 +48,12 @@ stg.KpiEmployeeFeedRaw ──> core.FactKpiEmployeeMonthly ──┬──> rpt.
                               (สร้าง core.DimEmployee / core.EmployeeAlias ให้เองด้วย ไม่ต้องไปรัน 15)
 31_org_seed.sql               10 แผนก × 10 คน (สร้างจาก tools/generate_org_seed.py)
 32_roles_and_report_scope.sql role เหลือ Admin/Manager + ผู้รับรายงานเลือกได้หลายแผนก
+34_report_delivery_log_detail.sql  log การส่งรายงาน: แยกตามรอบ/กดส่งเอง + ใครกดส่ง
+                              (ต้องรันหลัง 32 เพราะ view อ้าง meta.vw_ReportSubscriptionAdmin)
 ```
 
 ```bat
-for %f in (01 02 03 04 05 06 07 08 14 21 22 23 24 26 30 31 32) do sqlcmd -S localhost -E -b -i %f*.sql
+for %f in (01 02 03 04 05 06 07 08 14 21 22 23 24 26 30 31 32 34) do sqlcmd -S localhost -E -b -i %f*.sql
 ```
 
 ต้องการ **SQL Server 2017 ขึ้นไป** (ใช้ `STRING_SPLIT` และ `STRING_AGG`)
@@ -189,6 +191,14 @@ ETL เรียกให้อัตโนมัติทุกครั้ง�
 **สิทธิ์** — เหลือสอง role: `Admin` เห็นทุกแผนก, `Manager` เห็นเฉพาะแผนกที่ผูกไว้
 ใน `meta.UserDepartment` (ผูกได้หลายแผนกต่อคน) การกรองทำที่ฝั่ง server ทุกครั้ง
 ค่า DepartmentId ที่มาจาก URL หรือฟอร์มไม่เคยถูกเชื่อตรง ๆ
+
+**log การส่งรายงาน** — `meta.ReportDeliveryLog` เก็บทุกความพยายามส่ง 1 แถวต่อ 1 ฉบับ
+แถวถูกเขียน `PENDING` **ก่อน** ยิงอีเมลเสมอ แล้วอัปเดตเป็น `SENT`/`FAILED`
+แถวที่ค้าง `PENDING` จึงหมายถึงโปรเซสตายกลางทาง ไม่ใช่กำลังส่งอยู่
+`TriggerType` แยก `SCHEDULED` (รอบอัตโนมัติจาก ETL) กับ `MANUAL` (ปุ่ม "ส่งเดี๋ยวนี้")
+และ `TriggeredBy` เก็บคนที่กด ส่วน `ScopeLabel` เก็บขอบเขตแผนก ณ เวลาที่ส่ง
+(ไม่ join กลับไปที่ subscription ตอนแสดงผล เพราะขอบเขตแก้ได้ภายหลังแล้ว log จะเล่าเรื่องผิด)
+อ่านผ่าน `meta.vw_ReportDeliveryLog` เท่านั้น
 
 **ขอบเขตรายงาน** — `meta.ReportSubscriptionDepartment` ทำให้ผู้รับหนึ่งคน
 เลือกได้หลายแผนกในรายงานฉบับเดียว (เดิมต้องสร้างหลายแถว = ได้อีเมลหลายฉบับ)

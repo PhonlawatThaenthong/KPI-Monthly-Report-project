@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using KpiReport.Web.Reporting;
 using KpiReport.Web.Repositories;
 
@@ -94,7 +94,9 @@ namespace KpiReport.Etl.Reports
                 try
                 {
                     var result = _mailer.Send(recipient, monthKey.Value, reportName,
-                                              "Automated monthly delivery", dryRun);
+                                              "Automated monthly delivery", dryRun,
+                                              subscriptionId: sub.SubscriptionId,
+                                              triggerType: "SCHEDULED");
 
                     if (!result.HasData)
                     {

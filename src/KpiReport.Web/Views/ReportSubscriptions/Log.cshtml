@@ -1,0 +1,140 @@
+﻿@model KpiReport.Web.Models.ReportDeliveryLogViewModel
+@{
+    ViewBag.Title = "Delivery log — " + Model.Subscription.Email;
+}
+
+<div class="kpi-page-head">
+    <div>
+        <h2>ประวัติการส่งรายงาน</h2>
+        <p class="kpi-subtitle">
+            <strong>@Model.Subscription.Email</strong>
+            @if (!string.IsNullOrEmpty(Model.Subscription.DisplayName)
+                 && Model.Subscription.DisplayName != Model.Subscription.Email)
+            {
+                <span> · @Model.Subscription.DisplayName</span>
+            }
+            <span> · ขอบเขตปัจจุบัน @Model.Subscription.ScopeLabel · @Model.Subscription.ScheduleText</span>
+        </p>
+    </div>
+    <div class="kpi-toolbar">
+        <a class="btn-kpi-outline" href="@Url.Action("Index")">&larr; รายชื่อผู้รับ</a>
+        <a class="btn-kpi-outline" href="@Url.Action("Deliveries")">log รวมทุกการส่ง</a>
+    </div>
+</div>
+
+<div class="kpi-stat-row">
+    <div class="kpi-stat">
+        <p class="kpi-stat-label">ทั้งหมด</p>
+        <p class="kpi-stat-value">@Model.Stats.Total</p>
+    </div>
+    <div class="kpi-stat is-green">
+        <p class="kpi-stat-label">ส่งสำเร็จ</p>
+        <p class="kpi-stat-value">@Model.Stats.Sent</p>
+    </div>
+    <div class="kpi-stat @(Model.Stats.Failed > 0 ? "is-red" : "")">
+        <p class="kpi-stat-label">ล้มเหลว</p>
+        <p class="kpi-stat-value">@Model.Stats.Failed</p>
+    </div>
+    <div class="kpi-stat">
+        <p class="kpi-stat-label">ตามรอบ / กดเอง</p>
+        <p class="kpi-stat-value">@Model.Stats.Scheduled / @Model.Stats.Manual</p>
+    </div>
+</div>
+
+@if (Model.LastSent != null)
+{
+    <p class="kpi-subtitle" style="margin-bottom:16px;">
+        ฉบับล่าสุดที่ส่งสำเร็จ: เดือน @Model.LastSent.MonthLabel
+        เมื่อ @Model.LastSent.EventAt.ToString("d MMM yyyy HH:mm")
+        (@Model.LastSent.TriggerDetail)
+    </p>
+}
+
+@if (!Model.Rows.Any())
+{
+    <p class="kpi-empty">
+        ยังไม่มีประวัติการส่งให้ผู้รับรายนี้ — รอบอัตโนมัติยังไม่ถึงกำหนด หรือยังไม่มีใครกด "ส่งเดี๋ยวนี้"
+    </p>
+}
+else
+{
+    <div class="kpi-table-wrap">
+        <table class="kpi-table">
+            <thead>
+                <tr>
+                    <th>เวลา</th>
+                    <th>เดือนรายงาน</th>
+                    <th>ที่มา</th>
+                    <th>ขอบเขตในฉบับนั้น</th>
+                    <th>ไฟล์</th>
+                    <th>สถานะ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model.Rows)
+                {
+                    <tr>
+                        <td>
+                            @row.EventAt.ToString("d MMM yyyy HH:mm")
+                            @if (row.SentAt == null)
+                            {
+                                <span class="kpi-muted-cell" style="display:block;">เริ่มส่ง (ยังไม่สำเร็จ)</span>
+                            }
+                        </td>
+                        <td>@row.MonthLabel</td>
+                        <td>
+                            @if (row.IsManual)
+                            {
+                                <span class="kpi-badge kpi-badge-purple">กดส่งเอง</span>
+                            }
+                            else
+                            {
+                                <span class="kpi-badge kpi-badge-blue">ตามรอบ</span>
+                            }
+                            <span class="kpi-muted-cell" style="display:block;">@row.TriggerDetail</span>
+                        </td>
+                        <td>@row.ScopeLabel</td>
+                        <td>
+                            @row.FileFormat · @row.FileSizeLabel
+                        </td>
+                        <td>
+                            @if (row.IsSent)
+                            {
+                                <span class="kpi-badge kpi-badge-green">ส่งแล้ว</span>
+                            }
+                            else if (row.IsFailed)
+                            {
+                                <span class="kpi-badge kpi-badge-red">ล้มเหลว</span>
+                                <span class="kpi-muted-cell" style="display:block;">@row.ErrorMessage</span>
+                                if (row.RetryCount > 0)
+                                {
+                                    <span class="kpi-muted-cell" style="display:block;">พยายามซ้ำ @row.RetryCount ครั้ง</span>
+                                }
+                            }
+                            else if (row.IsStalePending)
+                            {
+                                <span class="kpi-badge kpi-badge-yellow"
+                                      title="แถวนี้ถูกจองไว้ก่อนส่งแต่ไม่มีการบันทึกผล — โปรเซสน่าจะตายกลางทาง">ค้าง</span>
+                            }
+                            else
+                            {
+                                <span class="kpi-badge kpi-badge-default">กำลังส่ง</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <p class="kpi-muted-cell" style="margin-top:12px;">
+        แถวถูกเขียนก่อนยิงอีเมลเสมอ สถานะ "ค้าง" จึงหมายถึงโปรเซสตายก่อนได้บันทึกผล ไม่ใช่กำลังส่งอยู่จริง
+        <br />
+        ขอบเขตที่แสดงคือขอบเขตของฉบับนั้น ณ เวลาที่ส่ง ซึ่งอาจต่างจากขอบเขตปัจจุบันของผู้รับถ้ามีการแก้ภายหลัง
+        @if (Model.Truncated)
+        {
+            <br />
+            <span>แสดงเฉพาะ @Model.Take รายการล่าสุด</span>
+        }
+    </p>
+}

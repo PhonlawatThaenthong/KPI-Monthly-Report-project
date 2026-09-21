@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -108,9 +108,15 @@ namespace KpiReport.Web.Reporting
         ///
         /// dryRun = สร้าง PDF ให้ดูขนาดและจำนวน KPI แต่ไม่ส่งและไม่เขียน log
         /// โยน exception ต่อเมื่อส่งไม่สำเร็จ (บันทึก FAILED ลง log ให้ก่อนแล้ว)
+        ///
+        /// subscriptionId / triggerType / triggeredBy เป็นข้อมูลของ log อย่างเดียว
+        /// ไม่มีผลต่อไฟล์หรือเนื้อเมล — มีไว้ให้หน้า log ตอบได้ว่าฉบับนี้มาจาก
+        /// รอบอัตโนมัติหรือมีคนกดส่ง และเป็นของผู้รับรายไหน
         /// </summary>
         public ReportMailResult Send(ReportRecipient recipient, int monthKey, string reportName,
-                                     string generatedBy, bool dryRun)
+                                     string generatedBy, bool dryRun,
+                                     int? subscriptionId = null, string triggerType = "SCHEDULED",
+                                     string triggeredBy = null)
         {
             // -99 คือรหัส "ทุกแผนก" ตัวเดียวกับที่หน้า Dashboard ใช้
             //
@@ -180,7 +186,8 @@ namespace KpiReport.Web.Reporting
 
             // จอง log ก่อนส่ง ถ้าโปรเซสตายกลางทางจะยังเหลือร่องรอยว่าค้างที่ใคร
             long deliveryId = _deliveryRepo.LogPending(
-                monthKey, reportName, "PDF", recipient.Email, pdf.LongLength);
+                monthKey, reportName, "PDF", recipient.Email, pdf.LongLength,
+                subscriptionId, triggerType, triggeredBy, recipient.ScopeLabel);
 
             try
             {

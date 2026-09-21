@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
@@ -143,7 +143,7 @@ namespace KpiReport.Web.Controllers
         }
 
         /// <summary>202608 -> "Aug 2026" (รูปแบบเดียวกับ MonthLabel ในชั้น rpt)</summary>
-        internal static string FormatMonth(int monthKey)
+        public static string FormatMonth(int monthKey)
         {
             if (monthKey < 190001) return monthKey.ToString();
 

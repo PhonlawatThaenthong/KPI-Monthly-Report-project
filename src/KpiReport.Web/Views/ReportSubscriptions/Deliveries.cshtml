@@ -1,0 +1,174 @@
+﻿@model KpiReport.Web.Models.DeliveryLogSearchViewModel
+@{
+    ViewBag.Title = "Delivery log";
+}
+
+<div class="kpi-page-head">
+    <div>
+        <h2>log การส่งรายงานทั้งหมด</h2>
+        <p class="kpi-subtitle">
+            ทุกฉบับที่ระบบพยายามส่ง ทั้งรอบอัตโนมัติและที่มีคนกดส่งเอง เรียงใหม่ไปเก่า
+            @if (Model.IsScoped)
+            {
+                <span> · แสดงเฉพาะผู้รับในแผนกที่คุณดูแล</span>
+            }
+        </p>
+    </div>
+    <div class="kpi-toolbar">
+        <a class="btn-kpi-outline" href="@Url.Action("Index")">&larr; รายชื่อผู้รับ</a>
+    </div>
+</div>
+
+<div class="kpi-panel" style="margin-bottom:20px;">
+    @using (Html.BeginForm("Deliveries", "ReportSubscriptions", FormMethod.Get, new { @class = "kpi-toolbar" }))
+    {
+        <label for="monthKey">เดือนรายงาน</label>
+        <select name="monthKey" id="monthKey" class="form-select">
+            <option value="">ทุกเดือน</option>
+            @foreach (int m in Model.AvailableMonths)
+            {
+                <option value="@m" selected="@(Model.MonthKey == m)">
+                    @KpiReport.Web.Controllers.MonitoringController.FormatMonth(m)
+                </option>
+            }
+        </select>
+
+        <label for="status">สถานะ</label>
+        <select name="status" id="status" class="form-select">
+            <option value="">ทุกสถานะ</option>
+            <option value="SENT" selected="@(Model.Status == "SENT")">ส่งแล้ว</option>
+            <option value="FAILED" selected="@(Model.Status == "FAILED")">ล้มเหลว</option>
+            <option value="PENDING" selected="@(Model.Status == "PENDING")">ยังไม่สำเร็จ</option>
+        </select>
+
+        <label for="trigger">ที่มา</label>
+        <select name="trigger" id="trigger" class="form-select">
+            <option value="">ทั้งสองแบบ</option>
+            <option value="SCHEDULED" selected="@(Model.TriggerType == "SCHEDULED")">ตามรอบ</option>
+            <option value="MANUAL" selected="@(Model.TriggerType == "MANUAL")">กดส่งเอง</option>
+        </select>
+
+        <label for="take">จำนวนแถว</label>
+        <select name="take" id="take" class="form-select">
+            @foreach (int t in new[] { 50, 200, 500, 1000 })
+            {
+                <option value="@t" selected="@(Model.Take == t)">@t</option>
+            }
+        </select>
+
+        <button type="submit" class="btn-kpi-sm">กรอง</button>
+    }
+</div>
+
+<div class="kpi-stat-row">
+    <div class="kpi-stat">
+        <p class="kpi-stat-label">แถวที่แสดง</p>
+        <p class="kpi-stat-value">@Model.Stats.Total</p>
+    </div>
+    <div class="kpi-stat is-green">
+        <p class="kpi-stat-label">ส่งสำเร็จ</p>
+        <p class="kpi-stat-value">@Model.Stats.Sent</p>
+    </div>
+    <div class="kpi-stat @(Model.Stats.Failed > 0 ? "is-red" : "")">
+        <p class="kpi-stat-label">ล้มเหลว</p>
+        <p class="kpi-stat-value">@Model.Stats.Failed</p>
+    </div>
+    <div class="kpi-stat @(Model.Stats.Pending > 0 ? "is-yellow" : "")">
+        <p class="kpi-stat-label">ยังไม่สำเร็จ</p>
+        <p class="kpi-stat-value">@Model.Stats.Pending</p>
+    </div>
+    <div class="kpi-stat">
+        <p class="kpi-stat-label">ตามรอบ / กดเอง</p>
+        <p class="kpi-stat-value">@Model.Stats.Scheduled / @Model.Stats.Manual</p>
+    </div>
+</div>
+
+@if (!Model.Rows.Any())
+{
+    <p class="kpi-empty">ไม่มี log ที่ตรงกับตัวกรองนี้</p>
+}
+else
+{
+    <div class="kpi-table-wrap">
+        <table class="kpi-table">
+            <thead>
+                <tr>
+                    <th>เวลา</th>
+                    <th>ผู้รับ</th>
+                    <th>เดือน</th>
+                    <th>ที่มา</th>
+                    <th>ขอบเขตในฉบับนั้น</th>
+                    <th>ไฟล์</th>
+                    <th>สถานะ</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model.Rows)
+                {
+                    <tr>
+                        <td>@row.EventAt.ToString("d MMM yyyy HH:mm")</td>
+                        <td>
+                            <strong>@row.Email</strong>
+                            @if (!string.IsNullOrEmpty(row.DisplayName) && row.DisplayName != row.Email)
+                            {
+                                <span class="kpi-muted-cell" style="display:block;">@row.DisplayName</span>
+                            }
+                        </td>
+                        <td>@row.MonthLabel</td>
+                        <td>
+                            @if (row.IsManual)
+                            {
+                                <span class="kpi-badge kpi-badge-purple">กดส่งเอง</span>
+                                if (!string.IsNullOrEmpty(row.TriggeredBy))
+                                {
+                                    <span class="kpi-muted-cell" style="display:block;">@row.TriggeredBy</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="kpi-badge kpi-badge-blue">ตามรอบ</span>
+                            }
+                        </td>
+                        <td>@row.ScopeLabel</td>
+                        <td>@row.FileFormat · @row.FileSizeLabel</td>
+                        <td>
+                            @if (row.IsSent)
+                            {
+                                <span class="kpi-badge kpi-badge-green">ส่งแล้ว</span>
+                            }
+                            else if (row.IsFailed)
+                            {
+                                <span class="kpi-badge kpi-badge-red" title="@row.ErrorMessage">ล้มเหลว</span>
+                                <span class="kpi-muted-cell" style="display:block;">@row.ErrorMessage</span>
+                            }
+                            else if (row.IsStalePending)
+                            {
+                                <span class="kpi-badge kpi-badge-yellow">ค้าง</span>
+                            }
+                            else
+                            {
+                                <span class="kpi-badge kpi-badge-default">กำลังส่ง</span>
+                            }
+                        </td>
+                        <td style="text-align:right;">
+                            @if (row.SubscriptionId != null)
+                            {
+                                <a class="btn-kpi-sm" href="@Url.Action("Log", new { id = row.SubscriptionId })">ดูรายคน</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <p class="kpi-muted-cell" style="margin-top:12px;">
+        แถวถูกเขียนก่อนยิงอีเมลเสมอ สถานะ "ค้าง" คือแถวที่จองไว้แล้วไม่มีการบันทึกผล — โปรเซสตายกลางทาง
+        @if (Model.Truncated)
+        {
+            <br />
+            <span>แสดงเฉพาะ @Model.Take รายการล่าสุดของตัวกรองนี้ — แคบตัวกรองลงเพื่อดูให้ครบ</span>
+        }
+    </p>
+}

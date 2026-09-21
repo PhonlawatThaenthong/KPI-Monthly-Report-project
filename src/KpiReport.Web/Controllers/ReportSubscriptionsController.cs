@@ -237,7 +237,10 @@ namespace KpiReport.Web.Controllers
                 var result = new ReportMailer(connStr).Send(
                     recipient, monthKey.Value,
                     ReportMailer.ManualReportNameFor(recipient),
-                    "Sent manually by " + User.Identity.Name, dryRun: false);
+                    "Sent manually by " + User.Identity.Name, dryRun: false,
+                    subscriptionId: row.SubscriptionId,
+                    triggerType: "MANUAL",
+                    triggeredBy: User.Identity.Name);
 
                 if (!result.HasData)
                 {
@@ -259,6 +262,80 @@ namespace KpiReport.Web.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        // GET: /ReportSubscriptions/Log/5
+        /// <summary>
+        /// ประวัติการส่งของผู้รับ 1 ราย — ทั้งรอบอัตโนมัติและที่มีคนกดส่ง
+        ///
+        /// ผ่าน FindManageable เหมือน action อื่นที่รับ id จาก URL: Manager
+        /// ต้องไม่เห็น log ของผู้รับที่ขอบเขตกว้างกว่าสิทธิ์ตัวเอง เพราะ log
+        /// บอกชื่อแผนกที่อยู่ในรายงานแต่ละฉบับ
+        /// </summary>
+        public ActionResult Log(int id, int take = 200)
+        {
+            var row = FindManageable(id);
+            if (row == null) return HttpNotFound();
+
+            take = ClampTake(take);
+
+            string connStr = ConfigurationManager.ConnectionStrings["KpiDb"].ConnectionString;
+            var rows = new ReportDeliveryRepository(connStr)
+                .GetBySubscription(id, row.Email, take);
+
+            return View(new ReportDeliveryLogViewModel
+            {
+                Subscription = row,
+                Rows = rows,
+                Stats = DeliveryLogStats.From(rows),
+                Take = take
+            });
+        }
+
+        // GET: /ReportSubscriptions/Deliveries
+        /// <summary>
+        /// log รวมทุกการส่ง กรองตามเดือน / สถานะ / ที่มา
+        ///
+        /// Admin เห็นทุกแถว ส่วน Manager เห็นเฉพาะอีเมลของผู้รับที่ตัวเอง
+        /// ดูแลได้ — รายชื่อนั้นคำนวณจาก CanManage ชุดเดียวกับหน้ารายชื่อ
+        /// แล้วส่งให้ SQL กรอง ไม่กรองหลังดึงออกมา ไม่งั้น TOP จะนับแถวที่
+        /// เขาไม่มีสิทธิ์เห็นรวมไปด้วยแล้วหน้าจอจะดูเหมือน log หาย
+        /// </summary>
+        public ActionResult Deliveries(int? monthKey, string status, string trigger, int take = 200)
+        {
+            take = ClampTake(take);
+
+            status = Normalize(status, "SENT", "FAILED", "PENDING");
+            trigger = Normalize(trigger, "SCHEDULED", "MANUAL");
+
+            bool isAdmin = UserContext.GetAllowedDepartmentIds(User) == null;
+
+            List<string> allowedEmails = null;
+            if (!isAdmin)
+            {
+                allowedEmails = _subs.GetAll()
+                    .Where(CanManage)
+                    .Select(r => r.Email)
+                    .Where(e => !string.IsNullOrEmpty(e))
+                    .Distinct()
+                    .ToList();
+            }
+
+            string connStr = ConfigurationManager.ConnectionStrings["KpiDb"].ConnectionString;
+            var repo = new ReportDeliveryRepository(connStr);
+            var rows = repo.Search(monthKey, status, trigger, allowedEmails, take);
+
+            return View(new DeliveryLogSearchViewModel
+            {
+                Rows = rows,
+                Stats = DeliveryLogStats.From(rows),
+                AvailableMonths = repo.GetLoggedMonths(),
+                MonthKey = monthKey,
+                Status = status,
+                TriggerType = trigger,
+                Take = take,
+                IsScoped = !isAdmin
+            });
         }
 
         // POST: /ReportSubscriptions/Delete
@@ -400,6 +477,25 @@ namespace KpiReport.Web.Controllers
                 .ToList();
 
             return string.Join(", ", names);
+        }
+
+        /// <summary>
+        /// จำนวนแถว log ที่ดึงได้ต่อครั้ง — กันไม่ให้ query ทั้งตารางจาก querystring
+        /// </summary>
+        private static int ClampTake(int value)
+        {
+            if (value < 20) return 20;
+            if (value > 1000) return 1000;
+            return value;
+        }
+
+        /// <summary>ค่าจากตัวกรองต้องอยู่ในรายการที่อนุญาต ไม่งั้นถือว่าไม่กรอง</summary>
+        private static string Normalize(string value, params string[] allowed)
+        {
+            if (string.IsNullOrWhiteSpace(value)) return null;
+
+            string upper = value.Trim().ToUpperInvariant();
+            return allowed.Contains(upper) ? upper : null;
         }
 
         private void Audit(string actionType, string detail)
