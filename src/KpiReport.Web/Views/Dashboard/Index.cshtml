@@ -67,18 +67,22 @@ else
         <div class="kpi-stat">
             <p class="kpi-stat-label">Total KPIs</p>
             <p class="kpi-stat-value">@totalKpi</p>
+            <p class="kpi-stat-note">KPI ที่ติดตามในเดือนนี้</p>
         </div>
         <div class="kpi-stat is-green">
             <p class="kpi-stat-label">On Target</p>
             <p class="kpi-stat-value">@countGreen</p>
+            <p class="kpi-stat-note">เข้าเป้า</p>
         </div>
         <div class="kpi-stat is-yellow">
             <p class="kpi-stat-label">Watch</p>
             <p class="kpi-stat-value">@countYellow</p>
+            <p class="kpi-stat-note">เฝ้าระวัง — ใกล้เป้าแต่ยังไม่ถึง</p>
         </div>
         <div class="kpi-stat is-red">
             <p class="kpi-stat-label">Below Target</p>
             <p class="kpi-stat-value">@countRed</p>
+            <p class="kpi-stat-note">ต่ำกว่าเป้า</p>
         </div>
     </div>
 
@@ -121,10 +125,15 @@ else
                     <div class="kpi-header">
                         <div>
                             <span class="kpi-title">@kpi.KpiName</span>
+                            @if (!string.IsNullOrEmpty(kpi.KpiNameTh) && kpi.KpiNameTh != kpi.KpiName)
+                            {
+                                <span class="kpi-title-th">@kpi.KpiNameTh</span>
+                            }
                             <span class="kpi-code">@kpi.KpiCode</span>
                         </div>
                         <span class="kpi-badge @badgeClass">@badgeText</span>
                     </div>
+
 
                     <div class="kpi-body">
                         <p class="kpi-actual">

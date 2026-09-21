@@ -166,6 +166,12 @@ GO
 IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name = 'db_kpi_web')
 BEGIN
     GRANT SELECT ON meta.vw_ReportDeliveryLog TO db_kpi_web;
-    PRINT '>> Granted meta.vw_ReportDeliveryLog to db_kpi_web';
+
+    /*  ปุ่ม "ส่งเดี๋ยวนี้" ในเว็บเขียน log ด้วยตรรกะเดียวกับ ETL คือ
+        INSERT แถว PENDING ก่อนส่ง แล้ว UPDATE เป็น SENT/FAILED
+        01_database_and_schemas.sql ให้ db_kpi_web แค่ SELECT, INSERT บน meta
+        จึงต้องเปิด UPDATE ให้ตารางนี้ตัวเดียว ไม่ใช่ทั้ง schema            */
+    GRANT UPDATE ON meta.ReportDeliveryLog TO db_kpi_web;
+    PRINT '>> Granted meta.vw_ReportDeliveryLog (SELECT) + ReportDeliveryLog (UPDATE) to db_kpi_web';
 END
 GO

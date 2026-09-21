@@ -1,0 +1,37 @@
+# ============================================================
+#  ป้องกันภาษาไทยเพี้ยนตอน compile
+#
+#  Razor และ C# compiler เดา encoding จาก BOM เท่านั้น ไฟล์ที่บันทึก
+#  เป็น UTF-8 แบบไม่มี BOM จะถูกอ่านด้วย ANSI codepage ของเครื่อง
+#  (Windows-874 บนเครื่องภาษาไทย) ทำให้ string ไทยกลายเป็น "เธ..."
+#  ทั้งในหน้าเว็บและในอีเมล
+#
+#  charset = utf-8-bom บังคับให้ Visual Studio บันทึกแบบมี BOM ให้เอง
+# ============================================================
+root = true
+
+[*]
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+[*.{cs,cshtml,config,sql}]
+charset = utf-8-bom
+indent_size = 4
+
+[*.{js,css,html}]
+charset = utf-8
+indent_size = 4
+
+[*.{json,md,yml}]
+charset = utf-8
+indent_size = 2
+
+[*.{cmd,bat}]
+charset = latin1
+end_of_line = crlf
+
+[*.py]
+charset = utf-8
+indent_size = 4
