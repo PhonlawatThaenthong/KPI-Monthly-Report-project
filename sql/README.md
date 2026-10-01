@@ -213,6 +213,8 @@ Admin กด "รีเซ็ตรอบเดือน" ได้ที่ห�
 tools/org_data.py                    โครงสร้างองค์กร — แหล่งความจริงเดียวของทั้งสองสคริปต์
 tools/generate_org_seed.py           -> sql/31_org_seed.sql
 tools/generate_employee_kpi_feed.py  -> mock-data/kpi-feed/EmpKpiFeed_YYYYMM.json (6 เดือน)
+                                        เดือนสุดท้าย = เดือนปัจจุบันของเครื่อง (ยังทำอยู่)
+                                        สั่งทับได้: generate_employee_kpi_feed.py 202512 12
 ```
 
 แก้รายชื่อ/แผนกที่ `org_data.py` แล้วรันทั้งสองสคริปต์ใหม่ ทะเบียนกับ feed

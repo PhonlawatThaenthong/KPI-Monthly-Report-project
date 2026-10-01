@@ -33,9 +33,42 @@ from org_data import DEPARTMENTS, KPI_ITEMS, SEED, employees  # noqa: E402
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                        "..", "mock-data", "kpi-feed")
 
-# 6 เดือนล่าสุด — เดือนสุดท้ายคือเดือนที่ยังทำอยู่
-LAST_YEAR, LAST_MONTH = 2026, 9
-MONTH_COUNT = 6
+# 6 เดือนล่าสุด — เดือนสุดท้ายคือเดือนที่ยังทำอยู่ (ข้อมูลยังไม่ครบเดือน)
+#
+# ยึดเดือนปัจจุบันของเครื่องเป็นค่าเริ่มต้น ไม่ฝังปี/เดือนไว้ในโค้ด
+# เพราะ feed ที่ค้างอยู่ที่เดือนเก่าทำให้ rpt.vw_ValidMonth ไม่มีเดือนใหม่
+# แล้วรอบส่งอีเมลจะข้ามทุกครั้งด้วยเหตุผล "เคยส่งเดือนนี้ไปแล้ว"
+#
+# สั่งทับได้จาก command line เวลาต้องการสร้างย้อนหลัง:
+#   python generate_employee_kpi_feed.py              6 เดือนจนถึงเดือนนี้
+#   python generate_employee_kpi_feed.py 202512       6 เดือนจนถึง ธ.ค. 2025
+#   python generate_employee_kpi_feed.py 202512 12    12 เดือนจนถึง ธ.ค. 2025
+DEFAULT_MONTH_COUNT = 6
+
+
+def resolve_period(argv):
+    """อ่าน argument -> (year, month, count) ของเดือนสุดท้ายที่จะสร้าง"""
+    today = datetime.now()
+    year, month = today.year, today.month
+    count = DEFAULT_MONTH_COUNT
+
+    args = [a for a in argv[1:] if not a.startswith("-")]
+
+    if args:
+        raw = args[0]
+        if len(raw) != 6 or not raw.isdigit():
+            raise SystemExit("รูปแบบเดือนต้องเป็น YYYYMM เช่น 202512 (ได้รับ '{}')".format(raw))
+
+        year, month = int(raw[:4]), int(raw[4:])
+        if not 1 <= month <= 12:
+            raise SystemExit("เดือนต้องอยู่ระหว่าง 01-12 (ได้รับ '{}')".format(raw))
+
+    if len(args) > 1:
+        if not args[1].isdigit() or int(args[1]) < 1:
+            raise SystemExit("จำนวนเดือนต้องเป็นเลขจำนวนเต็มตั้งแต่ 1 ขึ้นไป")
+        count = int(args[1])
+
+    return year, month, count
 
 # ชื่อแผนกที่ต้นทางสะกดไม่ตรง (ต้องมีใน core.DepartmentAlias)
 DIRTY_DEPT = {"PROD1": "prod-1", "SALE": "sales & marketing", "WH": "warehouse & logistics"}
@@ -183,7 +216,8 @@ def main():
     for e in emps:
         e["_diligence"] = diligence(rng)
 
-    period_list = months_back(LAST_YEAR, LAST_MONTH, MONTH_COUNT)
+    last_year, last_month, month_count = resolve_period(sys.argv)
+    period_list = months_back(last_year, last_month, month_count)
     written = []
 
     for idx, (year, month) in enumerate(period_list):
@@ -207,6 +241,8 @@ def main():
             json.dump(payload, f, ensure_ascii=False, indent=2)
         written.append((os.path.basename(path), len(records)))
 
+    print("เดือนสุดท้าย {:04d}-{:02d} (ยังทำอยู่) · ย้อนหลัง {} เดือน".format(
+        last_year, last_month, month_count))
     print("แผนก {} · พนักงาน {} คน · KPI {} ตัว".format(
         len(DEPARTMENTS), len(emps), len(KPI_ITEMS)))
     for name, n in written:
