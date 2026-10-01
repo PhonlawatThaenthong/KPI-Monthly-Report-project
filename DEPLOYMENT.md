@@ -53,14 +53,15 @@ Report emails เป็นแค่ข้อมูลในฐานข้อม
 เปิด Command Prompt ในโฟลเดอร์ `sql\` แล้วรัน
 
 ```bat
-for %f in (01 02 03 04 05 06 07 08 14 21 22 23 24 26 30 31 32 34) do sqlcmd -S localhost -E -b -i %f*.sql
+for %f in (01 02 03 04 05 06 07 08 14 21 22 23 24 26 30 31 32 34 35) do sqlcmd -S localhost -E -b -i %f*.sql
 ```
 
 เปลี่ยน `-S localhost` ตามชื่อ instance จริง (เช่น `-S localhost\SQLEXPRESS`)
 ถ้าใช้ SQL authentication แทน Windows ให้ใช้ `-U sa -P <password>` แทน `-E`
 
 **ลำดับสำคัญ** — `34` ต้องรันหลัง `32` เพราะ view ของ log อ้าง
-`meta.vw_ReportSubscriptionAdmin` ที่สร้างใน `32`
+`meta.vw_ReportSubscriptionAdmin` ที่สร้างใน `32` และ `35` ต้องรันหลัง `34`
+เพราะสร้าง view ตัวเดิมทับพร้อมคอลัมน์ของการรีเซ็ตรอบเดือน
 
 สคริปต์ทุกตัว idempotent รันซ้ำได้ ไม่ทำข้อมูลหาย
 

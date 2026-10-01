@@ -50,10 +50,11 @@ stg.KpiEmployeeFeedRaw ──> core.FactKpiEmployeeMonthly ──┬──> rpt.
 32_roles_and_report_scope.sql role เหลือ Admin/Manager + ผู้รับรายงานเลือกได้หลายแผนก
 34_report_delivery_log_detail.sql  log การส่งรายงาน: แยกตามรอบ/กดส่งเอง + ใครกดส่ง
                               (ต้องรันหลัง 32 เพราะ view อ้าง meta.vw_ReportSubscriptionAdmin)
+35_report_delivery_reset.sql  ปุ่มรีเซ็ตรอบเดือนให้ Admin (SupersededAt/By)
 ```
 
 ```bat
-for %f in (01 02 03 04 05 06 07 08 14 21 22 23 24 26 30 31 32 34) do sqlcmd -S localhost -E -b -i %f*.sql
+for %f in (01 02 03 04 05 06 07 08 14 21 22 23 24 26 30 31 32 34 35) do sqlcmd -S localhost -E -b -i %f*.sql
 ```
 
 ต้องการ **SQL Server 2017 ขึ้นไป** (ใช้ `STRING_SPLIT` และ `STRING_AGG`)
@@ -199,6 +200,8 @@ ETL เรียกให้อัตโนมัติทุกครั้ง�
 และ `TriggeredBy` เก็บคนที่กด ส่วน `ScopeLabel` เก็บขอบเขตแผนก ณ เวลาที่ส่ง
 (ไม่ join กลับไปที่ subscription ตอนแสดงผล เพราะขอบเขตแก้ได้ภายหลังแล้ว log จะเล่าเรื่องผิด)
 อ่านผ่าน `meta.vw_ReportDeliveryLog` เท่านั้น
+Admin กด "รีเซ็ตรอบเดือน" ได้ที่หน้า log รายคน — ตั้ง `SupersededAt`/`SupersededBy`
+ไม่ลบแถว แล้ว `AlreadySent` ของ ETL ไม่นับแถวที่ถูกรีเซ็ต รอบถัดไปจึงส่งให้ใหม่
 
 **ขอบเขตรายงาน** — `meta.ReportSubscriptionDepartment` ทำให้ผู้รับหนึ่งคน
 เลือกได้หลายแผนกในรายงานฉบับเดียว (เดิมต้องสร้างหลายแถว = ได้อีเมลหลายฉบับ)

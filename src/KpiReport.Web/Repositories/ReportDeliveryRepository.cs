@@ -116,7 +116,8 @@ namespace KpiReport.Web.Repositories
         private const string LogColumns = @"
             DeliveryId, SubscriptionId, MonthKey, ReportName, FileFormat, FileSizeBytes,
             Email, DisplayName, ScopeLabel, TriggerType, TriggeredBy,
-            Status, ErrorMessage, RetryCount, CreatedAt, SentAt";
+            Status, ErrorMessage, RetryCount, CreatedAt, SentAt,
+            SupersededAt, SupersededBy";
 
         /// <summary>
         /// log ของผู้รับ 1 ราย ใหม่ไปเก่า
@@ -191,6 +192,40 @@ namespace KpiReport.Web.Repositories
                     ORDER BY MonthKey DESC");
 
                 return new List<int>(rows);
+            }
+        }
+
+        /// <summary>
+        /// รีเซ็ตรอบเดือนของผู้รับ 1 ราย — ทำเครื่องหมายฉบับของรอบอัตโนมัติ
+        /// ในเดือนนั้นว่าถูกแทนที่แล้ว รอบชั่วโมงถัดไปจะส่งให้ใหม่
+        ///
+        /// ไม่ลบแถว เพราะหลักฐานว่าเคยส่งเมื่อไรคือสิ่งที่หน้า log มีไว้ตอบ
+        /// แตะเฉพาะคีย์ 'KPI_Monthly:' ของรอบอัตโนมัติ ฉบับที่กดส่งเอง
+        /// (KPI_Monthly_Manual:) ไม่เกี่ยว เพราะไม่ได้บล็อกรอบอยู่แล้ว
+        ///
+        /// คืนจำนวนแถวที่ถูกรีเซ็ต — 0 = ไม่มีอะไรให้รีเซ็ต
+        /// </summary>
+        public int ResetMonth(int subscriptionId, string email, int monthKey, string resetBy)
+        {
+            using (var conn = Open())
+            {
+                return conn.Execute(@"
+                    UPDATE meta.ReportDeliveryLog
+                    SET SupersededAt = SYSDATETIME(),
+                        SupersededBy = @ResetBy
+                    WHERE MonthKey     = @MonthKey
+                      AND Status       = 'SENT'
+                      AND SupersededAt IS NULL
+                      AND ReportName LIKE 'KPI_Monthly:%'
+                      AND (SubscriptionId = @SubscriptionId
+                           OR (SubscriptionId IS NULL AND @Email IS NOT NULL AND Recipients = @Email))",
+                    new
+                    {
+                        SubscriptionId = subscriptionId,
+                        Email = email,
+                        MonthKey = monthKey,
+                        ResetBy = resetBy
+                    });
             }
         }
     }

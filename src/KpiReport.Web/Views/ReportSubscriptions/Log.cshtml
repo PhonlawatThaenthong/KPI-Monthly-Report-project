@@ -22,6 +22,15 @@
     </div>
 </div>
 
+@if (TempData["SubMessage"] != null)
+{
+    <div class="alert alert-info">@TempData["SubMessage"]</div>
+}
+@if (TempData["SubError"] != null)
+{
+    <div class="alert alert-danger">@TempData["SubError"]</div>
+}
+
 <div class="kpi-stat-row">
     <div class="kpi-stat">
         <p class="kpi-stat-label">ทั้งหมด</p>
@@ -68,6 +77,10 @@ else
                     <th>ขอบเขตในฉบับนั้น</th>
                     <th>ไฟล์</th>
                     <th>สถานะ</th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th style="text-align:right;">จัดการ</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -98,7 +111,15 @@ else
                             @row.FileFormat · @row.FileSizeLabel
                         </td>
                         <td>
-                            @if (row.IsSent)
+                            @if (row.IsSuperseded)
+                            {
+                                <span class="kpi-badge kpi-badge-default">ถูกรีเซ็ตแล้ว</span>
+                                <span class="kpi-muted-cell" style="display:block;">
+                                    เคยส่งสำเร็จ · รีเซ็ตโดย @row.SupersededBy
+                                    เมื่อ @row.SupersededAt.Value.ToString("d MMM yyyy HH:mm")
+                                </span>
+                            }
+                            else if (row.IsSent)
                             {
                                 <span class="kpi-badge kpi-badge-green">ส่งแล้ว</span>
                             }
@@ -121,6 +142,25 @@ else
                                 <span class="kpi-badge kpi-badge-default">กำลังส่ง</span>
                             }
                         </td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td style="text-align:right;">
+                                @if (row.CanResetCycle)
+                                {
+                                    using (Html.BeginForm("ResetMonth", "ReportSubscriptions", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("id", Model.Subscription.SubscriptionId)
+                                        @Html.Hidden("monthKey", row.MonthKey)
+                                        <button type="submit" class="btn-kpi-sm"
+                                                title="ทำเครื่องหมายว่าฉบับนี้ใช้ไม่ได้ แล้วให้รอบอัตโนมัติส่งเดือนนี้ให้ใหม่ — ประวัติไม่ถูกลบ"
+                                                onclick="return confirm('รีเซ็ตรอบเดือน @row.MonthLabel ของ @Model.Subscription.Email ?\n\nรอบอัตโนมัติรอบถัดไปจะส่งรายงานเดือนนี้ให้ใหม่ 1 ฉบับ');">
+                                            รีเซ็ตรอบเดือนนี้
+                                        </button>
+                                    }
+                                }
+                            </td>
+                        }
                     </tr>
                 }
             </tbody>
@@ -131,6 +171,15 @@ else
         แถวถูกเขียนก่อนยิงอีเมลเสมอ สถานะ "ค้าง" จึงหมายถึงโปรเซสตายก่อนได้บันทึกผล ไม่ใช่กำลังส่งอยู่จริง
         <br />
         ขอบเขตที่แสดงคือขอบเขตของฉบับนั้น ณ เวลาที่ส่ง ซึ่งอาจต่างจากขอบเขตปัจจุบันของผู้รับถ้ามีการแก้ภายหลัง
+        @if (User.IsInRole("Admin"))
+        {
+            <br />
+            <span>
+                "รีเซ็ตรอบเดือนนี้" ใช้เมื่อฉบับที่ส่งไปแล้วใช้ไม่ได้ (ข้อมูล KPI ผิดแล้วแก้ทีหลัง)
+                แถวเดิมจะถูกทำเครื่องหมายว่าถูกรีเซ็ต ไม่ถูกลบ แล้วรอบอัตโนมัติรอบถัดไปจะส่งเดือนนั้นให้ใหม่
+                — ต่างจากปุ่ม "ส่งเดี๋ยวนี้" ที่ส่งทันทีแต่ไม่นับเป็นฉบับของรอบประจำเดือน
+            </span>
+        }
         @if (Model.Truncated)
         {
             <br />

@@ -133,7 +133,14 @@ else
                         <td>@row.ScopeLabel</td>
                         <td>@row.FileFormat · @row.FileSizeLabel</td>
                         <td>
-                            @if (row.IsSent)
+                            @if (row.IsSuperseded)
+                            {
+                                <span class="kpi-badge kpi-badge-default"
+                                      title="เคยส่งสำเร็จ แต่ถูกรีเซ็ตรอบเดือนโดย @row.SupersededBy">
+                                    ถูกรีเซ็ตแล้ว
+                                </span>
+                            }
+                            else if (row.IsSent)
                             {
                                 <span class="kpi-badge kpi-badge-green">ส่งแล้ว</span>
                             }

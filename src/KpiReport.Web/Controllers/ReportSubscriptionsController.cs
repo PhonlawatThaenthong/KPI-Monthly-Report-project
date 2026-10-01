@@ -338,6 +338,57 @@ namespace KpiReport.Web.Controllers
             });
         }
 
+        // POST: /ReportSubscriptions/ResetMonth
+        /// <summary>
+        /// รีเซ็ตรอบเดือนของผู้รับ 1 ราย — Admin เท่านั้น
+        ///
+        /// ใช้เมื่อรายงานที่ส่งไปแล้วใช้ไม่ได้ (ข้อมูล KPI ผิดแล้วแก้ทีหลัง
+        /// ไฟล์เพี้ยน ส่งผิดขอบเขต) แล้วอยากให้รอบอัตโนมัติส่งซ้ำให้เอง
+        /// ไม่ใช่กดส่งมือ เพราะอยากให้ฉบับใหม่นับเป็นฉบับของรอบประจำเดือน
+        ///
+        /// ไม่ลบแถว log — ทำเครื่องหมาย SupersededAt ไว้ ประวัติยังอยู่ว่า
+        /// เคยส่งเมื่อไร ใครกดรีเซ็ต และรอบถัดไปจะส่งใหม่
+        ///
+        /// จำกัดที่ Admin เพราะผลของมันคืออีเมลถูกส่งออกไปหาคนจริงอีกฉบับ
+        /// ต่างจากการแก้ตารางเวลาที่ย้อนกลับได้ในหน้าจอเดียว
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult ResetMonth(int id, int monthKey)
+        {
+            var row = FindManageable(id);
+            if (row == null) return HttpNotFound();
+
+            if (monthKey < 190001 || monthKey > 299912)
+            {
+                TempData["SubError"] = "เดือนที่ระบุไม่ถูกต้อง";
+                return RedirectToAction("Log", new { id = id });
+            }
+
+            string connStr = ConfigurationManager.ConnectionStrings["KpiDb"].ConnectionString;
+            int affected = new ReportDeliveryRepository(connStr)
+                .ResetMonth(id, row.Email, monthKey, User.Identity.Name);
+
+            string monthLabel = MonitoringController.FormatMonth(monthKey);
+
+            if (affected == 0)
+            {
+                TempData["SubError"] = "ไม่มีฉบับของรอบอัตโนมัติเดือน " + monthLabel
+                                       + " ที่รีเซ็ตได้ (อาจรีเซ็ตไปแล้ว หรือยังไม่เคยส่ง)";
+                return RedirectToAction("Log", new { id = id });
+            }
+
+            Audit("REPORT_CYCLE_RESET",
+                  row.Email + " · เดือน " + monthKey + " · " + affected + " ฉบับ");
+
+            TempData["SubMessage"] = "รีเซ็ตรอบเดือน " + monthLabel + " ของ " + row.Email
+                                     + " แล้ว — รอบอัตโนมัติรอบถัดไปจะส่งให้ใหม่"
+                                     + " (ประวัติฉบับเดิมยังอยู่ในหน้านี้)";
+
+            return RedirectToAction("Log", new { id = id });
+        }
+
         // POST: /ReportSubscriptions/Delete
         [HttpPost]
         [ValidateAntiForgeryToken]

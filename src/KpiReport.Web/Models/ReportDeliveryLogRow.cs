@@ -48,6 +48,26 @@ namespace KpiReport.Web.Models
         /// <summary>เวลาที่ส่งสำเร็จ — null เมื่อยัง PENDING หรือ FAILED</summary>
         public DateTime? SentAt { get; set; }
 
+        /// <summary>
+        /// เวลาที่ Admin กดรีเซ็ตรอบเดือนของฉบับนี้ — null = ยังนับเป็นฉบับที่ส่งแล้ว
+        /// แถวที่ถูกรีเซ็ตไม่ถูกลบ แต่ ETL จะไม่นับเป็น "เคยส่งแล้ว" อีก
+        /// </summary>
+        public DateTime? SupersededAt { get; set; }
+
+        /// <summary>คนที่กดรีเซ็ต</summary>
+        public string SupersededBy { get; set; }
+
+        public bool IsSuperseded { get { return SupersededAt != null; } }
+
+        /// <summary>
+        /// แถวนี้กดรีเซ็ตได้หรือไม่ — ต้องเป็นฉบับของรอบอัตโนมัติที่ส่งสำเร็จ
+        /// และยังไม่ถูกรีเซ็ต ฉบับที่กดส่งเองไม่ต้องรีเซ็ตเพราะไม่ได้บล็อกรอบ
+        /// </summary>
+        public bool CanResetCycle
+        {
+            get { return IsSent && !IsManual && !IsSuperseded; }
+        }
+
         public bool IsManual
         {
             get { return string.Equals(TriggerType, "MANUAL", StringComparison.OrdinalIgnoreCase); }

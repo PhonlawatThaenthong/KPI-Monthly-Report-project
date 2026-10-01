@@ -61,7 +61,10 @@ namespace KpiReport.Etl.Reports
                     WHERE MonthKey   = @MonthKey
                       AND ReportName = @ReportName
                       AND Recipients = @Email
-                      AND Status     = 'SENT'",
+                      AND Status     = 'SENT'
+                      /* แถวที่ Admin กดรีเซ็ตรอบเดือนไม่นับเป็น 'เคยส่งแล้ว'
+                         ประวัติยังอยู่ แต่รอบถัดไปจะส่งให้ใหม่ (35) */
+                      AND SupersededAt IS NULL",
                     new { MonthKey = monthKey, ReportName = reportName, Email = email }) > 0;
             }
         }
