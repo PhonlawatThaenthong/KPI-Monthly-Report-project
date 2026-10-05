@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity.Owin;
 namespace KpiReport.Web.Controllers
 {
     /// <summary>
-    /// ตั้งค่าว่ารายงาน KPI รายเดือนจะถูกส่งไปหาใครบ้าง — Admin และ Manager
+    /// ตั้งค่าว่ารายงาน KPI รายเดือนจะถูกส่งไปหาใครบ้าง — Admin เท่านั้น
     ///
     /// ผู้รับมี 2 แบบ
     ///   1. ผูกกับบัญชีในระบบ — กรณีปกติของ HR ประจำแผนก
@@ -29,7 +29,11 @@ namespace KpiReport.Web.Controllers
     /// Manager เลือกได้เฉพาะแผนกที่ตัวเองดูแล — กรองที่ฝั่ง server เสมอ
     /// ค่าที่ส่งมาจากฟอร์มไม่เคยถูกเชื่อตรง ๆ (ดู UserContext.FilterAllowedDepartments)
     /// </summary>
-    [Authorize(Roles = "Admin,Manager")]
+    // สิทธิ์เข้าหน้านี้: Admin เท่านั้น (ทั้ง controller)
+    // Manager ดูรายงานผ่าน Dashboard / Monitoring ได้ แต่จัดการผู้รับอีเมลและกดส่งไม่ได้
+    // เพราะทุก action ในหน้านี้มีผลเป็นอีเมลที่ออกไปหาคนจริง
+    // CanManage ด้านล่างยังเก็บไว้เป็นชั้นป้องกันที่สอง หากวันหนึ่งเปิดให้ Manager กลับมาใช้
+    [Authorize(Roles = "Admin")]
     public class ReportSubscriptionsController : Controller
     {
         private readonly ReportSubscriptionRepository _subs;
