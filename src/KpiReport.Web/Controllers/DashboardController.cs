@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Linq;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using KpiReport.Web.Infrastructure;
 using KpiReport.Web.Models;
 using KpiReport.Web.Reporting;
 using KpiReport.Web.Repositories;
@@ -23,7 +24,7 @@ namespace KpiReport.Web.Controllers
         /// GET /Dashboard?monthKey=202606&amp;departmentId=2
         ///
         /// monthKey ไม่ระบุ    -> ใช้เดือนล่าสุดที่มีข้อมูล
-        /// departmentId ไม่ระบุ -> Admin เห็นภาพรวมทั้งบริษัท / Manager เห็นแผนกหลักของตัวเอง
+        /// departmentId ไม่ระบุ -> Admin เห็นแผนกแรกในรายการ / Manager เห็นแผนกหลักของตัวเอง
         /// departmentId ที่ Manager ไม่มีสิทธิ์ -> ถูกบังคับกลับไปที่แผนกตัวเอง (ดู BaseController)
         /// </summary>
         public ActionResult Index(int? monthKey, int? departmentId)
@@ -43,14 +44,12 @@ namespace KpiReport.Web.Controllers
 
             int resolvedMonthKey = monthKey ?? latestMonth.Value;
 
-            // ค่าที่คืนจาก ResolveDepartmentFilter:
-            //   null  = ไม่ถูกจำกัด (Admin/Manager ที่ยังไม่ได้เลือกแผนก) -> แสดงภาพรวม (-99)
-            //   ตัวเลข = ต้องใช้ค่านี้เท่านั้น (แผนกของ Manager หรือค่าที่ผู้ใช้เลือกเอง)
-            int? deptFilter = ResolveDepartmentFilter(departmentId);
-            int effectiveDepartmentId = deptFilter ?? -99;
+            // ไม่มีตัวเลือก "ทุกแผนก" (-99) แล้ว — ทุกคนต้องดูทีละแผนกเสมอ
+            // Admin ที่ยังไม่ได้เลือกแผนก จะได้แผนกแรกในรายการเป็นค่าเริ่มต้น
+            var selectable = SelectableDepartments();
+            int effectiveDepartmentId = ResolveDashboardDepartment(departmentId, selectable);
 
             var rows = _repo.GetDashboard(resolvedMonthKey, effectiveDepartmentId);
-            var selectable = SelectableDepartments();
 
             var vm = new DashboardViewModel
             {
@@ -156,8 +155,8 @@ namespace KpiReport.Web.Controllers
 
             int resolvedMonthKey = monthKey ?? latestMonth.Value;
 
-            int? deptFilter = ResolveDepartmentFilter(departmentId);
-            int effectiveDepartmentId = deptFilter ?? -99;
+            int effectiveDepartmentId =
+                ResolveDashboardDepartment(departmentId, SelectableDepartments());
 
             var rows = _repo.GetDashboard(resolvedMonthKey, effectiveDepartmentId)
                             .OrderBy(r => r.SortOrder)
@@ -190,17 +189,38 @@ namespace KpiReport.Web.Controllers
 
         /// <summary>
         /// แผนกที่ผู้ใช้คนนี้สลับดูได้
-        /// Admin ได้ทุกแผนก + แถวภาพรวม (-99) / Manager ได้เฉพาะแผนกที่ผูกไว้
+        /// Admin ได้ทุกแผนกจริง / Manager ได้เฉพาะแผนกที่ผูกไว้
+        /// แถว -99 (ภาพรวมทั้งบริษัท) ตัดออกเสมอ — หลักเดียวกับหน้า Monitoring
         /// </summary>
         private List<DepartmentOption> SelectableDepartments()
         {
-            var all = _repo.GetDepartmentOptions();
+            var all = _repo.GetDepartmentOptions()
+                           .Where(d => d.DepartmentId > 0);
 
             int[] allowed = AllowedDepartmentIds;
-            if (allowed == null)
-                return all;                       // Admin — รวมแถว -99 ภาพรวมไว้ด้วย
+            if (allowed != null)
+                all = all.Where(d => allowed.Contains(d.DepartmentId));
 
-            return all.Where(d => allowed.Contains(d.DepartmentId)).ToList();
+            return all.OrderBy(d => d.DepartmentName).ToList();
+        }
+
+        /// <summary>
+        /// แผนกที่จะใช้ query จริง
+        ///   1) ผ่าน ResolveDepartmentFilter ก่อนเสมอ (ตรวจสิทธิ์ + audit ACCESS_DENIED)
+        ///   2) ค่าที่ได้ต้องอยู่ในรายการที่เลือกได้ ไม่งั้นใช้แผนกแรกในรายการ
+        ///      — ครอบกรณี Admin ไม่ได้เลือก (null) และกรณีส่ง -99 มาจาก URL/bookmark เก่า
+        ///   3) ไม่มีแผนกให้เลือกเลย -> NoDepartment (fail closed, ไม่เห็นข้อมูล)
+        /// </summary>
+        private int ResolveDashboardDepartment(int? requestedDepartmentId, List<DepartmentOption> selectable)
+        {
+            int? deptFilter = ResolveDepartmentFilter(requestedDepartmentId);
+
+            if (deptFilter.HasValue && selectable.Any(d => d.DepartmentId == deptFilter.Value))
+                return deptFilter.Value;
+
+            return selectable.Count > 0
+                ? selectable[0].DepartmentId
+                : UserContext.NoDepartment;
         }
 
         /// <summary>ชื่อขอบเขตที่จะพิมพ์บนหัวรายงาน</summary>

@@ -8,14 +8,10 @@
     int countYellow = Model.Kpis.Count(k => k.StatusFlag == "YELLOW");
     int countRed = Model.Kpis.Count(k => k.StatusFlag == "RED");
 
-    string scopeLabel = "All Departments";
-    if (Model.SelectedDepartmentId != -99)
-    {
-        var selected = Model.Departments != null
-            ? Model.Departments.FirstOrDefault(d => d.DepartmentId == Model.SelectedDepartmentId)
-            : null;
-        scopeLabel = selected != null ? selected.DepartmentName : "Your Department";
-    }
+    var selected = Model.Departments != null
+        ? Model.Departments.FirstOrDefault(d => d.DepartmentId == Model.SelectedDepartmentId)
+        : null;
+    string scopeLabel = selected != null ? selected.DepartmentName : "Your Department";
 }
 
 <div class="kpi-page-head">
